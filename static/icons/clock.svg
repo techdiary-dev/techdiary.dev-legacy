@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <g id="clock" transform="translate(-1.5 -1.5)">
+    <circle id="Ellipse_5" data-name="Ellipse 5" cx="7" cy="7" r="7" transform="translate(2 2)" stroke-width="1" stroke="rgba(72,78,78,0.95)" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path id="Path_5" data-name="Path 5" d="M12,6v4.329l2.886,1.443" transform="translate(-2.785 -1.114)" fill="none" stroke="rgba(72,78,78,0.95)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

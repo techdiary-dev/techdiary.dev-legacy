@@ -16,5 +16,11 @@
 		"baseUrl": "./"
 	},
 	"exclude": ["node_modules"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"pages/_document.js",
+		"next.config.js"
+	]
 }
