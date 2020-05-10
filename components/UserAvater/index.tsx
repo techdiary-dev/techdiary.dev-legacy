@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { StyledUserAvater } from './styles'
 
-const UserAvater: React.FC = () => {
+interface Props {
+	name?: string
+	username?: string
+	profilePhoto?: string
+}
+
+const UserAvater: FC<Props> = ({ name, username, profilePhoto }: Props) => {
 	return (
 		<StyledUserAvater>
-			<img
-				className="avater"
-				src="https://randomuser.me/api/portraits/men/32.jpg"
-				alt="profile-photo"
-			/>
+			<img className="avater" src={profilePhoto} alt={name} />
 			<div className="info">
-				<div className="name">Shoaib sharif</div>
-				<div className="username">u/john_mia</div>
+				<div className="name">{name}</div>
+				<div className="username">u/{username}</div>
 			</div>
 		</StyledUserAvater>
 	)

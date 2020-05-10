@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="19.5" height="19.5" viewBox="0 0 19.5 19.5">
+  <g id="log-out" transform="translate(-2.25 -2.25)">
+    <path id="Path_7" data-name="Path 7" d="M9,21H5a2,2,0,0,1-2-2V5A2,2,0,0,1,5,3H9" fill="none" stroke="rgba(72,78,78,0.95)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <path id="Path_8" data-name="Path 8" d="M16,17l5-5L16,7" fill="none" stroke="rgba(72,78,78,0.95)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    <line id="Line_4" data-name="Line 4" x1="12" transform="translate(9 12)" fill="none" stroke="rgba(72,78,78,0.95)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+  </g>
+</svg>

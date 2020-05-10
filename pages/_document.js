@@ -23,7 +23,13 @@ export default class TechdiaryRoot extends Document {
 	render() {
 		return (
 			<html>
-				<Head>{this.props.styleTags}</Head>
+				<Head>
+					<link
+						rel="stylesheet"
+						href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400;1,700&display=swap"
+					/>
+					{this.props.styleTags}
+				</Head>
 				<body>
 					<Main />
 					<NextScript />
