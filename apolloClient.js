@@ -13,6 +13,7 @@ export default function createApolloClient(initialState, ctx) {
 			credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 			fetch
 		}),
-		cache: new InMemoryCache().restore(initialState)
+		cache: new InMemoryCache().restore(initialState),
+		connectToDevTools: true
 	})
 }

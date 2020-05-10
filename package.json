@@ -13,6 +13,7 @@
 		"apollo-client": "2.6.8",
 		"apollo-link-http": "1.5.16",
 		"bnnum": "^1.0.6",
+		"codemirror": "^5.53.2",
 		"graphql": "^14.0.2",
 		"graphql-tag": "2.10.3",
 		"isomorphic-unfetch": "^3.0.0",
@@ -20,14 +21,19 @@
 		"nprogress": "^0.2.0",
 		"prop-types": "^15.6.2",
 		"react": "^16.7.0",
+		"react-codemirror2": "^7.1.0",
 		"react-dom": "^16.7.0",
 		"react-github-login": "^1.0.3",
+		"react-hook-form": "^5.6.3",
 		"react-mde": "^10.0.3",
 		"react-monaco-editor": "^0.36.0",
 		"react-spinners": "^0.8.3",
 		"react-typed": "^1.2.0",
+		"sass": "^1.26.5",
+		"showdown": "^1.9.1",
 		"styled-components": "^5.1.0",
-		"styled-grid-system-component": "^4.0.0"
+		"styled-grid-system-component": "^4.0.0",
+		"yup": "^0.28.5"
 	},
 	"license": "ISC",
 	"devDependencies": {
@@ -37,8 +43,12 @@
 		"@types/nprogress": "^0.2.0",
 		"@types/react": "^16.9.34",
 		"@types/styled-components": "^5.1.0",
+		"@types/yup": "^0.28.1",
+		"@zeit/next-css": "^1.0.1",
+		"@zeit/next-sass": "^1.0.1",
 		"babel-plugin-graphql-tag": "^2.5.0",
 		"babel-plugin-styled-components": "^1.10.7",
+		"react-hook-form-devtools": "^1.2.0",
 		"typescript": "^3.8.3"
 	}
 }
