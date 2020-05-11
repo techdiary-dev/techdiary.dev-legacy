@@ -60,6 +60,9 @@ export const GlobalStyles = createGlobalStyle`
 		color: #000;
 		/* text-decoration: underline; */
 	}
+	button{
+		font-family: 'Kohinoor Bangla';
+	}
 	button:hover {
 		cursor: pointer;
 	}

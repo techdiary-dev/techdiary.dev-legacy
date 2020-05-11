@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import { UnControlled as CodeMirror } from 'react-codemirror2'
-
-if (typeof window !== 'undefined' && typeof window.navigator !== 'undefined') {
-	require('codemirror/mode/markdown/markdown')
-}
-
 import { DevTool } from 'react-hook-form-devtools'
 import { useForm } from 'react-hook-form'
-import * as Showdown from 'showdown'
 import { Row, Column } from 'styled-grid-system-component'
 import * as yup from 'yup'
 import { ArticleEditorStyle } from './styles'
@@ -16,12 +9,7 @@ import Card from 'components/Card'
 import Input from 'components/Form/Input'
 import Button from 'components/Form/Button'
 import Checkbox from 'components/Form/Checkbox'
-const converter = new Showdown.Converter({
-	tables: true,
-	simplifiedAutoLink: true,
-	strikethrough: true,
-	tasklists: true
-})
+import Editor from 'components/Form/Editor'
 
 const ArticleEditor = (): JSX.Element => {
 	let validationSchema = yup.object().shape({
@@ -50,11 +38,6 @@ const ArticleEditor = (): JSX.Element => {
 	const onSubmit = (data) => {
 		console.log(data)
 	}
-
-	const [selectedTab, setSelectedTab] = React.useState<'write' | 'preview'>(
-		'write'
-	)
-	const [editorValue, setEditorValue] = useState('')
 
 	return (
 		<ArticleEditorStyle>
@@ -101,15 +84,10 @@ const ArticleEditor = (): JSX.Element => {
 						</Card>
 					</Column>
 					<Column md={9}>
-						<CodeMirror
-							value="<h1>I ♥ react-codemirror2</h1>"
-							options={{
-								mode: 'markdown',
-								theme: 'mdn-like',
-								lineNumbers: true
-							}}
+						<Editor
+							value={getValues('body')}
+							onChange={(d) => setValue('body', d)}
 						/>
-
 						{errors?.body?.message}
 					</Column>
 				</Row>

@@ -1,5 +1,4 @@
-import styled, { StyledFunction } from 'styled-components'
-import { Props } from './index'
+import styled from 'styled-components'
 
 export const FormGroupStyles = styled.div`
 	margin: 0 0 1.8rem;
