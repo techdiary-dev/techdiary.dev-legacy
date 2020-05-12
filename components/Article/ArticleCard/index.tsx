@@ -1,6 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
-import bn from 'bnnum'
+import bnnum from 'bnnum'
+import { format } from 'date-fns'
+import { bn } from 'date-fns/locale'
 
 import { ArticleCardStyle } from './styles'
 import Card from 'components/Card'
@@ -12,7 +14,29 @@ import CommentIcon from 'static/icons/comment.svg'
 import BookmarkIcon from 'static/icons/bookmark.svg'
 // import BookmarkIcon from 'static/icons/bookmark.svg'
 
-const ArticleCard: React.FC = () => {
+interface Props {
+	title: string
+	slug: string
+	thumbnail: string
+	excerpt: string
+	tags: string
+	createdAt: string
+	updatedAt: string
+	author: {
+		name: string
+		username: string
+		profilePhoto: string
+	}
+}
+
+const ArticleCard: React.FC<Props> = ({
+	title,
+	excerpt,
+	slug,
+	thumbnail,
+	author,
+	createdAt
+}: Props) => {
 	return (
 		<ArticleCardStyle>
 			<Card>
@@ -20,24 +44,20 @@ const ArticleCard: React.FC = () => {
 					<BookmarkIcon />
 				</div>
 				<Link href="/">
-					<a className="title">
-						অর্থহীন লেখা যার মাঝে আছে অনেক কিছু। হ্যাঁ, এই লেখার মাঝেই আছে অনেক
-						কিছু।
-					</a>
+					<a className="title">{title}</a>
 				</Link>
-				<p className="time">ডিসেম্বর ২ ২০১৯, ১:৪৯:১২ দুপুর</p>
-				<UserAvater />
+				<p className="time">
+					{format(+createdAt, 'MM/dd/yyyy', { locale: bn })}
+				</p>
+				<UserAvater
+					name={author.name}
+					username={author.username}
+					profilePhoto={author.profilePhoto}
+				/>
 				<div className="thumbnail">
-					<img
-						src="https://images.unsplash.com/photo-1518932945647-7a1c969f8be2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
-						alt="article-thumbnail"
-					/>
+					<img src={thumbnail} alt="article-thumbnail" />
 				</div>
-				<div className="excerpt">
-					অর্থহীন লেখা যার মাঝে আছে অনেক কিছু। হ্যাঁ, এই লেখার মাঝেই আছে অনেক
-					কিছু। যদি তুমি মনে করো, এটা তোমার কাজে লাগবে, তাহলে তা লাগবে কাজে।
-					নিজের ভাষায় লেখা দেখতে অভ্যস্ত হও। মনে রাখবে লেখা ….
-				</div>
+				<div className="excerpt">{excerpt}</div>
 				<div className="tags">
 					<Link href="/">
 						<a>#python</a>
@@ -55,16 +75,16 @@ const ArticleCard: React.FC = () => {
 				<div className="footer">
 					<div className="state">
 						<ClockIcon />
-						{bn(7)} মিনিট
+						{bnnum(7)} মিনিট
 					</div>
 					<div className="commentsAndLikes">
 						<div className="state">
 							<HeartIcon />
-							{bn(147)}
+							{bnnum(147)}
 						</div>
 						<div className="state">
 							<CommentIcon />
-							{bn(16)}
+							{bnnum(16)}
 						</div>
 					</div>
 				</div>

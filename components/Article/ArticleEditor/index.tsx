@@ -10,8 +10,16 @@ import Input from 'components/Form/Input'
 import Button from 'components/Form/Button'
 import Checkbox from 'components/Form/Checkbox'
 import Editor from 'components/Form/Editor'
+import { useMutation } from '@apollo/react-hooks'
+import { CREATE_ARTICLE, ARTICLE_LIST } from 'quries/ARTICLE'
+import { useRouter } from 'next/dist/client/router'
 
 const ArticleEditor = (): JSX.Element => {
+	let [createArticle, mOptions] = useMutation(CREATE_ARTICLE, {
+		refetchQueries: [{ query: ARTICLE_LIST }]
+	})
+	let router = useRouter()
+
 	let validationSchema = yup.object().shape({
 		title: yup.string().required('Required'),
 		body: yup.string().required('Required'),
@@ -26,17 +34,24 @@ const ArticleEditor = (): JSX.Element => {
 		errors,
 		control,
 		setValue,
+		watch,
 		getValues
 	} = useForm({
 		validationSchema
 	})
 
 	useEffect(() => {
-		register({ name: 'body' })
-	})
+		register('body')
+	}, [register])
 
-	const onSubmit = (data) => {
-		console.log(data)
+	const onSubmit = (variables) => {
+		variables.tags = variables.tags.split(',')
+		createArticle({ variables })
+			.then((res) => {
+				// TODO: redirect to article details page
+				router.push('/')
+			})
+			.catch(console.error)
 	}
 
 	return (
@@ -55,7 +70,6 @@ const ArticleEditor = (): JSX.Element => {
 								label="টাইটেল"
 								name="title"
 								placeholder="আর্টিক্যাল এর টাইটেল"
-								onChange={(e) => {}}
 								hasError={errors?.title}
 								helperText={errors?.title?.message}
 								inputRef={register}
@@ -64,7 +78,6 @@ const ArticleEditor = (): JSX.Element => {
 								label="ট্যাগ সমূহ"
 								name="tags"
 								placeholder="আর্টিক্যাল ট্যাগ সমূহ"
-								onChange={(e) => {}}
 								hasError={errors?.tags}
 								helperText={
 									errors?.tags?.message ?? 'ট্যাগ সমূহ কমা(,) দিয়ে লিখুন'
@@ -75,7 +88,6 @@ const ArticleEditor = (): JSX.Element => {
 								label="কভার ছবি"
 								name="thumbnail"
 								placeholder="কভার ছবি এর url"
-								onChange={(e) => {}}
 								inputRef={register}
 								hasError={errors?.thumbnail}
 								helperText={errors?.thumbnail?.message}
@@ -85,10 +97,11 @@ const ArticleEditor = (): JSX.Element => {
 					</Column>
 					<Column md={9}>
 						<Editor
-							value={getValues('body')}
-							onChange={(d) => setValue('body', d)}
+							onChange={(body) => setValue('body', body)}
+							style={{ height: 500 }}
+							hasError={errors?.body}
+							helperText={errors?.body?.message}
 						/>
-						{errors?.body?.message}
 					</Column>
 				</Row>
 			</form>

@@ -5,7 +5,7 @@ interface Props {
 }
 const Me = (props: Props) => {
 	let { data, error, refetch, loading } = useQuery(ME, {
-		notifyOnNetworkStatusChange: true
+		fetchPolicy: 'network-only'
 	})
 
 	return props.data({ data: data?.me, error, refetch, loading })

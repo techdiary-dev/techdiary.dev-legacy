@@ -1,43 +1,76 @@
-import React, { useState, useEffect } from 'react'
-import { Tabs, Tab } from 'reactjs-tab'
-import { UnControlled as CodeMirror } from 'react-codemirror2'
-import marked from 'marked'
-import {
-	StyledEditorContainer,
-	StyledEditor
-	// StyledPreview,
-	// StyledEditorModeSwitcher,
-	// StyledButton
-} from './styles'
+import React, { FC } from 'react'
+import FileUploader from 'components/Form/FileUploader'
 
-interface Props {
-	value: string
+import dynamic from 'next/dynamic'
+import marked from 'marked'
+
+import {
+	// StyledEditorContainer,
+	// StyledEditor,
+	// StyledPreview,
+	FormHelperTextStyles
+} from './styles'
+const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+	ssr: false
+})
+
+export interface Props {
+	value?: string
+	hasError?: boolean
+	helperText?: string
 	onChange: Function
+	style?: any
 }
 
-const Editor: React.FC<Props> = ({ value, onChange }: Props) => {
+const Editor: FC<Props> = ({
+	onChange,
+	value,
+	style,
+	hasError,
+	helperText
+}: Props) => {
+	const handleImageUpload = (file: File): Promise<string> => {
+		return new Promise(async (resolve) => {
+			const fd = new FormData()
+			fd.append('file', file)
+			fd.append('upload_preset', 'techdiary-article-assets')
+
+			const res = await (
+				await fetch(
+					'https://api.cloudinary.com/v1_1/techdiary-dev/image/upload',
+					{
+						method: 'POST',
+						body: fd
+					}
+				)
+			).json()
+			resolve(res.secure_url)
+			// const reader = new FileReader()
+			// reader.onload = (data) => {
+			// 	// @ts-ignore
+			// 	resolve(data.target.result)
+			// }
+			// reader.readAsDataURL(file)
+		})
+	}
+
 	return (
-		<StyledEditorContainer>
-			<Tabs>
-				<Tab name="মার্কডাউন">
-					<StyledEditor>
-						<CodeMirror
-							value={value}
-							options={{
-								mode: 'markdown',
-								lineNumbers: true
-							}}
-							onChange={(editor, data, value) => {
-								onChange(value)
-							}}
-						/>
-					</StyledEditor>
-				</Tab>
-				<Tab name="প্রিভিউ">
-					<article dangerouslySetInnerHTML={{ __html: marked(value ?? '') }} />
-				</Tab>
-			</Tabs>
-		</StyledEditorContainer>
+		<>
+			<FileUploader />
+			<MdEditor
+				value={value}
+				style={style}
+				config={{ view: { html: false, menu: true, md: true } }}
+				onImageUpload={handleImageUpload}
+				renderHTML={(text) => {
+					onChange(text ?? '')
+					return marked(text)
+				}}
+			/>
+			<FormHelperTextStyles hasError={hasError}>
+				{helperText}
+			</FormHelperTextStyles>
+		</>
 	)
 }
 

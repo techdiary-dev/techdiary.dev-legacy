@@ -3,9 +3,12 @@ import { withApollo } from 'lib/apollo'
 import { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/variables'
 
-import 'codemirror/lib/codemirror.css'
-import 'codemirror/theme/mdn-like.css'
-import '../styles/editStyles.scss'
+import 'react-markdown-editor-lite/lib/index.css'
+import 'styles/editStyles.scss'
+
+export function reportWebVitals(metric) {
+	console.log(metric)
+}
 
 const TectDiaryRoot = ({ Component, pageProps }) => {
 	return (

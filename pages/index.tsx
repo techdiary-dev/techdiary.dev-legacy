@@ -5,6 +5,7 @@ import ArticleCard from 'components/Article/ArticleCard'
 import TagHighlights from 'components/TagHighlights'
 import Login from 'components/Login'
 import Me from 'components/Me'
+import ArticleList from 'components/Article/ArticleList'
 
 const index = () => {
 	return (
@@ -14,14 +15,7 @@ const index = () => {
 					<TagHighlights name="help" />
 				</Column>
 				<Column md={6}>
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
-					<ArticleCard />
+					<ArticleList />
 				</Column>
 				<Column md={3}>
 					<TagHighlights name="challenge" />
