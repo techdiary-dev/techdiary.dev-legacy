@@ -1,5 +1,6 @@
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = withCSS()
 
@@ -21,6 +22,8 @@ module.exports = {
 			},
 			use: ['@svgr/webpack']
 		})
+
+		config.plugins.push(new Dotenv({ silent: true }))
 
 		return config
 	}
