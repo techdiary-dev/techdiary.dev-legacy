@@ -27,8 +27,8 @@ const Login = ({ refetchMe }: Props) => {
 	return (
 		<LoginStyle>
 			<GitHubLogin
-				clientId="2701778b22c45bf2cc9f"
-				redirectUri="http://localhost:3000/callback"
+				clientId={process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}
+				redirectUri={process.env.NEXT_PUBLIC_GITHUB_OAUTH_REDIRECT_URI}
 				onSuccess={onSuccess}
 			>
 				<GithubIcon />
