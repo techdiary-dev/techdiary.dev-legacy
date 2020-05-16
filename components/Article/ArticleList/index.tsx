@@ -16,7 +16,7 @@ const StyledLoadmore = styled.div`
 `
 
 const ArticleList: React.FC = () => {
-	let { data, fetchMore } = useQuery(ARTICLE_LIST, {
+	let { data, fetchMore, loading } = useQuery(ARTICLE_LIST, {
 		variables: { page: 1 },
 		fetchPolicy: 'cache-and-network'
 	})
@@ -27,8 +27,6 @@ const ArticleList: React.FC = () => {
 				page: data?.articles?.currentPage + 1
 			},
 			updateQuery: (prev, { fetchMoreResult }) => {
-				// if (!fetchMoreResult) return prev
-
 				// @ts-ignore
 				return {
 					articles: {
@@ -42,21 +40,23 @@ const ArticleList: React.FC = () => {
 		})
 	}
 
+	// if (loading)
+	// 	return (
+	// 		<Container>
+	// 			<h2>TODO: Skeleton</h2>
+	// 		</Container>
+	// 	)
+
 	return (
 		<Container>
 			<InfiniteScroll
-				dataLength={data?.articles?.data.length} //This is important field to render the next data
+				dataLength={data?.articles?.data.length ?? 5}
 				next={handleFetch}
 				hasMore={data?.articles?.data.length < data?.articles?.resourceCount}
 				loader={
 					<StyledLoadmore>
 						<SyncLoader size={8} color="#24B3AE" />
 					</StyledLoadmore>
-				}
-				endMessage={
-					<div style={{ textAlign: 'center' }}>
-						<h3>আপনি স্কল করে একদম নিচে চলে এসেছেন... </h3>
-					</div>
 				}
 			>
 				{data?.articles?.data.map((article) => (

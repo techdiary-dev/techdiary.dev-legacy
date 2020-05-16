@@ -11,37 +11,8 @@ export const FormLabelStyles = styled.label`
 	max-width: 100%;
 	display: block;
 	margin-bottom: 0.5rem;
-
-	.is-required {
-		color: ${({ theme }) => theme.red};
-	}
 `
-export const FormInputStyles = styled.input<{
-	hasError: boolean
-	ref: any
-}>`
-	display: block;
-	border: 1px solid
-		${({ hasError, theme }) => (hasError ? theme.red : theme.darkGrey)};
-	border-radius: 5px;
-	padding: 1rem;
-	outline: none;
-	background: transparent;
-	margin-bottom: 0.5rem;
-	font-size: 1.6rem;
-	width: 100%;
-	max-width: 100%;
-	line-height: 1;
-	box-sizing: border-box;
-	background-color: #fff;
-
-	font-family: inherit;
-	&:disabled {
-		background-color: #dddddd4d;
-	}
-`
-
-export const FormTextareaStyles = styled.textarea<{
+export const FormInputStyles = styled.textarea<{
 	hasError: boolean
 	ref: any
 }>`
@@ -64,7 +35,6 @@ export const FormTextareaStyles = styled.textarea<{
 		background-color: #dddddd4d;
 	}
 `
-
 export const FormHelperTextStyles = styled.span<{ hasError: boolean }>`
 	font-size: 1.4rem;
 	color: ${({ hasError, theme }) => (hasError ? theme.red : theme.darkGrey)};

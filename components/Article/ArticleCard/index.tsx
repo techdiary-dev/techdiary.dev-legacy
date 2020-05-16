@@ -5,7 +5,7 @@ import { format } from 'date-fns'
 import { bn } from 'date-fns/locale'
 
 import { ArticleCardStyle } from './styles'
-import Card from 'components/Card'
+import { Card } from 'components/Card'
 
 import UserAvater from 'components/UserAvater'
 import ClockIcon from 'static/icons/clock.svg'
@@ -19,7 +19,7 @@ interface Props {
 	slug: string
 	thumbnail: string
 	excerpt: string
-	tags: string
+	tags: string[]
 	createdAt: string
 	updatedAt: string
 	author: {
@@ -34,6 +34,7 @@ const ArticleCard: React.FC<Props> = ({
 	excerpt,
 	slug,
 	thumbnail,
+	tags,
 	author,
 	createdAt
 }: Props) => {
@@ -43,7 +44,10 @@ const ArticleCard: React.FC<Props> = ({
 				<div className="floatingActions">
 					<BookmarkIcon />
 				</div>
-				<Link href="/">
+				<Link
+					href={`/[username]/[articleSlug]`}
+					as={`/${author.username}/${slug}`}
+				>
 					<a className="title">{title}</a>
 				</Link>
 				<p className="time">
@@ -54,23 +58,25 @@ const ArticleCard: React.FC<Props> = ({
 					username={author.username}
 					profilePhoto={author.profilePhoto}
 				/>
-				<div className="thumbnail">
-					<img src={thumbnail} alt="article-thumbnail" />
-				</div>
+
+				{thumbnail && (
+					<div className="thumbnail">
+						<Link
+							href={`/[username]/[articleSlug]`}
+							as={`/${author.username}/${slug}`}
+						>
+							<img src={thumbnail} alt="article-thumbnail" />
+						</Link>
+					</div>
+				)}
+
 				<div className="excerpt">{excerpt}</div>
 				<div className="tags">
-					<Link href="/">
-						<a>#python</a>
-					</Link>
-					<Link href="/">
-						<a>#js</a>
-					</Link>
-					<Link href="/">
-						<a>#algorithm</a>
-					</Link>
-					<Link href="/">
-						<a>#ds</a>
-					</Link>
+					{tags.map((t, key) => (
+						<Link href={`/t/${t}`} key={key}>
+							<a>#{t}</a>
+						</Link>
+					))}
 				</div>
 				<div className="footer">
 					<div className="state">

@@ -14,35 +14,39 @@ import { Logout } from './Logout'
 import Login from 'components/Login'
 import { SyncLoader } from 'react-spinners'
 import Link from 'next/link'
+import useMe from 'components/useMe'
 
 const Navbar = () => {
+	let { data, error, refetch, loading } = useMe()
+
 	return (
 		<StyledWrapper>
 			<Container>
 				<StyledNavbarInner>
 					<Logo />
 					<Search />
-					<Me
-						data={({ data, error, refetch, loading }) =>
-							loading ? (
-								<SyncLoader size={8} color="#24B3AE" />
-							) : data && !error ? (
-								<>
-									<Link href="/new">
-										<a>New</a>
-									</Link>
-									<UserAvater
-										name={data?.name}
-										username={data?.username}
-										profilePhoto={data?.profilePhoto}
-									/>
-									<Logout refetchMe={refetch} />
-								</>
-							) : (
-								<Login refetchMe={refetch} />
-							)
-						}
-					/>
+					{loading ? (
+						<SyncLoader size={8} color="#24B3AE" />
+					) : data && !error ? (
+						<>
+							<Link href="/new">
+								<a>New</a>
+							</Link>
+							<Link href="/dashboard">
+								<a>Dashboard</a>
+							</Link>
+							<UserAvater
+								name={data?.name}
+								username={data?.username}
+								profilePhoto={data?.profilePhoto}
+							/>
+							<Logout refetchMe={refetch} />
+						</>
+					) : (
+						<a href="https://github.com/login/oauth/authorize?client_id=2701778b22c45bf2cc9f&redirect_uri=http://localhost:3000/oauth_callback">
+							Login
+						</a>
+					)}
 				</StyledNavbarInner>
 			</Container>
 		</StyledWrapper>

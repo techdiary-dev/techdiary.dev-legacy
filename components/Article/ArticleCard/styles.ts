@@ -30,6 +30,7 @@ export const ArticleCardStyle = styled.div`
 		img {
 			max-width: 100%;
 		}
+		cursor: pointer;
 	}
 
 	.tags {

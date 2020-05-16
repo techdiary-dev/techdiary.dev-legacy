@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
 	@font-face {
@@ -21,7 +21,7 @@ export const GlobalStyles = createGlobalStyle`
 		padding: 0;
 		font-family: 'Kohinoor Bangla';
 		font-weight: 400;
-		background-color: #eeeeee;
+		background-color: #f9f9fa;
 	}
 	*,
 	*:before,

@@ -3,8 +3,8 @@ import { InputGroupStyle, InputLabel } from './styles'
 
 interface Props {
 	label: string
-	inputRef: any
-	name: any
+	inputRef?: any
+	name?: any
 }
 
 const Checkbox: React.FC<Props> = ({ label, inputRef, name }: Props) => {

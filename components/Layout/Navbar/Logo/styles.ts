@@ -6,8 +6,8 @@ export const LogoStyle = styled.div`
 	cursor: pointer;
 
 	@media all and (max-width: 800px) {
-		width: 30px;
 		svg {
+			width: 30px;
 			text {
 				display: none;
 			}

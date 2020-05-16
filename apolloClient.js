@@ -9,14 +9,12 @@ export default function createApolloClient(initialState, ctx) {
 	return new ApolloClient({
 		ssrMode: Boolean(ctx),
 		link: new HttpLink({
-			uri:
-				process.env.NODE_ENV === 'production'
-					? 'https://techdiary-api.herokuapp.com/'
-					: process.env.NEXT_PUBLIC_API, // Server URL (must be absolute)
+			uri: process.env.NEXT_PUBLIC_API, // Server URL (must be absolute)
 			credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 			fetch
 		}),
 		cache: new InMemoryCache().restore(initialState),
-		connectToDevTools: true
+		connectToDevTools: process.env.NODE_ENV !== 'production'
+		// ssrForceFetchDelay: 200
 	})
 }

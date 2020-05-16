@@ -1,23 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { DevTool } from 'react-hook-form-devtools'
 import { useForm } from 'react-hook-form'
 import { Row, Column } from 'styled-grid-system-component'
 import * as yup from 'yup'
 import { ArticleEditorStyle } from './styles'
-import Card from 'components/Card'
+import { Card } from 'components/Card'
 import Input from 'components/Form/Input'
 import Button from 'components/Form/Button'
 import Checkbox from 'components/Form/Checkbox'
 import Editor from 'components/Form/Editor'
 import { useMutation } from '@apollo/react-hooks'
-import { CREATE_ARTICLE, ARTICLE_LIST } from 'quries/ARTICLE'
+import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from 'quries/ARTICLE'
 import { useRouter } from 'next/dist/client/router'
 
-const ArticleEditor = (): JSX.Element => {
+interface Props {
+	defaultValues?: object
+	_id?: string | string[]
+	loading?: boolean
+}
+
+const ArticleEditor = ({
+	defaultValues = {},
+	_id,
+	loading
+}: Props): JSX.Element => {
 	let [createArticle, mOptions] = useMutation(CREATE_ARTICLE, {
 		refetchQueries: [{ query: ARTICLE_LIST }]
 	})
+
+	let [updateArticle, mOptions2] = useMutation(UPDATE_ARTICLE, {
+		refetchQueries: [{ query: ARTICLE_LIST }]
+	})
+
 	let router = useRouter()
 
 	let validationSchema = yup.object().shape({
@@ -34,11 +49,15 @@ const ArticleEditor = (): JSX.Element => {
 		errors,
 		control,
 		setValue,
-		watch,
+		reset,
 		getValues
 	} = useForm({
 		validationSchema
 	})
+
+	useEffect(() => {
+		reset(defaultValues)
+	}, [loading])
 
 	useEffect(() => {
 		register('body')
@@ -46,18 +65,29 @@ const ArticleEditor = (): JSX.Element => {
 
 	const onSubmit = (variables) => {
 		variables.tags = variables.tags.split(',')
-		createArticle({ variables })
-			.then((res) => {
-				// TODO: redirect to article details page
-				router.push('/')
-			})
-			.catch(console.error)
+
+		if (Object.keys(defaultValues).length) {
+			variables._id = _id
+			updateArticle({ variables })
+				.then((res) => {
+					// TODO: redirect to article details page
+					router.push('/dashboard')
+				})
+				.catch(console.error)
+		} else {
+			createArticle({ variables })
+				.then((res) => {
+					// TODO: redirect to article details page
+					router.push('/dashboard')
+				})
+				.catch(console.error)
+		}
 	}
 
 	return (
 		<ArticleEditorStyle>
+			{process.env.NODE_ENV !== 'production' && <DevTool control={control} />}
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<DevTool control={control} />
 				<Row>
 					<Column md={3}>
 						<Card>
@@ -69,6 +99,7 @@ const ArticleEditor = (): JSX.Element => {
 							<Input
 								label="টাইটেল"
 								name="title"
+								isRequired
 								placeholder="আর্টিক্যাল এর টাইটেল"
 								hasError={errors?.title}
 								helperText={errors?.title?.message}
@@ -77,6 +108,7 @@ const ArticleEditor = (): JSX.Element => {
 							<Input
 								label="ট্যাগ সমূহ"
 								name="tags"
+								isRequired
 								placeholder="আর্টিক্যাল ট্যাগ সমূহ"
 								hasError={errors?.tags}
 								helperText={
@@ -92,7 +124,7 @@ const ArticleEditor = (): JSX.Element => {
 								hasError={errors?.thumbnail}
 								helperText={errors?.thumbnail?.message}
 							/>
-							<Button>সেভ করুন</Button>
+							<Button type="submit">সেভ করুন</Button>
 						</Card>
 					</Column>
 					<Column md={9}>
@@ -101,6 +133,7 @@ const ArticleEditor = (): JSX.Element => {
 							style={{ height: 500 }}
 							hasError={errors?.body}
 							helperText={errors?.body?.message}
+							value={getValues('body')}
 						/>
 					</Column>
 				</Row>

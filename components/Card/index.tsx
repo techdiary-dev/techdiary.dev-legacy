@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { CardStyle } from './styles'
+import { CardStyle, CardHeaderStyle } from './styles'
 
-const Card: React.FC = ({ children }) => {
+export const Card: React.FC = ({ children }) => {
 	return <CardStyle>{children}</CardStyle>
 }
 
-export default Card
+export const CardHeader: React.FC = ({ children }) => {
+	return <CardHeaderStyle>{children}</CardHeaderStyle>
+}
