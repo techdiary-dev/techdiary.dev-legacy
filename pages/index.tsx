@@ -4,7 +4,7 @@ import { Row } from 'styled-grid-system-component'
 import TagHighlights from 'components/TagHighlights'
 import ArticleList from 'components/Article/ArticleList'
 
-import { StyledHomePage, StyledCol } from './styles'
+import { StyledHomePage, StyledCol } from 'styles/StyledHomePage'
 
 const index = () => {
 	return (

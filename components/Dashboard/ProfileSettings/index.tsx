@@ -105,7 +105,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 
 	return (
 		<>
-			{process.env.NODE_ENV !== 'production' && <DevTool control={control} />}
+			{/* {process.env.NODE_ENV !== 'production' && <DevTool control={control} />} */}
 			{/* <pre>{JSON.stringify(user, undefined, 4)}</pre> */}
 			<ProfilePhoto profilePic={user.profilePhoto} />
 			<form onSubmit={handleSubmit(onSubmit)}>

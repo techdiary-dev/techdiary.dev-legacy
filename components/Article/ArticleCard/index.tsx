@@ -1,8 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import bnnum from 'bnnum'
-import { format } from 'date-fns'
-import { bn } from 'date-fns/locale'
+import moment from 'moment'
 
 import { ArticleCardStyle } from './styles'
 import { Card } from 'components/Card'
@@ -50,9 +49,7 @@ const ArticleCard: React.FC<Props> = ({
 				>
 					<a className="title">{title}</a>
 				</Link>
-				<p className="time">
-					{format(+createdAt, 'MM/dd/yyyy', { locale: bn })}
-				</p>
+				<p className="time">{moment(+createdAt).fromNow()}</p>
 				<UserAvater
 					name={author.name}
 					username={author.username}

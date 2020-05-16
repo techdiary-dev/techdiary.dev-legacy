@@ -6,7 +6,6 @@ import styled, { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/variables'
 
 import 'react-markdown-editor-lite/lib/index.css'
-import 'styles/editStyles.scss'
 import useMe from 'components/useMe'
 
 Router.events.on('routeChangeStart', () => {
