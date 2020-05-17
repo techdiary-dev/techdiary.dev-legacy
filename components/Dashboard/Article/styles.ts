@@ -10,6 +10,13 @@ export const DashboardArticle = styled.div<{
 		margin-top: 0;
 	}
 
+	svg {
+		width: 14px;
+		height: 14px;
+		margin-right: 15px;
+		cursor: pointer;
+	}
+
 	.time {
 		font-size: 1.4rem;
 		color: ${({ theme }) => theme.darkGrey};

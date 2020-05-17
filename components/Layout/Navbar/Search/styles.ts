@@ -20,10 +20,14 @@ export const StyledSearch = styled.div`
 		border: none;
 		padding: 12px 4rem 12px 15px;
 		border-radius: 5px;
-		background-color: #fff;
+		background-color: #eeeeee;
 		font-size: 1.5rem;
 		font-family: 'Kohinoor Bangla';
 		flex-grow: 1;
 		width: 100%;
+
+		&:focus {
+			outline: none;
+		}
 	}
 `

@@ -45,22 +45,22 @@ const ArticleCard: React.FC<Props> = ({
 				</div>
 				<Link
 					href={`/[username]/[articleSlug]`}
-					as={`/${author.username}/${slug}`}
+					as={`/${author?.username}/${slug}`}
 				>
 					<a className="title">{title}</a>
 				</Link>
 				<p className="time">{moment(+createdAt).fromNow()}</p>
 				<UserAvater
-					name={author.name}
-					username={author.username}
-					profilePhoto={author.profilePhoto}
+					name={author?.name}
+					username={author?.username}
+					profilePhoto={author?.profilePhoto}
 				/>
 
 				{thumbnail && (
 					<div className="thumbnail">
 						<Link
 							href={`/[username]/[articleSlug]`}
-							as={`/${author.username}/${slug}`}
+							as={`/${author?.username}/${slug}`}
 						>
 							<img src={thumbnail} alt="article-thumbnail" />
 						</Link>

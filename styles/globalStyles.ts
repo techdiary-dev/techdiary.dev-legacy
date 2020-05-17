@@ -67,7 +67,7 @@ export const GlobalStyles = createGlobalStyle`
 		cursor: pointer;
 	}
 
-	input::focus {
+	input:focus {
 		outline: none;
 	}
 

@@ -2,10 +2,10 @@ import React from 'react'
 import moment from 'moment'
 import { DashboardArticle } from './styles'
 import { Card } from 'components/Card'
+import { FiEdit2, FiTrash } from 'react-icons/fi'
 import Link from 'next/link'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_ARTICLE, ARTICLE_LIST } from 'quries/ARTICLE'
-import Button from 'components/Form/Button'
 import { ME } from 'quries/AUTH'
 
 interface Props {
@@ -42,9 +42,9 @@ const Article: React.FC<Props> = ({
 
 				<div className="actions">
 					<Link href="/edit/[_id]" as={`/edit/${_id}`}>
-						<a>Edit</a>
+						<FiEdit2 />
 					</Link>
-					<button onClick={handleDelete}>Delete</button>
+					<FiTrash onClick={handleDelete} />
 				</div>
 			</Card>
 		</DashboardArticle>
