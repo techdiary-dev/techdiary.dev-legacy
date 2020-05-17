@@ -27,8 +27,8 @@ const Login = ({ refetchMe }: Props) => {
 	return (
 		<LoginStyle>
 			<GitHubLogin
-				clientId={process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}
-				redirectUri={process.env.NEXT_PUBLIC_GITHUB_OAUTH_REDIRECT_URI}
+				clientId="34c4f65ff0a0609ae971"
+				redirectUri="https://dev.techdiary.dev/oauth_callback"
 				onSuccess={onSuccess}
 			>
 				<GithubIcon />
