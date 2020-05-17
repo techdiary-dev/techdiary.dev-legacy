@@ -7,11 +7,11 @@ import { ArticleCardStyle } from './styles'
 import { Card } from 'components/Card'
 
 import UserAvater from 'components/UserAvater'
-import ClockIcon from 'static/icons/clock.svg'
-import HeartIcon from 'static/icons/heart.svg'
-import CommentIcon from 'static/icons/comment.svg'
-import BookmarkIcon from 'static/icons/bookmark.svg'
-// import BookmarkIcon from 'static/icons/bookmark.svg'
+import ClockIcon from 'public/icons/clock.svg'
+import HeartIcon from 'public/icons/heart.svg'
+import CommentIcon from 'public/icons/comment.svg'
+import BookmarkIcon from 'public/icons/bookmark.svg'
+// import BookmarkIcon from 'public/icons/bookmark.svg'
 
 interface Props {
 	title: string

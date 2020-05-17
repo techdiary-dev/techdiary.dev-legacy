@@ -1,5 +1,5 @@
 import React from 'react'
-import LogoutIcon from 'static/icons/log-out.svg'
+import LogoutIcon from 'public/icons/log-out.svg'
 import styled from 'styled-components'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGOUT } from 'quries/AUTH'

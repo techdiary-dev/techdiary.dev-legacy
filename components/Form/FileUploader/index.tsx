@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NProgress from 'nprogress'
-import UploadIcon from 'static/icons/upload.svg'
+import UploadIcon from 'public/icons/upload.svg'
 
 import { StyledFileUploader } from './styles'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import GitHubLogin from 'react-github-login'
 import { LoginStyle } from './styles'
-import GithubIcon from 'static/icons/github.svg'
+import GithubIcon from 'public/icons/github.svg'
 import { useMutation } from '@apollo/react-hooks'
 import { LOGIN, ME } from 'quries/AUTH'
 import np from 'nprogress'

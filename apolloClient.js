@@ -10,6 +10,7 @@ export default function createApolloClient(initialState, ctx) {
 		ssrMode: Boolean(ctx),
 		link: new HttpLink({
 			uri: process.env.NEXT_PUBLIC_API, // Server URL (must be absolute)
+			uri: `http://localhost:5000`, // Server URL (must be absolute)
 			credentials: 'include', // Additional fetch() options like `credentials` or `headers`
 			fetch
 		}),

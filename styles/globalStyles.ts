@@ -3,11 +3,11 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyles = createGlobalStyle`
 	@font-face {
 		font-family: 'Kohinoor Bangla';
-		src: url('/static/fonts/KohinoorBangla-Regular.eot');
-		src: url('/static/fonts/-Regular.eot?#iefix') format('embedded-opentype'),
-			url('/static/fonts/KohinoorBangla-Regular.woff2') format('woff2'),
-			url('/static/fonts/KohinoorBangla-Regular.woff') format('woff'),
-			url('/static/fonts/KohinoorBangla-Regular.ttf') format('truetype');
+		src: url('/fonts/KohinoorBangla-Regular.eot');
+		src: url('/fonts/-Regular.eot?#iefix') format('embedded-opentype'),
+			url('/fonts/KohinoorBangla-Regular.woff2') format('woff2'),
+			url('/fonts/KohinoorBangla-Regular.woff') format('woff'),
+			url('/fonts/KohinoorBangla-Regular.ttf') format('truetype');
 		font-weight: 400;
 		font-style: normal;
 	}

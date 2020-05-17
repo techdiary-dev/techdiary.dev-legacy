@@ -1,5 +1,5 @@
 import React from 'react'
-import LogoIcon from 'static/logos/logo-dark.svg'
+import LogoIcon from 'public/logos/logo-dark.svg'
 import { LogoStyle } from './styles'
 import Link from 'next/link'
 

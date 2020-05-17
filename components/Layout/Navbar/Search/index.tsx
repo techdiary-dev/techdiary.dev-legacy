@@ -1,7 +1,7 @@
 import React from 'react'
 import Typed from 'react-typed'
 import { StyledSearch } from './styles'
-import SearchIcon from 'static/icons/search.svg'
+import SearchIcon from 'public/icons/search.svg'
 
 const Search: React.FC = () => {
 	return (

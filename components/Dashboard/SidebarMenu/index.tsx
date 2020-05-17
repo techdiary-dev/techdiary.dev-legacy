@@ -1,9 +1,9 @@
 import React from 'react'
 import { SidebarMenuCardStyles, MenuItem, SidebarMenuStyles } from './styles'
-import PencilIcon1 from 'static/icons/edit-2.svg'
-import PausedIcon from 'static/icons/pause-circle.svg'
-import BookIcon from 'static/icons/book-open.svg'
-import SettingsIcon from 'static/icons/settings.svg'
+import PencilIcon1 from 'public/icons/edit-2.svg'
+import PausedIcon from 'public/icons/pause-circle.svg'
+import BookIcon from 'public/icons/book-open.svg'
+import SettingsIcon from 'public/icons/settings.svg'
 import Link from 'next/link'
 
 const SidebarMenu: React.FC = () => {
