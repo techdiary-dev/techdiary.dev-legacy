@@ -43,6 +43,7 @@ const TectDiaryRoot = ({ Component, pageProps }) => {
 		return (
 			<StyledServerError>
 				<h1>ওহ! অভ্যন্তরীণ সার্ভারে সমস্যা</h1>
+				<h2>NODE_ENV: {process.env.NODE_ENV}</h2>
 				{process.env.NODE_ENV !== 'production' && (
 					<>
 						<h3>
