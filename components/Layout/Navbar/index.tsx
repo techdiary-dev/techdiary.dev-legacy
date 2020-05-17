@@ -43,7 +43,9 @@ const Navbar = () => {
 							<Logout refetchMe={refetch} />
 						</>
 					) : (
-						<a href="https://github.com/login/oauth/authorize?client_id=2701778b22c45bf2cc9f&redirect_uri=http://localhost:3000/oauth_callback">
+						<a
+							href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_OAUTH_REDIRECT_URI}`}
+						>
 							Login
 						</a>
 					)}
