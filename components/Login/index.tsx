@@ -9,7 +9,7 @@ import np from 'nprogress'
 interface Props {
 	refetchMe?: Function
 }
-
+// change :)
 const Login = ({ refetchMe }: Props) => {
 	const onSuccess = (response) => {
 		login({ variables: { code: response.code } }).then((res) => {
