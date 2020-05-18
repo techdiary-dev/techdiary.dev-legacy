@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import UserAvater from 'components/UserAvater'
 
 export const StyledWrapper = styled.div`
-	background-color: ${({ theme }) => theme.secondaryDark};
+	background-color: ${({ theme }) => theme.secondary};
 	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
 	padding: 0 15px;
 

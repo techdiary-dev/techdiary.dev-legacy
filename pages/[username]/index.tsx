@@ -1,8 +1,12 @@
 import React from 'react'
 import MainLayout from 'components/Layout/MainLayout'
+
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import { USER_PROFILE } from 'quries/AUTH'
+import UserProfile from 'components/UserProfile'
+import UserProfileSkeleton from 'components/UserProfile/UserProfileSkeleton'
+import HeadTag from 'components/HeadTag'
 
 const ProfilePage = () => {
 	let router = useRouter()
@@ -16,15 +20,18 @@ const ProfilePage = () => {
 	if (loading)
 		return (
 			<MainLayout>
-				<h1>
-					TODO: <mark>draw skeleton here...</mark>
-				</h1>
+				<UserProfileSkeleton />
 			</MainLayout>
 		)
 
 	return (
 		<MainLayout>
-			<pre>{JSON.stringify(data, undefined, 4)}</pre>
+			<HeadTag
+				title={data?.profile?.name}
+				description={data?.profile?.bio}
+				ogImage={data?.profile?.profilePhoto}
+			/>
+			<UserProfile user={data?.profile} />
 		</MainLayout>
 	)
 }

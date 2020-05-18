@@ -54,6 +54,7 @@ export const UPDATE_ARTICLE = gql`
 			_id
 			title
 			tags
+			isPublished
 		}
 	}
 `
@@ -88,10 +89,23 @@ export const ARTICLE_DETAILS = gql`
 		article(idOrSlug: { slug: $slug, _id: $_id }) {
 			_id
 			title
-			body
-			tags
 			thumbnail
+			body
+			createdAt
 			isPublished
+			tags
+			excerpt
+			author {
+				profilePhoto
+				name
+				username
+				articles {
+					_id
+					title
+					slug
+					createdAt
+				}
+			}
 		}
 	}
 `

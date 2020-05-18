@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const ArticleCardStyle = styled.div`
 	margin-bottom: 25px;
 	position: relative;
+	padding: 2px;
 	.floatingActions {
 		position: absolute;
 		top: 10px;
@@ -17,6 +18,7 @@ export const ArticleCardStyle = styled.div`
 	.time {
 		font-size: 1.4rem;
 		color: ${({ theme }) => theme.darkGrey};
+		margin-top: 0;
 	}
 
 	.excerpt {

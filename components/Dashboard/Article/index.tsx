@@ -2,10 +2,12 @@ import React from 'react'
 import moment from 'moment'
 import { DashboardArticle } from './styles'
 import { Card } from 'components/Card'
+import md from 'marked'
+import htmlSanitizer from 'sanitize-html'
+import { FiEdit2, FiTrash } from 'react-icons/fi'
 import Link from 'next/link'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_ARTICLE, ARTICLE_LIST } from 'quries/ARTICLE'
-import Button from 'components/Form/Button'
 import { ME } from 'quries/AUTH'
 
 interface Props {
@@ -15,6 +17,7 @@ interface Props {
 	isPublished: boolean
 	slug: string
 	title: string
+	username: any
 }
 
 const Article: React.FC<Props> = ({
@@ -23,28 +26,34 @@ const Article: React.FC<Props> = ({
 	excerpt,
 	slug,
 	createdAt,
+	username,
 	isPublished
 }: Props) => {
-	let [deleteArticle, { loading }] = useMutation(DELETE_ARTICLE, {
+	let [deleteArticle] = useMutation(DELETE_ARTICLE, {
 		refetchQueries: [{ query: ARTICLE_LIST }, { query: ME }]
 	})
 
-	const handleDelete = (e) => {
+	const handleDelete = () => {
 		if (confirm('Sure to delete?')) deleteArticle({ variables: { _id } })
 	}
 
 	return (
 		<DashboardArticle isPublished={isPublished}>
 			<Card>
-				<h4 className="title">{title}</h4>
+				<h4 className="title">
+					<Link href={`/[username]/[articleSlug]`} as={`/${username}/${slug}`}>
+						{title}
+					</Link>
+				</h4>
 				<span className="time">{moment(+createdAt).fromNow()}</span>
-				<p className="excerpt">{excerpt}</p>
-
+				<p className="excerpt">
+					{htmlSanitizer(md(excerpt), { allowedTags: [''] })}
+				</p>
 				<div className="actions">
 					<Link href="/edit/[_id]" as={`/edit/${_id}`}>
-						<a>Edit</a>
+						<FiEdit2 />
 					</Link>
-					<button onClick={handleDelete}>Delete</button>
+					<FiTrash onClick={handleDelete} />
 				</div>
 			</Card>
 		</DashboardArticle>

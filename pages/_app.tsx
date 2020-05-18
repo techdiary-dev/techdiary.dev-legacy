@@ -4,7 +4,7 @@ import np from 'nprogress'
 import { withApollo } from 'lib/apollo'
 import styled, { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/variables'
-
+import moment from 'moment'
 import 'react-markdown-editor-lite/lib/index.css'
 import useMe from 'components/useMe'
 
@@ -14,6 +14,8 @@ Router.events.on('routeChangeStart', () => {
 Router.events.on('routeChangeComplete', () => {
 	np.done()
 })
+
+moment.locale('bn')
 
 let StyledServerError = styled.div`
 	width: 800px;
@@ -43,6 +45,7 @@ const TectDiaryRoot = ({ Component, pageProps }) => {
 		return (
 			<StyledServerError>
 				<h1>ওহ! অভ্যন্তরীণ সার্ভারে সমস্যা</h1>
+				<h2>NODE_ENV: {process.env.NODE_ENV}</h2>
 				{process.env.NODE_ENV !== 'production' && (
 					<>
 						<h3>
@@ -64,3 +67,4 @@ const TectDiaryRoot = ({ Component, pageProps }) => {
 }
 
 export default withApollo({ ssr: true })(TectDiaryRoot)
+//

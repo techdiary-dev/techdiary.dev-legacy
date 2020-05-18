@@ -1,17 +1,24 @@
 import React, { FC } from 'react'
-
-import { StyledUserAvater } from './styles'
 import Link from 'next/link'
+import { StyledUserAvater } from './styles'
+
+export type UserAvaterSize = 'sm' | 'xl'
 
 interface Props {
 	name?: string
 	username?: string
 	profilePhoto?: string
+	size?: UserAvaterSize
 }
 
-const UserAvater: FC<Props> = ({ name, username, profilePhoto }: Props) => {
+const UserAvater: FC<Props> = ({
+	name,
+	username,
+	profilePhoto,
+	size
+}: Props) => {
 	return (
-		<StyledUserAvater>
+		<StyledUserAvater size={size}>
 			<img className="avater" src={profilePhoto} alt={name} />
 			<div className="info">
 				<div className="name">

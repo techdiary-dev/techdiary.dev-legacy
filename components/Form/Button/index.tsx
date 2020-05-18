@@ -9,17 +9,24 @@ interface Props {
 	children: JSX.Element | string
 	size?: ButtonSize
 	type?: 'button' | 'submit'
+	transparent?: any
 }
 
 const Button: FC<Props> = ({
 	onClick,
 	children,
 	type = 'button',
-	size
+	size,
+	transparent
 }: // size = ButtonSize.normal
 Props): JSX.Element => {
 	return (
-		<ButtonStyles type={type} onClick={onClick} size={size}>
+		<ButtonStyles
+			type={type}
+			onClick={onClick}
+			size={size}
+			transparent={transparent}
+		>
 			{children}
 		</ButtonStyles>
 	)

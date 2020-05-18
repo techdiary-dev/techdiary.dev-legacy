@@ -1,11 +1,17 @@
 import styled from 'styled-components'
 import { ButtonSize } from './index'
 
-export const ButtonStyles = styled.button<{ size?: ButtonSize }>`
+export const ButtonStyles = styled.button<{
+	size?: ButtonSize
+	transparent?: boolean
+}>`
 	display: inline-block;
 	border: 1px solid ${({ theme }) => theme.primary};
 	border-radius: ${({ size }) => (size === 'round' ? '50%' : '4px')};
-	background: ${({ theme }) => theme.primary};
+
+	background: ${({ theme, transparent }) =>
+		transparent ? 'transparent' : theme.primary};
+
 	color: #ffffff;
 	font-weight: 400;
 	font-size: 14px;

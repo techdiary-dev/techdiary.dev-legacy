@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { DevTool } from 'react-hook-form-devtools'
+import { FiX } from 'react-icons/fi'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useMutation } from '@apollo/react-hooks'
 import np from 'nprogress'
@@ -105,9 +106,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 
 	return (
 		<>
-			{/* {process.env.NODE_ENV !== 'production' && <DevTool control={control} />} */}
-			{/* <pre>{JSON.stringify(user, undefined, 4)}</pre> */}
-			<ProfilePhoto profilePic={user.profilePhoto} />
+			<ProfilePhoto profilePic={user?.profilePhoto} />
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Card>
 					<CardHeader>সাধারন তথ্যসমূহ</CardHeader>
@@ -172,7 +171,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 					<Button type="submit">হালনাগাদ</Button>
 				</Card>
 				<Card>
-					<CardHeader>আপনার লিংক সমূহ</CardHeader>
+					<CardHeader>আপনার ওয়েবসাইট সমূহ</CardHeader>
 					{linkFields.map((field, index) => (
 						<Row key={field.id}>
 							<Column md={5}>
@@ -180,12 +179,12 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 									type="text"
 									inputRef={register()}
 									name={`links[${index}].text`}
-									placeholder="text"
+									placeholder="ওয়েবসাইট এর নাম"
 									hasError={errors?.links && errors?.links[index]?.text}
 									helperText={
 										errors?.links && errors?.links[index]?.text?.message
 									}
-									label="Text"
+									label="ওয়েবসাইট এর নাম"
 								/>
 							</Column>
 							<Column md={5}>
@@ -193,17 +192,17 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 									type="text"
 									inputRef={register()}
 									name={`links[${index}].link`}
-									placeholder="link"
+									label="ওয়েবসাইট এর লিংক"
+									placeholder="ওয়েবসাইট এর লিংক"
 									hasError={errors?.links && errors?.links[index]?.link}
 									helperText={
 										errors?.links && errors?.links[index]?.link?.message
 									}
-									label="Link"
 								/>
 							</Column>
 							<Column md={2}>
 								<Button size="round" onClick={() => removeLink(index)}>
-									x
+									<FiX />
 								</Button>
 							</Column>
 						</Row>
@@ -214,6 +213,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 					>
 						+
 					</Button>
+					<Button type="submit">হালনাগাদ করুন</Button>
 				</Card>
 				<Card>
 					<CardHeader>কর্মস্থল এর তথ্য</CardHeader>
@@ -306,12 +306,12 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 									type="text"
 									inputRef={register()}
 									name={`skills[${index}]`}
-									placeholder="text"
+									placeholder={`দক্ষতা ${index + 1}`}
 									hasError={errors?.skills && errors?.skills[index]?.value}
 									helperText={
 										errors?.skills && errors?.skills[index]?.value?.message
 									}
-									label="Text"
+									label={`দক্ষতা ${index + 1}`}
 								/>
 							</Column>
 							<Column md={2}>
@@ -324,6 +324,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 					<Button size="round" onClick={() => appendSkill({ value: '' })}>
 						+
 					</Button>
+					<Button type="submit">হালনাগাদ করুন</Button>
 				</Card>
 			</form>
 		</>

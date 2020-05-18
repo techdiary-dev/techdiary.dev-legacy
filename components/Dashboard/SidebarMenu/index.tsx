@@ -1,9 +1,7 @@
 import React from 'react'
+import { FiBookOpen, FiEdit2, FiPauseCircle, FiSettings } from 'react-icons/fi'
 import { SidebarMenuCardStyles, MenuItem, SidebarMenuStyles } from './styles'
-import PencilIcon1 from 'public/icons/edit-2.svg'
-import PausedIcon from 'public/icons/pause-circle.svg'
-import BookIcon from 'public/icons/book-open.svg'
-import SettingsIcon from 'public/icons/settings.svg'
+
 import Link from 'next/link'
 
 const SidebarMenu: React.FC = () => {
@@ -12,25 +10,25 @@ const SidebarMenu: React.FC = () => {
 			<SidebarMenuCardStyles>
 				<h3 className="group-title">আমার ডায়েরি</h3>
 				<MenuItem>
-					<BookIcon />
+					<FiBookOpen />
 					<Link href="/dashboard">
 						<a className="url">সকল ডায়েরি</a>
 					</Link>
 				</MenuItem>
 				<MenuItem>
-					<PencilIcon1 />
+					<FiEdit2 />
 					<Link href="/new">
 						<a className="url">নতুন ডায়েরি</a>
 					</Link>
 				</MenuItem>
 				<MenuItem>
-					<BookIcon />
+					<FiBookOpen />
 					<Link href="/dashboard/published">
 						<a className="url">প্রকাশিত ডায়েরি</a>
 					</Link>
 				</MenuItem>
 				<MenuItem>
-					<PausedIcon />
+					<FiPauseCircle />
 					<Link href="/dashboard/draft">
 						<a className="url">খসড়া ডায়েরি</a>
 					</Link>
@@ -38,9 +36,9 @@ const SidebarMenu: React.FC = () => {
 			</SidebarMenuCardStyles>
 
 			<SidebarMenuCardStyles>
-				<h3 className="group-title">সেটিং</h3>
+				<h3 className="group-title">সেটিংস</h3>
 				<MenuItem>
-					<SettingsIcon />
+					<FiSettings />
 					<Link href="/dashboard/update-profile">
 						<a className="url">প্রোফাইল হালনাগাদ</a>
 					</Link>

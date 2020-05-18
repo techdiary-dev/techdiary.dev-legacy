@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks'
 import ArticleEditor from 'components/Article/ArticleEditor'
 import PleaseLogin from 'components/PleaseLogin'
 import useMe from 'components/useMe'
+import HeadTag from 'components/HeadTag'
 
 const EditArticle = () => {
 	let { query } = useRouter()
@@ -19,6 +20,7 @@ const EditArticle = () => {
 
 	return (
 		<MainLayout>
+			<HeadTag title="ডায়েরি হালনাগাদ করুন" />
 			<PleaseLogin>
 				<ArticleEditor
 					defaultValues={data?.article}

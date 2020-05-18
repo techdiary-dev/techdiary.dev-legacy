@@ -3,8 +3,10 @@ import { useRouter } from 'next/dist/client/router'
 import MainLayout from 'components/Layout/MainLayout'
 import { useQuery } from '@apollo/react-hooks'
 import { ARTICLE_DETAILS } from 'quries/ARTICLE'
+import ArticleDetails from 'components/Article/ArticleDetails'
+import HeadTag from 'components/HeadTag'
 
-const ArticleDetails = () => {
+const ArticleDetailsPage = () => {
 	let { query } = useRouter()
 
 	let { data, loading } = useQuery(ARTICLE_DETAILS, {
@@ -13,20 +15,17 @@ const ArticleDetails = () => {
 		}
 	})
 
-	if (loading)
-		return (
-			<MainLayout>
-				<h1>
-					TODO: <mark>Draw article skeleton</mark>
-				</h1>
-			</MainLayout>
-		)
-
 	return (
 		<MainLayout>
-			<pre>{JSON.stringify(data, undefined, 4)}</pre>
+			<HeadTag
+				title={data?.article?.title}
+				description={data?.article?.excerpt}
+				ogImage={data?.article?.thumbnail}
+				keyWords={data?.article?.tags}
+			/>
+			<ArticleDetails loading={loading} article={data?.article} />
 		</MainLayout>
 	)
 }
 
-export default ArticleDetails
+export default ArticleDetailsPage

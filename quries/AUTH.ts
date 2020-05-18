@@ -42,11 +42,13 @@ export const ME = gql`
 			articles {
 				_id
 				title
-				slug
 				excerpt
+				slug
 				thumbnail
-				createdAt
 				isPublished
+				tags
+				createdAt
+				updatedAt
 			}
 		}
 	}
@@ -77,7 +79,7 @@ export const USER_PROFILE = gql`
 				link
 			}
 
-			articles {
+			articles(isPublished: true) {
 				_id
 				title
 				slug
@@ -85,6 +87,11 @@ export const USER_PROFILE = gql`
 				thumbnail
 				createdAt
 				isPublished
+				author {
+					name
+					username
+					profilePhoto
+				}
 			}
 		}
 	}
