@@ -30,7 +30,7 @@ const UserCardWithArticles: React.FC<Props> = ({ user }: Props) => {
 					profilePhoto={user?.profilePhoto}
 					size="xl"
 				/>
-				<h4 className="heading">আমার সাপ্রতিক ডাইরি সমূহ</h4>
+				<h4 className="heading">আমার সাম্প্রতিক ডাইরি সমূহ</h4>
 				<div className="articles">
 					{user?.articles?.map((article, key) => (
 						<article className="article" key={key}>

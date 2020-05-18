@@ -25,6 +25,11 @@ export default class TechdiaryRoot extends Document {
 			<html>
 				<Head>
 					{this.props.styleTags}
+					<link
+						rel="shortcut icon"
+						href="/logos/favicon.svg"
+						type="image/x-icon"
+					/>
 					<link rel="stylesheet" href="/prism/prism.css" />
 				</Head>
 				<body>

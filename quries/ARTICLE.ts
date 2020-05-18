@@ -94,6 +94,7 @@ export const ARTICLE_DETAILS = gql`
 			createdAt
 			isPublished
 			tags
+			excerpt
 			author {
 				profilePhoto
 				name

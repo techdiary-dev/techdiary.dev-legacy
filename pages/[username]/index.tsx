@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import { USER_PROFILE } from 'quries/AUTH'
 import UserProfile from 'components/UserProfile'
+import HeadTag from 'components/HeadTag'
 
 const ProfilePage = () => {
 	let router = useRouter()
@@ -26,6 +27,11 @@ const ProfilePage = () => {
 
 	return (
 		<MainLayout>
+			<HeadTag
+				title={data?.profile?.name}
+				description={data?.profile?.bio}
+				ogImage={data?.profile?.profilePhoto}
+			/>
 			<UserProfile user={data?.profile} />
 		</MainLayout>
 	)

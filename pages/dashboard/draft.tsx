@@ -2,6 +2,7 @@ import React from 'react'
 import DashboardLayout from 'components/Layout/DashboardLayout'
 import Article from 'components/Dashboard/Article'
 import useMe from 'components/useMe'
+import HeadTag from 'components/HeadTag'
 
 const DraftArticlesPage = () => {
 	let { data } = useMe()
@@ -9,6 +10,7 @@ const DraftArticlesPage = () => {
 
 	return (
 		<DashboardLayout>
+			<HeadTag title="সকল খসড়া ডায়েরি" />
 			{articles
 				?.filter((a) => !a.isPublished)
 				?.map((article) => (

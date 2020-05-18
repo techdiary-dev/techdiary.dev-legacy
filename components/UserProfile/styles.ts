@@ -58,6 +58,9 @@ export const StyledCol = styled(Column)<{ sidebar: boolean; main: boolean }>`
 
 export const StyledUserMetaData = styled.div`
 	font-size: 1.5rem;
+	a {
+		font-size: 1.5rem;
+	}
 	.infos {
 		display: flex;
 		flex-direction: column;

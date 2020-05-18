@@ -17,7 +17,7 @@ const UserProfile = ({ user }: Props) => {
 			<div className="body">
 				<Row>
 					<StyledCol md={3} sidebar>
-						<UserProfileMetaData />
+						<UserProfileMetaData user={user} />
 					</StyledCol>
 
 					<StyledCol md={6} main>
