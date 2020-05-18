@@ -8,6 +8,15 @@ import { StyledHomePage, StyledCol } from 'styles/StyledHomePage'
 import useMe from 'components/useMe'
 import UserCardWithArticles from 'components/UserCardWithArticles'
 import HeadTag from 'components/HeadTag'
+import styled from 'styled-components'
+
+const StyledBetaAlert = styled.div`
+	font-size: 2.2rem;
+	background: ${({ theme }) => theme.secondaryDark};
+	margin-bottom: 25px;
+	border-radius: 15px;
+	padding: 15px;
+`
 
 const index = () => {
 	let { data, loading, error } = useMe()
@@ -18,7 +27,9 @@ const index = () => {
 			<MainLayout>
 				<Row>
 					<StyledCol md={3} sidebar>
-						{/* <TagHighlights name="help" /> */}
+						<StyledBetaAlert>
+							টেক ডায়েরি বর্তমানে beta ভার্সন এ আছে
+						</StyledBetaAlert>
 					</StyledCol>
 
 					<StyledCol md={6} main>
