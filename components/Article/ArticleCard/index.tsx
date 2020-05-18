@@ -68,13 +68,13 @@ const ArticleCard: React.FC<Props> = ({
 				)}
 
 				<div className="excerpt">{excerpt}</div>
-				<div className="tags">
+				{/* <div className="tags">
 					{tags?.map((t, key) => (
 						<Link href={`/t/${t}`} key={key}>
 							<a>#{t}</a>
 						</Link>
 					))}
-				</div>
+				</div> */}
 				{/* <div className="footer">
 					<div className="state">
 						<ClockIcon />
