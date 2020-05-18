@@ -2,6 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import { DashboardArticle } from './styles'
 import { Card } from 'components/Card'
+import md from 'marked'
+import htmlSanitizer from 'sanitize-html'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
 import Link from 'next/link'
 import { useMutation } from '@apollo/react-hooks'
@@ -44,7 +46,9 @@ const Article: React.FC<Props> = ({
 					</Link>
 				</h4>
 				<span className="time">{moment(+createdAt).fromNow()}</span>
-				<p className="excerpt">{excerpt}</p>
+				<p className="excerpt">
+					{htmlSanitizer(md(excerpt), { allowedTags: [''] })}
+				</p>
 				<div className="actions">
 					<Link href="/edit/[_id]" as={`/edit/${_id}`}>
 						<FiEdit2 />

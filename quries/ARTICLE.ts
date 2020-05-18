@@ -103,6 +103,7 @@ export const ARTICLE_DETAILS = gql`
 					_id
 					title
 					slug
+					createdAt
 				}
 			}
 		}

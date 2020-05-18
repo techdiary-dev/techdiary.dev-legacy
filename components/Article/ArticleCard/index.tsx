@@ -2,9 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 // import bnnum from 'bnnum'
 import moment from 'moment'
-
+import md from 'marked'
+import purify from 'dompurify'
 import { ArticleCardStyle } from './styles'
 import { Card } from 'components/Card'
+import sanitizeHtml from 'sanitize-html'
 
 import UserAvater from 'components/UserAvater'
 // import ClockIcon from 'public/icons/clock.svg'
@@ -67,7 +69,9 @@ const ArticleCard: React.FC<Props> = ({
 					</div>
 				)}
 
-				<div className="excerpt">{excerpt}</div>
+				<div className="excerpt">
+					{sanitizeHtml(md(excerpt), { allowedTags: [''] })}
+				</div>
 				{/* <div className="tags">
 					{tags?.map((t, key) => (
 						<Link href={`/t/${t}`} key={key}>

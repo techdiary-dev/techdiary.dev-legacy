@@ -79,7 +79,7 @@ export const USER_PROFILE = gql`
 				link
 			}
 
-			articles {
+			articles(isPublished: true) {
 				_id
 				title
 				slug

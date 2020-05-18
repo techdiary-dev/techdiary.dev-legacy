@@ -33,6 +33,7 @@
 		"react-spinners": "^0.8.3",
 		"react-typed": "^1.2.0",
 		"reactjs-tab": "^1.0.4",
+		"sanitize-html": "^1.23.0",
 		"sass": "^1.26.5",
 		"styled-components": "^5.1.0",
 		"styled-grid-system-component": "^4.0.0",

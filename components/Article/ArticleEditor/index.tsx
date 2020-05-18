@@ -13,6 +13,7 @@ import Editor from 'components/Form/Editor'
 import { useMutation } from '@apollo/react-hooks'
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from 'quries/ARTICLE'
 import { useRouter } from 'next/dist/client/router'
+import { USER_PROFILE } from 'quries/AUTH'
 
 interface Props {
 	defaultValues?: object

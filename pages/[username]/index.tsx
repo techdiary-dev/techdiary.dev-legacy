@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import { USER_PROFILE } from 'quries/AUTH'
 import UserProfile from 'components/UserProfile'
+import UserProfileSkeleton from 'components/UserProfile/UserProfileSkeleton'
 import HeadTag from 'components/HeadTag'
 
 const ProfilePage = () => {
@@ -19,9 +20,7 @@ const ProfilePage = () => {
 	if (loading)
 		return (
 			<MainLayout>
-				<h1>
-					TODO: <mark>draw skeleton here...</mark>
-				</h1>
+				<UserProfileSkeleton />
 			</MainLayout>
 		)
 

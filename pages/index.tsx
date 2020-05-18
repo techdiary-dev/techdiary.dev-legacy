@@ -3,6 +3,7 @@ import MainLayout from 'components/Layout/MainLayout'
 import { Row } from 'styled-grid-system-component'
 // import TagHighlights from 'components/TagHighlights'
 import ArticleList from 'components/Article/ArticleList'
+import Skeleton from 'react-loading-skeleton'
 
 import { StyledHomePage, StyledCol } from 'styles/StyledHomePage'
 import useMe from 'components/useMe'
@@ -20,6 +21,37 @@ const StyledBetaAlert = styled.div`
 
 const index = () => {
 	let { data, loading, error } = useMe()
+
+	if (loading)
+		return (
+			<StyledHomePage>
+				<HeadTag
+					title="টেক ডায়েরি"
+					description="বাংলার প্রোগ্রামিং নেটওয়ার্ক"
+				/>
+				<MainLayout>
+					<Row>
+						<StyledCol md={3} sidebar>
+							<StyledBetaAlert>
+								টেক ডায়েরি বর্তমানে beta ভার্সন এ আছে
+							</StyledBetaAlert>
+						</StyledCol>
+
+						<StyledCol md={6} main>
+							<Skeleton height={250} />
+							<div style={{ height: 25 }} />
+							<Skeleton height={250} />
+							<div style={{ height: 25 }} />
+							<Skeleton height={250} />
+						</StyledCol>
+
+						<StyledCol md={3} sidebar>
+							<Skeleton height={320} />
+						</StyledCol>
+					</Row>
+				</MainLayout>
+			</StyledHomePage>
+		)
 
 	return (
 		<StyledHomePage>
