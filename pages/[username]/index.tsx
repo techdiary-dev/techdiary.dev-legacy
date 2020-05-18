@@ -1,8 +1,10 @@
 import React from 'react'
 import MainLayout from 'components/Layout/MainLayout'
+
 import { useQuery } from '@apollo/react-hooks'
 import { useRouter } from 'next/router'
 import { USER_PROFILE } from 'quries/AUTH'
+import UserProfile from 'components/UserProfile'
 
 const ProfilePage = () => {
 	let router = useRouter()
@@ -24,7 +26,7 @@ const ProfilePage = () => {
 
 	return (
 		<MainLayout>
-			<pre>{JSON.stringify(data, undefined, 4)}</pre>
+			<UserProfile user={data?.profile} />
 		</MainLayout>
 	)
 }

@@ -10,7 +10,7 @@ const dashboard: React.FC = () => {
 	return (
 		<DashboardLayout>
 			{articles?.map((article) => (
-				<Article {...article} key={article._id} />
+				<Article {...article} key={article._id} username={data?.username} />
 			))}
 		</DashboardLayout>
 	)

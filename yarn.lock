@@ -1198,7 +1198,7 @@
     "@emotion/utils" "0.11.3"
     "@emotion/weak-memoize" "0.2.5"
 
-"@emotion/core@^10.0.15", "@emotion/core@^10.0.27":
+"@emotion/core@^10.0.15", "@emotion/core@^10.0.22", "@emotion/core@^10.0.27":
   version "10.0.28"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.28.tgz#bb65af7262a234593a9e952c041d0f1c9b9bef3d"
   integrity sha512-pH8UueKYO5jgg0Iq+AmCLxBsvuGtvlmiDCOuv8fGNYn3cowFpLN98L8zO56U0H1PjDIyAlXymgL3Wu7u7v6hbA==
@@ -1424,6 +1424,13 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
+"@types/dompurify@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@types/dompurify/-/dompurify-2.0.2.tgz#94b5c05dc9b8a682a0abb4a8d6f0b82df61baeac"
+  integrity sha512-WHoQQTziRHm5/Fw/KsUKyh2V+wd3k2QUpJyjUXo8K7d9kMJ5i5wQnGDkO4URkwulhY2HuM/gbX25nSooi6+wUA==
+  dependencies:
+    "@types/trusted-types" "*"
+
 "@types/hoist-non-react-statics@*":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
@@ -1498,6 +1505,11 @@
     "@types/react" "*"
     "@types/react-native" "*"
     csstype "^2.2.0"
+
+"@types/trusted-types@*":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-1.0.4.tgz#922d092c84a776a59acb0bd6785fd82b59b9bad5"
+  integrity sha512-6jtHrHpmiXOXoJ31Cg9R+iEVwuEKPf0XHwFUI93eEPXx492/J2JHyafkleKE2EYzZprayk9FSjTyK1GDqcwDng==
 
 "@types/yup@^0.28.1":
   version "0.28.1"
@@ -3054,6 +3066,11 @@ domhandler@3.0.0, domhandler@^3.0.0:
   integrity sha512-eKLdI5v9m67kbXQbJSNn1zjh0SDzvzWVWtX+qEI3eMjZw8daH9k8rlj1FZY9memPwjiskQFbe7vHVVJIAqoEhw==
   dependencies:
     domelementtype "^2.0.1"
+
+dompurify@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.0.11.tgz#cd47935774230c5e478b183a572e726300b3891d"
+  integrity sha512-qVoGPjIW9IqxRij7klDQQ2j6nSe4UNWANBhZNLnsS7ScTtLb+3YdxkRY8brNTpkUiTtcXsCJO+jS0UCDfenLuA==
 
 domutils@2.0.0, domutils@^2.0.0:
   version "2.0.0"
@@ -5683,6 +5700,13 @@ react-is@16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
+
+react-loading-skeleton@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-2.0.1.tgz#113cde70b37f0c2064b190af2d8b5c00c2496eb5"
+  integrity sha512-TAbMLwBD7Cm3Wzp5os/TmlnR/KaqOh2U27vTKr0Mt8T9yHCnZELBSUvORDrulLewRsGnbtr4+2/U3GIsbrtJ4w==
+  dependencies:
+    "@emotion/core" "^10.0.22"
 
 react-markdown-editor-lite@^1.1.2:
   version "1.1.2"

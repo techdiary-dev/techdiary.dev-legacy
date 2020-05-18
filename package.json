@@ -13,6 +13,7 @@
 		"apollo-client": "2.6.8",
 		"apollo-link-http": "1.5.16",
 		"bnnum": "^1.0.6",
+		"dompurify": "^2.0.11",
 		"graphql": "^14.0.2",
 		"graphql-tag": "2.10.3",
 		"isomorphic-unfetch": "^3.0.0",
@@ -27,6 +28,7 @@
 		"react-hook-form": "^5.6.3",
 		"react-icons": "^3.10.0",
 		"react-infinite-scroll-component": "^5.0.4",
+		"react-loading-skeleton": "^2.0.1",
 		"react-markdown-editor-lite": "^1.1.2",
 		"react-spinners": "^0.8.3",
 		"react-typed": "^1.2.0",
@@ -40,6 +42,7 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@svgr/webpack": "^5.4.0",
+		"@types/dompurify": "^2.0.2",
 		"@types/next": "^9.0.0",
 		"@types/node": "^14.0.1",
 		"@types/nprogress": "^0.2.0",

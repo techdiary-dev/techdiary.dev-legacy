@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { DevTool } from 'react-hook-form-devtools'
+import { FiX } from 'react-icons/fi'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { useMutation } from '@apollo/react-hooks'
 import np from 'nprogress'
@@ -105,9 +106,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 
 	return (
 		<>
-			{/* {process.env.NODE_ENV !== 'production' && <DevTool control={control} />} */}
-			{/* <pre>{JSON.stringify(user, undefined, 4)}</pre> */}
-			<ProfilePhoto profilePic={user.profilePhoto} />
+			<ProfilePhoto profilePic={user?.profilePhoto} />
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Card>
 					<CardHeader>সাধারন তথ্যসমূহ</CardHeader>
@@ -202,8 +201,12 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 								/>
 							</Column>
 							<Column md={2}>
-								<Button size="round" onClick={() => removeLink(index)}>
-									x
+								<Button
+									size="round"
+									transparent
+									onClick={() => removeLink(index)}
+								>
+									<FiX />
 								</Button>
 							</Column>
 						</Row>

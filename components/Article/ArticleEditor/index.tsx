@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-
+import dp from 'dompurify'
 import { DevTool } from 'react-hook-form-devtools'
 import { useForm } from 'react-hook-form'
 import { Row, Column } from 'styled-grid-system-component'
@@ -56,6 +56,7 @@ const ArticleEditor = ({
 	})
 
 	useEffect(() => {
+		console.log(defaultValues)
 		reset(defaultValues)
 	}, [loading])
 
@@ -64,6 +65,7 @@ const ArticleEditor = ({
 	}, [register])
 
 	const onSubmit = (variables) => {
+		variables.body = dp.sanitize(variables.body, { FORBID_TAGS: ['style'] })
 		variables.tags = variables.tags.split(',')
 
 		if (Object.keys(defaultValues).length) {

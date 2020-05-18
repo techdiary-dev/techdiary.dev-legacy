@@ -24,15 +24,13 @@ export default class TechdiaryRoot extends Document {
 		return (
 			<html>
 				<Head>
-					<link
-						rel="stylesheet"
-						href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400;1,700&display=swap"
-					/>
 					{this.props.styleTags}
+					<link rel="stylesheet" href="/prism/prism.css" />
 				</Head>
 				<body>
 					<Main />
 					<NextScript />
+					<script src="/prism/prism.js"></script>
 				</body>
 			</html>
 		)

@@ -4,7 +4,7 @@ import np from 'nprogress'
 import { withApollo } from 'lib/apollo'
 import styled, { ThemeProvider } from 'styled-components'
 import { theme } from 'styles/variables'
-
+import moment from 'moment'
 import 'react-markdown-editor-lite/lib/index.css'
 import useMe from 'components/useMe'
 
@@ -14,6 +14,8 @@ Router.events.on('routeChangeStart', () => {
 Router.events.on('routeChangeComplete', () => {
 	np.done()
 })
+
+moment.locale('bn')
 
 let StyledServerError = styled.div`
 	width: 800px;

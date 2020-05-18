@@ -15,6 +15,7 @@ interface Props {
 	isPublished: boolean
 	slug: string
 	title: string
+	username: any
 }
 
 const Article: React.FC<Props> = ({
@@ -23,23 +24,27 @@ const Article: React.FC<Props> = ({
 	excerpt,
 	slug,
 	createdAt,
+	username,
 	isPublished
 }: Props) => {
-	let [deleteArticle, { loading }] = useMutation(DELETE_ARTICLE, {
+	let [deleteArticle] = useMutation(DELETE_ARTICLE, {
 		refetchQueries: [{ query: ARTICLE_LIST }, { query: ME }]
 	})
 
-	const handleDelete = (e) => {
+	const handleDelete = () => {
 		if (confirm('Sure to delete?')) deleteArticle({ variables: { _id } })
 	}
 
 	return (
 		<DashboardArticle isPublished={isPublished}>
 			<Card>
-				<h4 className="title">{title}</h4>
+				<h4 className="title">
+					<Link href={`/[username]/[articleSlug]`} as={`/${username}/${slug}`}>
+						{title}
+					</Link>
+				</h4>
 				<span className="time">{moment(+createdAt).fromNow()}</span>
 				<p className="excerpt">{excerpt}</p>
-
 				<div className="actions">
 					<Link href="/edit/[_id]" as={`/edit/${_id}`}>
 						<FiEdit2 />

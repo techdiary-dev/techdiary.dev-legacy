@@ -1,16 +1,16 @@
 import React from 'react'
 import Link from 'next/link'
-import bnnum from 'bnnum'
+// import bnnum from 'bnnum'
 import moment from 'moment'
 
 import { ArticleCardStyle } from './styles'
 import { Card } from 'components/Card'
 
 import UserAvater from 'components/UserAvater'
-import ClockIcon from 'public/icons/clock.svg'
-import HeartIcon from 'public/icons/heart.svg'
-import CommentIcon from 'public/icons/comment.svg'
-import BookmarkIcon from 'public/icons/bookmark.svg'
+// import ClockIcon from 'public/icons/clock.svg'
+// import HeartIcon from 'public/icons/heart.svg'
+// import CommentIcon from 'public/icons/comment.svg'
+// import BookmarkIcon from 'public/icons/bookmark.svg'
 // import BookmarkIcon from 'public/icons/bookmark.svg'
 
 interface Props {
@@ -40,16 +40,16 @@ const ArticleCard: React.FC<Props> = ({
 	return (
 		<ArticleCardStyle>
 			<Card>
-				<div className="floatingActions">
+				{/* <div className="floatingActions">
 					<BookmarkIcon />
-				</div>
+				</div> */}
 				<Link
 					href={`/[username]/[articleSlug]`}
 					as={`/${author?.username}/${slug}`}
 				>
 					<a className="title">{title}</a>
 				</Link>
-				<p className="time">{moment(+createdAt).fromNow()}</p>
+				<p className="time">{moment(+createdAt).format('LLLL')}</p>
 				<UserAvater
 					name={author?.name}
 					username={author?.username}
@@ -69,13 +69,13 @@ const ArticleCard: React.FC<Props> = ({
 
 				<div className="excerpt">{excerpt}</div>
 				<div className="tags">
-					{tags.map((t, key) => (
+					{tags?.map((t, key) => (
 						<Link href={`/t/${t}`} key={key}>
 							<a>#{t}</a>
 						</Link>
 					))}
 				</div>
-				<div className="footer">
+				{/* <div className="footer">
 					<div className="state">
 						<ClockIcon />
 						{bnnum(7)} মিনিট
@@ -90,7 +90,7 @@ const ArticleCard: React.FC<Props> = ({
 							{bnnum(16)}
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</Card>
 		</ArticleCardStyle>
 	)
