@@ -41,7 +41,7 @@ const UserCardWithArticles: React.FC<Props> = ({ user }: Props) => {
 								<a className="article__title">{article?.title}</a>
 							</Link>
 							<p className="article__time">
-								{moment(article?.createdAt).format('LLLL')}
+								{moment(+article?.createdAt).format('LLLL')}
 							</p>
 						</article>
 					))}
