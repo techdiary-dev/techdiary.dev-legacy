@@ -13,6 +13,7 @@
 		"apollo-client": "2.6.8",
 		"apollo-link-http": "1.5.16",
 		"bnnum": "^1.0.6",
+		"disqus-react": "^1.0.8",
 		"dompurify": "^2.0.11",
 		"graphql": "^14.0.2",
 		"graphql-tag": "2.10.3",

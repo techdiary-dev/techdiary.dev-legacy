@@ -2,10 +2,12 @@ import React from 'react'
 import { Row, Column } from 'styled-grid-system-component'
 import md from 'marked'
 import moment from 'moment'
+import Disqus from 'disqus-react'
 import { StyledArticleDetails } from './styles'
 import { Card } from 'components/Card'
 import UserCardWithArticles from 'components/UserCardWithArticles'
 import ArticleDetailsSkeleton from './ArticleDetailsSkeleton'
+import { useRouter } from 'next/router'
 
 interface Props {
 	article: any
@@ -13,6 +15,7 @@ interface Props {
 }
 
 const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
+	let router = useRouter()
 	if (loading) return <ArticleDetailsSkeleton />
 
 	return (
@@ -38,6 +41,14 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 							dangerouslySetInnerHTML={{ __html: md(article?.body) }}
 						/>
 					</Card>
+					<Disqus.DiscussionEmbed
+						shortname="techdiary-2"
+						config={{
+							title: article?.title,
+							url: 'https://www.techdiary.dev' + router.asPath,
+							identifier: article?._id
+						}}
+					/>
 				</Column>
 				<Column md={3}>
 					<UserCardWithArticles user={article?.author} />
