@@ -12,9 +12,11 @@ const OAuthRedirect = () => {
 	})
 
 	useEffect(() => {
-		login({ variables: { code: router.query?.code } }).then(() => {
-			router.push('/')
-		})
+		login({ variables: { code: router.query?.code } })
+			.then(() => {
+				router.push('/')
+			})
+			.catch((e) => console.log(e.message))
 	}, [])
 
 	return (

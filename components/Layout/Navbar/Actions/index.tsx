@@ -1,4 +1,5 @@
 import React from 'react'
+import 'react-tooltip'
 import {
 	FiSettings,
 	FiBookOpen,
@@ -15,6 +16,7 @@ import { useMutation } from '@apollo/react-hooks'
 
 import { StyledActions } from './styles'
 import UserAvater from 'components/UserAvater'
+import ReactTooltip from 'react-tooltip'
 
 const Actions: React.FC = () => {
 	let { data, error, refetch, loading } = useMe()
@@ -35,21 +37,39 @@ const Actions: React.FC = () => {
 			<>
 				<StyledActions>
 					<Link href="/dashboard/update-profile">
-						<FiSettings />
+						<a data-tip data-for="settings">
+							<FiSettings />
+						</a>
 					</Link>
 					<Link href="/dashboard">
-						<FiBookOpen />
+						<a data-tip data-for="dashboard">
+							<FiBookOpen />
+						</a>
 					</Link>
 					<Link href="/new">
-						<FiPlus />
+						<a data-tip data-for="new">
+							<FiPlus />
+						</a>
 					</Link>
-					<FiLogOut onClick={handleLogout} />
+					<FiLogOut data-tip data-for="logout" onClick={handleLogout} />
 				</StyledActions>
 				<UserAvater
 					name={data?.name}
 					username={data?.username}
 					profilePhoto={data?.profilePhoto}
 				/>
+				<ReactTooltip id="logout" aria-haspopup="true">
+					লগআউট
+				</ReactTooltip>
+				<ReactTooltip id="dashboard" aria-haspopup="true">
+					আপনার ড্যাসবোর্ড
+				</ReactTooltip>
+				<ReactTooltip id="settings" aria-haspopup="true">
+					আপনার প্রোফাইল হালনাগাদ করুন
+				</ReactTooltip>
+				<ReactTooltip id="new" aria-haspopup="true">
+					নতুন ডায়েরি লিখুন
+				</ReactTooltip>
 			</>
 		)
 	else

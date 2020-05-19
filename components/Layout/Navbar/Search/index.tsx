@@ -1,7 +1,8 @@
 import React from 'react'
 import Typed from 'react-typed'
 import { StyledSearch } from './styles'
-import SearchIcon from 'public/icons/search.svg'
+import { FiSearch } from 'react-icons/fi'
+// import SearchIcon from 'public/icons/search.svg'
 
 const Search: React.FC = () => {
 	return (
@@ -15,7 +16,7 @@ const Search: React.FC = () => {
 			>
 				<input type="text" />
 			</Typed>
-			<SearchIcon />
+			<FiSearch className="search-icon" />
 		</StyledSearch>
 	)
 }

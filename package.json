@@ -31,6 +31,7 @@
 		"react-loading-skeleton": "^2.0.1",
 		"react-markdown-editor-lite": "^1.1.2",
 		"react-spinners": "^0.8.3",
+		"react-tooltip": "^4.2.6",
 		"react-typed": "^1.2.0",
 		"reactjs-tab": "^1.0.4",
 		"sanitize-html": "^1.23.0",

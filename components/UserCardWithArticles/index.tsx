@@ -46,7 +46,7 @@ const UserCardWithArticles: React.FC<Props> = ({ user }: Props) => {
 						</article>
 					))}
 				</div>
-				<Link href={`/${user?.username}`}>
+				<Link href="/[username]" as={`/${user?.username}`}>
 					<a className="link">সকল ডাইরি</a>
 				</Link>
 			</StyledUserCardWithArticles>
