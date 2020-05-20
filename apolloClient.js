@@ -15,6 +15,5 @@ export default function createApolloClient(initialState, ctx) {
 		}),
 		cache: new InMemoryCache().restore(initialState),
 		connectToDevTools: process.env.NODE_ENV !== 'production'
-		// ssrForceFetchDelay: 200
 	})
 }
