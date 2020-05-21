@@ -11,25 +11,29 @@ const httpLink = new HttpLink({
   credentials: "include", // Additional fetch() options like `credentials` or `headers`
   fetch,
 });
-const wsLink = new WebSocketLink({
-  uri: `ws://localhost:5000/`,
-  options: {
-    reconnect: true,
-  },
-});
+const wsLink = process.browser
+  ? new WebSocketLink({
+      uri: `ws://localhost:5000/`,
+      options: {
+        reconnect: true,
+      },
+    })
+  : null;
 
-const link = split(
-  // split based on operation type
-  ({ query }) => {
-    const definition = getMainDefinition(query);
-    return (
-      definition.kind === "OperationDefinition" &&
-      definition.operation === "subscription"
-    );
-  },
-  wsLink,
-  httpLink
-);
+const link = process.browser
+  ? split(
+      // split based on operation type
+      ({ query }) => {
+        const definition = getMainDefinition(query);
+        return (
+          definition.kind === "OperationDefinition" &&
+          definition.operation === "subscription"
+        );
+      },
+      wsLink,
+      httpLink
+    )
+  : httpLink;
 
 export default function createApolloClient(initialState, ctx) {
   return new ApolloClient({
