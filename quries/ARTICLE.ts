@@ -109,3 +109,13 @@ export const ARTICLE_DETAILS = gql`
 		}
 	}
 `
+
+export const NEW_DIARY_ARRIAVED_NOTIFICATION = gql`
+	subscription NEW_DIARY_ARRIAVED_NOTIFICATION {
+		newArticle {
+			articleTitle
+			authorName
+			articleUrl
+		}
+	}
+`

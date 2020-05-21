@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { SyncLoader } from 'react-spinners'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Container } from './styles'
-import { ARTICLE_LIST } from 'quries/ARTICLE'
+import { ARTICLE_LIST, NEW_DIARY_ARRIAVED_NOTIFICATION } from 'quries/ARTICLE'
 import ArticleCard from '../ArticleCard'
 import styled from 'styled-components'
 
@@ -20,6 +20,12 @@ const ArticleList: React.FC = () => {
 		variables: { page: 1 },
 		fetchPolicy: 'cache-and-network'
 	})
+
+	let { data: newDiaryNotification } = useSubscription(
+		NEW_DIARY_ARRIAVED_NOTIFICATION
+	)
+
+	console.log(newDiaryNotification)
 
 	const handleFetch = () => {
 		fetchMore({
