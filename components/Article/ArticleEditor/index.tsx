@@ -10,7 +10,6 @@ import Input from "components/Form/Input";
 import Button from "components/Form/Button";
 import Checkbox from "components/Form/Checkbox";
 import Editor from "components/Form/Editor";
-import { MarkdownEditor } from "components/Form/markdownEditor";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
 import { useRouter } from "next/dist/client/router";
@@ -27,7 +26,6 @@ const ArticleEditor = ({
   _id,
   loading,
 }: Props): JSX.Element => {
-  const [preview, setPreview] = useState(false);
   let [createArticle, mOptions] = useMutation(CREATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
@@ -133,16 +131,13 @@ const ArticleEditor = ({
             </Card>
           </Column>
           <Column md={9}>
-            {/*<Editor
-							onChange={(body) => setValue('body', body)}
-							style={{ height: 500 }}
-							hasError={errors?.body}
-							helperText={errors?.body?.message}
-							value={getValues('body')}
-            />*/}
-            <Button onClick={(e) => setPreview(!preview)}>Preview</Button>
-
-            <MarkdownEditor preview={preview} />
+            <Editor
+              onChange={(body) => setValue("body", body)}
+              style={{ height: 500 }}
+              hasError={errors?.body}
+              helperText={errors?.body?.message}
+              value={getValues("body")}
+            />
           </Column>
         </Row>
       </form>
