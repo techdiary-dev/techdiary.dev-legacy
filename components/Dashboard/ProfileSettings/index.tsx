@@ -31,8 +31,8 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 		name: yup.string().required('Required'),
 		education: yup.string(),
 		designation: yup.string(),
-		location: yup.string().required('Required'),
-		bio: yup.string().required('Required'),
+		location: yup.string(),
+		bio: yup.string(),
 		// workInfo: yup.string().required('Required'),
 		// skills: yup.string().required('Required'),
 		links: yup.array().of(
@@ -87,13 +87,10 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
 		name: 'links'
 	})
 
-	console.log(errors)
-
 	const onSubmit = (variables) => {
-		// if (variables.skills)
-		// 	variables.skills = variables.skills.map((s) => s.value)
-
-		console.log(variables.skills)
+		if (!variables.skills) variables.skills = []
+		if (!variables.links) variables.links = []
+		if (!variables.workInfo) variables.workInfo = []
 
 		updateProfile({ variables }).then(() => {
 			sweetAlert(

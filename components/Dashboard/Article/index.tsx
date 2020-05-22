@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { DashboardArticle } from './styles'
 import { Card } from 'components/Card'
-import md from 'marked'
+import ReactMarkdown from 'react-markdown'
 import htmlSanitizer from 'sanitize-html'
 import { FiEdit2, FiTrash } from 'react-icons/fi'
 import Link from 'next/link'
@@ -42,16 +42,16 @@ const Article: React.FC<Props> = ({
 			<Card>
 				<h4 className="title">
 					<Link href={`/[username]/[articleSlug]`} as={`/${username}/${slug}`}>
-						{title}
+						<a>{title}</a>
 					</Link>
 				</h4>
 				<span className="time">{moment(+createdAt).fromNow()}</span>
-				<p className="excerpt">
-					{htmlSanitizer(md(excerpt), { allowedTags: [''] })}
-				</p>
+				<ReactMarkdown source={excerpt} className="excerpt" />
 				<div className="actions">
 					<Link href="/edit/[_id]" as={`/edit/${_id}`}>
-						<FiEdit2 />
+						<a>
+							<FiEdit2 />
+						</a>
 					</Link>
 					<FiTrash onClick={handleDelete} />
 				</div>

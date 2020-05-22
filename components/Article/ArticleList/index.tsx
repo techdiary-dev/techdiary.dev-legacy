@@ -3,7 +3,7 @@ import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { SyncLoader } from 'react-spinners'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Container } from './styles'
-import { ARTICLE_LIST, NEW_DIARY_ARRIAVED_NOTIFICATION } from 'quries/ARTICLE'
+import { ARTICLE_LIST } from 'quries/ARTICLE'
 import ArticleCard from '../ArticleCard'
 import styled from 'styled-components'
 
@@ -20,12 +20,6 @@ const ArticleList: React.FC = () => {
 		variables: { page: 1 },
 		fetchPolicy: 'cache-and-network'
 	})
-
-	let { data: newDiaryNotification } = useSubscription(
-		NEW_DIARY_ARRIAVED_NOTIFICATION
-	)
-
-	console.log(newDiaryNotification)
 
 	const handleFetch = () => {
 		fetchMore({
@@ -46,13 +40,6 @@ const ArticleList: React.FC = () => {
 		})
 	}
 
-	// if (loading)
-	// 	return (
-	// 		<Container>
-	// 			<h2>TODO: Skeleton</h2>
-	// 		</Container>
-	// 	)
-
 	return (
 		<Container>
 			<InfiniteScroll
@@ -66,7 +53,7 @@ const ArticleList: React.FC = () => {
 				}
 			>
 				{data?.articles?.data.map((article) => (
-					<ArticleCard {...article} key={article._id} />
+					<ArticleCard {...article} key={article.slug} />
 				))}
 			</InfiniteScroll>
 		</Container>

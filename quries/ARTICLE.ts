@@ -17,9 +17,7 @@ export const CREATE_ARTICLE = gql`
 				thumbnail: $thumbnail
 			}
 		) {
-			_id
 			title
-			tags
 		}
 	}
 `
@@ -27,7 +25,7 @@ export const CREATE_ARTICLE = gql`
 export const DELETE_ARTICLE = gql`
 	mutation DELETE_ARTICLE($_id: ID!) {
 		deleteArticle(_id: $_id) {
-			_id
+			title
 		}
 	}
 `
@@ -51,10 +49,7 @@ export const UPDATE_ARTICLE = gql`
 				thumbnail: $thumbnail
 			}
 		) {
-			_id
 			title
-			tags
-			isPublished
 		}
 	}
 `
@@ -66,7 +61,6 @@ export const ARTICLE_LIST = gql`
 			pageCount
 			currentPage
 			data {
-				_id
 				title
 				excerpt
 				slug
@@ -74,6 +68,7 @@ export const ARTICLE_LIST = gql`
 				tags
 				createdAt
 				updatedAt
+				isPublished
 				author {
 					name
 					username
@@ -87,7 +82,6 @@ export const ARTICLE_LIST = gql`
 export const ARTICLE_DETAILS = gql`
 	query ARTICLE_DETAILS($slug: String, $_id: ID) {
 		article(idOrSlug: { slug: $slug, _id: $_id }) {
-			_id
 			title
 			thumbnail
 			body
@@ -99,11 +93,13 @@ export const ARTICLE_DETAILS = gql`
 				profilePhoto
 				name
 				username
-				articles {
-					_id
-					title
-					slug
-					createdAt
+				articles(pagination: { limit: 5 }) {
+					data {
+						_id
+						title
+						slug
+						createdAt
+					}
 				}
 			}
 		}

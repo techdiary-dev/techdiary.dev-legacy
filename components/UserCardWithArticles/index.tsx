@@ -10,13 +10,15 @@ interface Props {
 		name: string
 		username: string
 		profilePhoto: string
-		articles: [
-			{
-				title: string
-				slug: string
-				createdAt: string
-			}
-		]
+		articles: {
+			data: [
+				{
+					title: string
+					slug: string
+					createdAt: string
+				}
+			]
+		}
 	}
 }
 
@@ -32,7 +34,7 @@ const UserCardWithArticles: React.FC<Props> = ({ user }: Props) => {
 				/>
 				<h4 className="heading">আমার সাম্প্রতিক ডাইরি সমূহ</h4>
 				<div className="articles">
-					{user?.articles?.map((article, key) => (
+					{user?.articles?.data?.map((article, key) => (
 						<article className="article" key={key}>
 							<Link
 								href={`/[username]/[articleSlug]`}
