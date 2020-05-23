@@ -7,38 +7,38 @@ import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_API, // Server URL (must be absolute)
-  credentials: "include", // Additional fetch() options like `credentials` or `headers`
+  uri: process.env.NEXT_PUBLIC_API,
+  credentials: "include",
   fetch,
 });
-const wsLink = process.browser
-  ? new WebSocketLink({
-      uri: `ws://localhost:5000/`,
-      options: {
-        reconnect: true,
-      },
-    })
-  : null;
+// const wsLink = process.browser
+// 	? new WebSocketLink({
+// 			uri: `ws://localhost:5000/`,
+// 			options: {
+// 				reconnect: true
+// 			}
+// 	  })
+// 	: null
 
-const link = process.browser
-  ? split(
-      // split based on operation type
-      ({ query }) => {
-        const definition = getMainDefinition(query);
-        return (
-          definition.kind === "OperationDefinition" &&
-          definition.operation === "subscription"
-        );
-      },
-      wsLink,
-      httpLink
-    )
-  : httpLink;
+// const link = process.browser
+// 	? split(
+// 			// split based on operation type
+// 			({ query }) => {
+// 				const definition = getMainDefinition(query)
+// 				return (
+// 					definition.kind === 'OperationDefinition' &&
+// 					definition.operation === 'subscription'
+// 				)
+// 			},
+// 			wsLink,
+// 			httpLink
+// 	  )
+// 	: httpLink
 
 export default function createApolloClient(initialState, ctx) {
   return new ApolloClient({
     ssrMode: Boolean(ctx),
-    link,
+    link: httpLink,
     cache: new InMemoryCache().restore(initialState),
     connectToDevTools: process.env.NODE_ENV !== "production",
   });

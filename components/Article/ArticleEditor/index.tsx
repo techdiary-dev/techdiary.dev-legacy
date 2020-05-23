@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import dp from "dompurify";
 import { DevTool } from "react-hook-form-devtools";
 import { useForm } from "react-hook-form";
 import { Row, Column } from "styled-grid-system-component";
@@ -12,8 +11,8 @@ import Checkbox from "components/Form/Checkbox";
 import Editor from "components/Form/Editor";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
-import { useRouter } from "next/dist/client/router";
-import { USER_PROFILE } from "quries/AUTH";
+import { useRouter } from "next/router";
+import Prism from "prismjs";
 
 interface Props {
   defaultValues?: object;
@@ -26,6 +25,7 @@ const ArticleEditor = ({
   _id,
   loading,
 }: Props): JSX.Element => {
+  const [preview, setPreview] = useState(false);
   let [createArticle, mOptions] = useMutation(CREATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
@@ -57,7 +57,6 @@ const ArticleEditor = ({
   });
 
   useEffect(() => {
-    console.log(defaultValues);
     reset(defaultValues);
   }, [loading]);
 
@@ -66,7 +65,6 @@ const ArticleEditor = ({
   }, [register]);
 
   const onSubmit = (variables) => {
-    variables.body = dp.sanitize(variables.body, { FORBID_TAGS: ["style"] });
     variables.tags = variables.tags.split(",");
 
     if (Object.keys(defaultValues).length) {
@@ -138,6 +136,8 @@ const ArticleEditor = ({
               helperText={errors?.body?.message}
               value={getValues("body")}
             />
+
+            {/* <MarkdownEditor preview={preview} /> */}
           </Column>
         </Row>
       </form>

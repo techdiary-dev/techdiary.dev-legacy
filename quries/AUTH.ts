@@ -15,7 +15,7 @@ export const LOGOUT = gql`
 `
 
 export const ME = gql`
-	query ME_QUERY {
+	query ME_QUERY($articlePage: Int = 1) {
 		me {
 			_id
 			name
@@ -39,23 +39,33 @@ export const ME = gql`
 				link
 			}
 
-			articles {
-				_id
-				title
-				excerpt
-				slug
-				thumbnail
-				isPublished
-				tags
-				createdAt
-				updatedAt
+			articles(pagination: { limit: 5, page: $articlePage }) {
+				resourceCount
+				pageCount
+				currentPage
+				data {
+					_id
+					title
+					excerpt
+					slug
+					thumbnail
+					tags
+					isPublished
+					createdAt
+					updatedAt
+					author {
+						name
+						username
+						profilePhoto
+					}
+				}
 			}
 		}
 	}
 `
 
 export const USER_PROFILE = gql`
-	query USER_PROFILE($username: String!) {
+	query USER_PROFILE($username: String!, $articlePage: Int = 1) {
 		profile(username: $username) {
 			_id
 			name
@@ -79,18 +89,25 @@ export const USER_PROFILE = gql`
 				link
 			}
 
-			articles(isPublished: true) {
-				_id
-				title
-				slug
-				excerpt
-				thumbnail
-				createdAt
-				isPublished
-				author {
-					name
-					username
-					profilePhoto
+			articles(pagination: { limit: 5, page: $articlePage }) {
+				resourceCount
+				pageCount
+				currentPage
+				data {
+					_id
+					title
+					excerpt
+					slug
+					thumbnail
+					tags
+					createdAt
+					updatedAt
+					isPublished
+					author {
+						name
+						username
+						profilePhoto
+					}
 				}
 			}
 		}

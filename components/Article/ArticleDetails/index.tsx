@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Column } from 'styled-grid-system-component'
-import md from 'marked'
+import ReactMarkdown from 'react-markdown'
 import moment from 'moment'
 import Disqus from 'disqus-react'
 import { StyledArticleDetails } from './styles'
@@ -36,10 +36,9 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 					</div>
 
 					<Card>
-						<div
-							className="article-content"
-							dangerouslySetInnerHTML={{ __html: md(article?.body) }}
-						/>
+						<div className="article-content">
+							<ReactMarkdown source={article?.body} />
+						</div>
 					</Card>
 					<Disqus.DiscussionEmbed
 						shortname="techdiary-2"
