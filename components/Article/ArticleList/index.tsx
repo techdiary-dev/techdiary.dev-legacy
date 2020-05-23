@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useQuery } from '@apollo/react-hooks'
+import { useQuery, useSubscription } from '@apollo/react-hooks'
 import { SyncLoader } from 'react-spinners'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Container } from './styles'
@@ -40,13 +40,6 @@ const ArticleList: React.FC = () => {
 		})
 	}
 
-	// if (loading)
-	// 	return (
-	// 		<Container>
-	// 			<h2>TODO: Skeleton</h2>
-	// 		</Container>
-	// 	)
-
 	return (
 		<Container>
 			<InfiniteScroll
@@ -60,7 +53,7 @@ const ArticleList: React.FC = () => {
 				}
 			>
 				{data?.articles?.data.map((article) => (
-					<ArticleCard {...article} key={article._id} />
+					<ArticleCard {...article} key={article.slug} />
 				))}
 			</InfiniteScroll>
 		</Container>

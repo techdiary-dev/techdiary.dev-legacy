@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import FileUploader from 'components/Form/FileUploader'
 
 import dynamic from 'next/dynamic'
-import marked from 'marked'
+import ReactMarkdown from 'react-markdown'
 
 import {
 	// StyledEditorContainer,
@@ -61,9 +61,9 @@ const Editor: FC<Props> = ({
 				style={style}
 				config={{ view: { html: false, menu: true, md: true } }}
 				onImageUpload={handleImageUpload}
-				renderHTML={(text) => {
-					onChange(text ?? '')
-					return marked(text)
+				renderHTML={(markdownCodes) => {
+					onChange(markdownCodes ?? '')
+					return <ReactMarkdown source={markdownCodes} />
 				}}
 			/>
 

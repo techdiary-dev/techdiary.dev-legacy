@@ -16,7 +16,7 @@ const OAuthRedirect = () => {
 			.then(() => {
 				router.push('/')
 			})
-			.catch((e) => console.log(e.message))
+			.catch((e) => console.error(e.message))
 	}, [])
 
 	return (
