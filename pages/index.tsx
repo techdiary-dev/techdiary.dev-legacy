@@ -68,7 +68,7 @@ const index = () => {
 				<Row>
 					<StyledCol md={3} sidebar>
 						<StyledBetaAlert>
-							<FiInfo /> বেটা ভার্সন <br /> <span>0.2.1</span>
+							<FiInfo /> বেটা ভার্সন <br /> <span>0.2.2</span>
 						</StyledBetaAlert>
 					</StyledCol>
 
