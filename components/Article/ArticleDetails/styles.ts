@@ -38,6 +38,10 @@ export const StyledArticleDetails = styled.div`
 			}
 		}
 
+		img {
+			max-width: 100%;
+		}
+
 		/* Table */
 		table {
 			width: 100%;
