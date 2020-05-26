@@ -1,0 +1,6 @@
+.custom-html-style pre code {
+  background-color: none !important;
+}
+pre.highlight-pre-tag {
+  border-radius: 5px;
+}

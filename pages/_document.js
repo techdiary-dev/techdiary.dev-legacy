@@ -30,7 +30,6 @@ export default class TechdiaryRoot extends Document {
             href="/logos/favicon.svg"
             type="image/x-icon"
           />
-          <link rel="stylesheet" href="/prism/prism.css" />
           <link
             href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
             rel="stylesheet"
