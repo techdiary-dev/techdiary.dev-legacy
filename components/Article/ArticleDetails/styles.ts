@@ -23,7 +23,7 @@ export const StyledArticleDetails = styled.div`
 
 		code.language-text {
 			background-color: rgb(45, 43, 87);
-			color: rgba(227, 223, 255, 0.3);
+			color: rgb(227, 223, 255);
 			padding: 5px 6px;
 			border-radius: 5px;
 		}
