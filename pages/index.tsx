@@ -6,7 +6,7 @@ import ArticleList from 'components/Article/ArticleList'
 import Skeleton from 'react-loading-skeleton'
 import { FiInfo } from 'react-icons/fi'
 
-import { StyledHomePage, StyledCol } from 'styles/StyledHomePage'
+import { StyledCol } from 'styles/StyledGrid'
 import useMe from 'components/useMe'
 import UserCardWithArticles from 'components/UserCardWithArticles'
 import HeadTag from 'components/HeadTag'
@@ -38,42 +38,14 @@ interface Props {
 const index: NextPage<Props> = (props) => {
 	let { data, loading, error } = useMe()
 
-	// if (loading)
-	// 	return (
-	// 		<StyledHomePage>
-	// 			<HeadTag title="নীড়" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
-	// 			<MainLayout>
-	// 				<Row>
-	// 					<StyledCol md={3} sidebar>
-	// 						<StyledBetaAlert>
-	// 							<FiInfo /> বেটা ভার্সন <br /> <span>0.0.2-beta</span>
-	// 						</StyledBetaAlert>
-	// 					</StyledCol>
-
-	// 					<StyledCol md={6} main>
-	// 						<Skeleton height={250} />
-	// 						<div style={{ height: 25 }} />
-	// 						<Skeleton height={250} />
-	// 						<div style={{ height: 25 }} />
-	// 						<Skeleton height={250} />
-	// 					</StyledCol>
-
-	// 					<StyledCol md={3} sidebar>
-	// 						<Skeleton height={320} />
-	// 					</StyledCol>
-	// 				</Row>
-	// 			</MainLayout>
-	// 		</StyledHomePage>
-	// 	)
-
 	return (
-		<StyledHomePage>
+		<div>
 			<HeadTag title="টেক ডায়েরি" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
 			<MainLayout>
 				<Row>
 					<StyledCol md={3} sidebar>
 						<StyledBetaAlert>
-							<FiInfo /> বেটা ভার্সন <br /> <span>0.3.4</span>
+							<FiInfo /> বেটা ভার্সন <br /> <span>0.3.0</span>
 						</StyledBetaAlert>
 					</StyledCol>
 
@@ -90,7 +62,7 @@ const index: NextPage<Props> = (props) => {
 					</StyledCol>
 				</Row>
 			</MainLayout>
-		</StyledHomePage>
+		</div>
 	)
 }
 export default index
