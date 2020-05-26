@@ -40,7 +40,12 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
             <div className="article-content">
               <ReactMarkdown
                 source={article?.body}
-                renderers={{ code: Highlighter }}
+                renderers={{
+                  code: Highlighter,
+                  inlineCode: ({ value }) => (
+                    <code className="language-text">{value}</code>
+                  ),
+                }}
                 linkTarget="_blank"
                 className="markdown"
               />

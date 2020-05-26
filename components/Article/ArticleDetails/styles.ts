@@ -15,6 +15,17 @@ export const StyledArticleDetails = styled.div`
       line-height: 3rem;
       font-size: 1.8rem;
     }
+    pre,
+    code {
+      font-family: "Fira Mono";
+    }
+
+    code.language-text {
+      background-color: rgb(45, 43, 87);
+      color: rgb(227, 223, 255);
+      padding: 5px 6px;
+      border-radius: 5px;
+    }
   }
 
   .meta {
