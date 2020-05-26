@@ -41,6 +41,8 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
               <ReactMarkdown
                 source={article?.body}
                 renderers={{ code: Highlighter }}
+                linkTarget="_blank"
+                className="markdown"
               />
             </div>
           </Card>
