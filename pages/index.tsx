@@ -11,6 +11,7 @@ import useMe from "components/useMe";
 import UserCardWithArticles from "components/UserCardWithArticles";
 import HeadTag from "components/HeadTag";
 import styled from "styled-components";
+import { NextPage } from "next";
 
 const StyledBetaAlert = styled.div`
   font-size: 2.2rem;
@@ -30,7 +31,11 @@ const StyledBetaAlert = styled.div`
   }
 `;
 
-const index = (props) => {
+interface Props {
+  version?: string;
+}
+
+const index: NextPage<Props> = (props) => {
   let { data, loading, error } = useMe();
 
   // if (loading)
@@ -89,7 +94,7 @@ const index = (props) => {
   );
 };
 
-index.getInitialProps = () => {
+index.getInitialProps = async () => {
   const version = process.env.npm_package_version;
   return { version };
 };
