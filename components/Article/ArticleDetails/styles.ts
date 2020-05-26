@@ -1,64 +1,83 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledArticleDetails = styled.div`
-	.thumbnail {
-		width: 100%;
-		img {
-			max-width: 100%;
-			height: auto;
-		}
-	}
+  .thumbnail {
+    width: 100%;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .markdown {
+    line-height: 4rem;
+    font-size: 2.2rem;
+    @media all and (max-width: 750px) {
+      line-height: 3rem;
+      font-size: 1.8rem;
+    }
+    pre,
+    code {
+      font-family: "Fira Mono";
+    }
 
-	.meta {
-		padding: 1.8rem 0;
-		&__title {
-			font-size: 2.5rem;
-		}
-		&__time {
-			font-size: 1.6rem;
-			color: ${({ theme }) => theme.darkGrey};
-			margin: 0;
-		}
-	}
+    code.language-text {
+      background-color: rgb(45, 43, 87);
+      color: rgb(227, 223, 255);
+      padding: 5px 6px;
+      border-radius: 5px;
+    }
+  }
 
-	.article-content {
-		font-size: 1.8rem;
+  .meta {
+    padding: 1.8rem 0;
+    &__title {
+      font-size: 2.5rem;
+    }
+    &__time {
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme.darkGrey};
+      margin: 0;
+    }
+  }
 
-		/* Links */
-		a {
-			color: ${({ theme }) => theme.dark};
-			border-bottom: 1px dashed ${({ theme }) => theme.primary};
+  .article-content {
+    font-size: 1.8rem;
 
-			position: relative;
-			&::after {
-				content: url('/icons/external-link-sm.svg');
-				height: 15px;
-				width: 15px;
-				margin-left: 5px;
-			}
-		}
+    /* Links */
+    a {
+      color: ${({ theme }) => theme.dark};
+      border-bottom: 1px dashed ${({ theme }) => theme.primary};
 
-		img {
-			max-width: 100%;
-		}
+      position: relative;
+      &::after {
+        content: url("/icons/external-link-sm.svg");
+        height: 15px;
+        width: 15px;
+        margin-left: 5px;
+      }
+    }
 
-		/* Table */
-		table {
-			width: 100%;
-			td,
-			th {
-				border: 1px solid ${({ theme }) => theme.lightGrey};
-				padding: 10px;
-			}
-		}
+    img {
+      max-width: 100%;
+    }
 
-		/* Blockquote */
-		blockquote {
-			margin-left: 0;
-			p {
-				border-left: 3px solid ${({ theme }) => theme.primary};
-				padding-left: 15px;
-			}
-		}
-	}
-`
+    /* Table */
+    table {
+      width: 100%;
+      td,
+      th {
+        border: 1px solid ${({ theme }) => theme.lightGrey};
+        padding: 10px;
+      }
+    }
+
+    /* Blockquote */
+    blockquote {
+      margin-left: 0;
+      p {
+        border-left: 3px solid ${({ theme }) => theme.primary};
+        padding-left: 15px;
+      }
+    }
+  }
+`;

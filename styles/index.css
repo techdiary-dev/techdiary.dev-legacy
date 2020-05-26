@@ -1,0 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
+.custom-html-style pre code {
+  background-color: none !important;
+}
+pre.highlight-pre-tag {
+  border-radius: 5px;
+}
