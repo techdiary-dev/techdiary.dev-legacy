@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 export const ArticleCardStyle = styled.div`
-	margin-bottom: 25px;
 	position: relative;
 	padding: 2px;
 	.floatingActions {

@@ -15,6 +15,8 @@ export const StyledFileUploader = styled.div`
 			top: 8px;
 			display: inline-block;
 			cursor: pointer;
+			width: 25px;
+			height: 25px;
 		}
 	}
 

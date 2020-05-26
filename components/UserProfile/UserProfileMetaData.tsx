@@ -5,7 +5,8 @@ import {
 	FiExternalLink,
 	FiGithub
 } from 'react-icons/fi'
-import EducationIcon from 'public/icons/education.svg'
+import { GoMortarBoard } from 'react-icons/go'
+// import EducationIcon from 'public/icons/education.svg'
 import { StyledUserMetaData } from './styles'
 
 interface Props {
@@ -36,7 +37,7 @@ const UserProfileMetaData = ({ user }: Props) => {
 				)}
 				{user?.education && (
 					<div className="infos__info">
-						<EducationIcon /> <span>{user?.education}</span>
+						<GoMortarBoard /> <span>{user?.education}</span>
 					</div>
 				)}
 

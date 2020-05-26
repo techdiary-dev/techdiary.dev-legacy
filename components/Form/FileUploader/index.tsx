@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NProgress from 'nprogress'
-import UploadIcon from 'public/icons/upload.svg'
+import { FiUpload } from 'react-icons/fi'
 
 import { StyledFileUploader } from './styles'
 
@@ -59,7 +59,7 @@ const FileUploader = () => {
 						value={fileUrl}
 						readOnly
 					/>
-					<UploadIcon
+					<FiUpload
 						onClick={(e) => document.getElementById('fileUploader').click()}
 					/>
 				</fieldset>

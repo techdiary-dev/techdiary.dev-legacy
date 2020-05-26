@@ -1,45 +1,47 @@
-import Document, { Head, Main, NextScript } from "next/document";
-import { ServerStyleSheet } from "styled-components";
-import { GlobalStyles } from "styles/globalStyles";
+import Document, { Head, Main, NextScript } from 'next/document'
+import { ServerStyleSheet } from 'styled-components'
+import { GlobalStyles } from 'styles/globalStyles'
 
 export default class TechdiaryRoot extends Document {
-  static getInitialProps({ renderPage }) {
-    const sheet = new ServerStyleSheet();
+	static getInitialProps({ renderPage }) {
+		const sheet = new ServerStyleSheet()
 
-    const page = renderPage((App) => (props) =>
-      sheet.collectStyles(
-        <>
-          <GlobalStyles />
-          <App {...props} />
-        </>
-      )
-    );
+		const page = renderPage((App) => (props) =>
+			sheet.collectStyles(
+				<>
+					<GlobalStyles />
+					<App {...props} />
+				</>
+			)
+		)
 
-    const styleTags = sheet.getStyleElement();
+		const styleTags = sheet.getStyleElement()
 
-    return { ...page, styleTags };
-  }
+		return { ...page, styleTags }
+	}
 
-  render() {
-    return (
-      <html>
-        <Head>
-          {this.props.styleTags}
-          <link
-            rel="shortcut icon"
-            href="/logos/favicon.svg"
-            type="image/x-icon"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-            rel="stylesheet"
-          ></link>
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </html>
-    );
-  }
+	render() {
+		return (
+			<html>
+				<Head>
+					{this.props.styleTags}
+					<link
+						rel="shortcut icon"
+						href="/logos/favicon.svg"
+						type="image/x-icon"
+					/>
+					<link
+						href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+						rel="stylesheet"
+					></link>
+					<link rel="manifest" href="/manifest.json" />
+					<meta name="theme-color" content="#fdf9f3" />
+				</Head>
+				<body>
+					<Main />
+					<NextScript />
+				</body>
+			</html>
+		)
+	}
 }
