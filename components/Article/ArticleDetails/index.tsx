@@ -8,7 +8,7 @@ import { Card } from "components/Card";
 import UserCardWithArticles from "components/UserCardWithArticles";
 import ArticleDetailsSkeleton from "./ArticleDetailsSkeleton";
 import { useRouter } from "next/router";
-import { Highlighter } from "lib/prismhiglight";
+import { Highlighter, Markdown } from "lib/prismhiglight";
 
 interface Props {
   article: any;
@@ -38,17 +38,7 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 
           <Card>
             <div className="article-content">
-              <ReactMarkdown
-                source={article?.body}
-                renderers={{
-                  code: Highlighter,
-                  inlineCode: ({ value }) => (
-                    <code className="language-text">{value}</code>
-                  ),
-                }}
-                linkTarget="_blank"
-                className="markdown"
-              />
+              <Markdown source={article?.body} />
             </div>
           </Card>
           <Disqus.DiscussionEmbed

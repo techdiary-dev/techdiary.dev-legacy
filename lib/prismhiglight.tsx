@@ -1,7 +1,6 @@
-import styled from "styled-components";
-
 import Highlight from "react-syntax-highlighter";
 import style from "react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purple";
+import ReactMarkdown from "react-markdown";
 
 export const Highlighter = ({
   value,
@@ -10,20 +9,34 @@ export const Highlighter = ({
   value: string;
   language: string;
 }) => {
-  console.log(language);
+  const [lang, title] = (language || "").split(":");
   return (
-    <Highlight
-      className="highlight-pre-tag"
-      style={style}
-      language={language ? language : "jsx"}
-      showLineNumbers={true}
-    >
-      {value ?? ""}
-    </Highlight>
+    <>
+      <div className="code-title"> {title} </div>
+      <Highlight
+        className="highlight-pre-tag"
+        style={style}
+        language={lang ? lang : "jsx"}
+        showLineNumbers={true}
+      >
+        {value ?? ""}
+      </Highlight>
+    </>
   );
 };
 
-export const Wrapper = styled.div`
-  font-family: sans-serif;
-  text-align: center;
-`;
+export const Markdown = ({ source }: { source: string }) => {
+  return (
+    <ReactMarkdown
+      source={source}
+      renderers={{
+        code: Highlighter,
+        inlineCode: ({ value }) => (
+          <code className="language-text">{value}</code>
+        ),
+      }}
+      linkTarget="_blank"
+      className="markdown"
+    />
+  );
+};
