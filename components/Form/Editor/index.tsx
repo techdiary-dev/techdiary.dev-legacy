@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 import FileUploader from "components/Form/FileUploader";
-
 import dynamic from "next/dynamic";
-import ReactMarkdown from "react-markdown";
 
 import {
   // StyledEditorContainer,
@@ -10,7 +8,7 @@ import {
   // StyledPreview,
   FormHelperTextStyles,
 } from "./styles";
-import { Highlighter } from "lib/prismhiglight";
+import { Markdown } from "lib/prismhiglight";
 const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   ssr: false,
 });
@@ -64,12 +62,7 @@ const Editor: FC<Props> = ({
         onImageUpload={handleImageUpload}
         renderHTML={(markdownCodes) => {
           onChange(markdownCodes ?? "");
-          return (
-            <ReactMarkdown
-              source={markdownCodes}
-              renderers={{ code: Highlighter }}
-            />
-          );
+          return <Markdown source={markdownCodes} />;
         }}
       />
 

@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+import React from "react";
+import { Row, Column } from "styled-grid-system-component";
+import ReactMarkdown from "react-markdown";
+import moment from "moment";
+import Disqus from "disqus-react";
+import { StyledArticleDetails } from "./styles";
+import { Card } from "components/Card";
+import UserCardWithArticles from "components/UserCardWithArticles";
+import ArticleDetailsSkeleton from "./ArticleDetailsSkeleton";
+import { useRouter } from "next/router";
+import { Highlighter, Markdown } from "lib/prismhiglight";
+=======
 import React from 'react'
 import { Row, Column } from 'styled-grid-system-component'
 import ReactMarkdown from 'react-markdown'
@@ -10,6 +23,7 @@ import ArticleDetailsSkeleton from './ArticleDetailsSkeleton'
 import { useRouter } from 'next/router'
 import { Highlighter } from 'lib/prismhiglight'
 import { StyledCol } from 'components/UserProfile/styles'
+>>>>>>> d0cc3c3cc2cabdd51a02167ef97d0876f0969375
 
 interface Props {
 	article: any
@@ -37,6 +51,29 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 						</p>
 					</div>
 
+<<<<<<< HEAD
+          <Card>
+            <div className="article-content">
+              <Markdown source={article?.body} />
+            </div>
+          </Card>
+          <Disqus.DiscussionEmbed
+            shortname="techdiary-2"
+            config={{
+              title: article?.title,
+              url: "https://www.techdiary.dev" + router.asPath,
+              identifier: article?._id,
+            }}
+          />
+        </Column>
+        <Column md={3}>
+          <UserCardWithArticles user={article?.author} />
+        </Column>
+      </Row>
+    </StyledArticleDetails>
+  );
+};
+=======
 					<Card>
 						<div className="article-content">
 							<ReactMarkdown
@@ -68,5 +105,6 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 		</StyledArticleDetails>
 	)
 }
+>>>>>>> d0cc3c3cc2cabdd51a02167ef97d0876f0969375
 
 export default ArticleDetails
