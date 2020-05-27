@@ -3,11 +3,11 @@ import style from "react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purpl
 import ReactMarkdown from "react-markdown";
 
 export const Highlighter = ({
-  value,
-  language = "jsx",
+	value,
+	language = 'jsx'
 }: {
-  value: string;
-  language: string;
+	value: string
+	language: string
 }) => {
   const [lang, title] = (language || "").split(":");
   return (
