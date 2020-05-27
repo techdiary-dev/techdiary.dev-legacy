@@ -45,7 +45,7 @@ const index: NextPage<Props> = (props) => {
 				<Row>
 					<StyledCol md={3} sidebar>
 						<StyledBetaAlert>
-							<FiInfo /> বেটা ভার্সন <br /> <span>0.3.0</span>
+							<FiInfo /> বেটা ভার্সন <br /> <span>0.3.1</span>
 						</StyledBetaAlert>
 					</StyledCol>
 
