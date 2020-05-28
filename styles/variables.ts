@@ -20,5 +20,5 @@ export const theme: DefaultTheme = {
 	lightGrey: '#EEEEEE',
 
 	// Red
-	red: '#e74c3c'
+	red: '#c0392b'
 }
