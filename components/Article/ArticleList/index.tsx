@@ -16,7 +16,7 @@ const StyledLoadmore = styled.div`
 `
 
 const ArticleList: React.FC = () => {
-	let { data, fetchMore, loading } = useQuery(ARTICLE_LIST, {
+	let { data, fetchMore } = useQuery(ARTICLE_LIST, {
 		variables: { page: 1 },
 		fetchPolicy: 'cache-and-network'
 	})
