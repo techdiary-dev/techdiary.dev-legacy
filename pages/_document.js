@@ -22,7 +22,7 @@ export default class TechdiaryRoot extends Document {
 
 	render() {
 		return (
-			<html>
+			<html lang="bn">
 				<Head>
 					{this.props.styleTags}
 					<link
