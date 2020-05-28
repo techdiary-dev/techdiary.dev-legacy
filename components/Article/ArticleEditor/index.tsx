@@ -28,6 +28,7 @@ const ArticleEditor = ({
   const [preview, setPreview] = useState(false);
   let [createArticle, mOptions] = useMutation(CREATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
+    errorPolicy: "all",
   });
 
   let [updateArticle, mOptions2] = useMutation(UPDATE_ARTICLE, {
@@ -38,7 +39,10 @@ const ArticleEditor = ({
 
   let validationSchema = yup.object().shape({
     title: yup.string().required("Required"),
-    body: yup.string().required("Required"),
+    body: yup
+      .string()
+      .min(6, "Length must be more than 6 character")
+      .required("Required"),
     tags: yup.string().required("Required"),
     isPublished: yup.boolean(),
     thumbnail: yup.string().url(),
@@ -89,6 +93,11 @@ const ArticleEditor = ({
     <ArticleEditorStyle>
       {process.env.NODE_ENV !== "production" && <DevTool control={control} />}
       <form onSubmit={handleSubmit(onSubmit)}>
+        {mOptions.error?.graphQLErrors.map(({ extensions, message }) => (
+          <>
+            <pre>{JSON.stringify(extensions.error)}</pre>
+          </>
+        ))}
         <Row>
           <Column md={3}>
             <Card>
