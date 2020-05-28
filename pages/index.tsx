@@ -40,11 +40,7 @@ const index: NextPage<Props> = (props) => {
 
 	return (
 		<div>
-			<HeadTag
-				title="Tech Diary"
-				description="বাংলার প্রোগ্রামিং নেটওয়ার্ক"
-				ogImage="https://www.techdiary.dev/images/default-og.png"
-			/>
+			<HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
 			<MainLayout>
 				<Row>
 					<StyledCol md={3} sidebar>
