@@ -28,11 +28,11 @@ const useFormPersist = ({
         storeValues[key] = values[key];
       }
     });
-
+    console.log("setItem", values);
     if (Object.keys(storeValues).length) {
       storage.setItem(name, JSON.stringify(storeValues));
     }
-  });
+  }, [values]);
 
   return {
     clear: () => storage.removeItem(name),

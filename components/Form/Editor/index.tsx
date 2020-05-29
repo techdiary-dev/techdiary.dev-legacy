@@ -55,6 +55,9 @@ const Editor: FC<Props> = ({
 
   return (
     <>
+      <FormHelperTextStyles hasError={hasError}>
+        {helperText}
+      </FormHelperTextStyles>
       <MdEditor
         value={value}
         style={style}
@@ -67,9 +70,6 @@ const Editor: FC<Props> = ({
       />
 
       <FileUploader />
-      <FormHelperTextStyles hasError={hasError}>
-        {helperText}
-      </FormHelperTextStyles>
     </>
   );
 };
