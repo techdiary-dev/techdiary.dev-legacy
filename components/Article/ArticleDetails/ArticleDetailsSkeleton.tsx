@@ -3,12 +3,13 @@ import { Row, Column } from 'styled-grid-system-component'
 import { StyledArticleDetails } from './styles'
 import { Card } from 'components/Card'
 import Skeleton from 'react-loading-skeleton'
+import { StyledCol } from 'styles/StyledGrid'
 
 const ArticleDetailsSkeleton: React.FC = () => {
 	return (
 		<StyledArticleDetails>
 			<Row>
-				<Column md={9}>
+				<StyledCol md={9}>
 					<Skeleton width="100%" height={400} />
 
 					<div className="meta">
@@ -27,7 +28,7 @@ const ArticleDetailsSkeleton: React.FC = () => {
 						<div style={{ height: 15 }} />
 						<Skeleton width="100%" count={15} />
 					</Card>
-				</Column>
+				</StyledCol>
 				<Column md={3}>
 					<Card>
 						<Skeleton width="100%" count={15} />

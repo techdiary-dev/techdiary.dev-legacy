@@ -9,7 +9,8 @@ import UserCardWithArticles from 'components/UserCardWithArticles'
 import ArticleDetailsSkeleton from './ArticleDetailsSkeleton'
 import { useRouter } from 'next/router'
 import { Highlighter } from 'lib/prismhiglight'
-import { StyledCol } from 'components/UserProfile/styles'
+import { StyledCol } from 'styles/StyledGrid'
+import UnPiblishedWarning from './UnPiblishedWarning'
 
 interface Props {
 	article: any
@@ -24,19 +25,19 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 		<StyledArticleDetails>
 			<Row>
 				<StyledCol md={9}>
+					{!article?.isPublished && <UnPiblishedWarning />}
+
 					{article?.thumbnail && (
 						<div className="thumbnail">
 							<img src={article.thumbnail} alt={article?.title} />
 						</div>
 					)}
-
 					<div className="meta">
 						<h2 className="meta__title">{article?.title}</h2>
 						<p className="meta__time">
 							{moment(+article?.createdAt).format('LLLL')}
 						</p>
 					</div>
-
 					<Card>
 						<div className="article-content">
 							<ReactMarkdown

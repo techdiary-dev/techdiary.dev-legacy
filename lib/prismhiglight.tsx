@@ -3,18 +3,25 @@ import style from "react-syntax-highlighter/dist/cjs/styles/hljs/shades-of-purpl
 import ReactMarkdown from "react-markdown";
 
 export const Highlighter = ({
-	value,
-	language = 'jsx'
+  value,
+  language = "jsx",
 }: {
-	value: string
-	language: string
+  value: string;
+  language: string;
 }) => {
   const [lang, title] = (language || "").split(":");
   return (
     <>
-      <div className="code-title"> {title} </div>
+      {lang !== "shell" && <div className="code-title"> {title} </div>}
+      {lang === "shell" && (
+        <div className="carbon">
+          <div className="red"></div>
+          <div className="yellow"></div>
+          <div className="green"></div>
+        </div>
+      )}
       <Highlight
-        className="highlight-pre-tag"
+        className={`highlight-pre-tag language${lang}`}
         style={style}
         language={lang ? lang : "jsx"}
         showLineNumbers={true}

@@ -17,7 +17,7 @@ export const CREATE_ARTICLE = gql`
 				thumbnail: $thumbnail
 			}
 		) {
-			title
+			slug
 		}
 	}
 `
@@ -49,7 +49,7 @@ export const UPDATE_ARTICLE = gql`
 				thumbnail: $thumbnail
 			}
 		) {
-			title
+			slug
 		}
 	}
 `
