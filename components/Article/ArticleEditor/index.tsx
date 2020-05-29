@@ -108,6 +108,11 @@ const ArticleEditor = ({
 		}
 	}
 
+	const handleResetContent = (e) => {
+		removeItem()
+		reset(defaultValues)
+	}
+
 	return (
 		<ArticleEditorStyle>
 			{process.env.NODE_ENV !== 'production' && <DevTool control={control} />}
@@ -161,6 +166,11 @@ const ArticleEditor = ({
 								helperText={errors?.thumbnail?.message}
 							/>
 							<Button type="submit">সেভ করুন</Button>
+							{Object.keys(defaultValues).length ? (
+								<button onClick={handleResetContent} type="button">
+									Clear changes
+								</button>
+							) : null}
 						</Card>
 					</Column>
 					<Column md={9}>
