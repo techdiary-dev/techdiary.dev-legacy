@@ -39,6 +39,23 @@ export default class TechdiaryRoot extends Document {
 				</Head>
 				<body>
 					<Main />
+
+					<script
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=UA-167986263-1"
+					></script>
+
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+									// Google analytics snippet
+									window.dataLayer = window.dataLayer || [];
+									function gtag(){dataLayer.push(arguments);}
+									gtag('js', new Date());
+									gtag('config', 'UA-167986263-1');
+              					`
+						}}
+					/>
 					<NextScript />
 				</body>
 			</html>
