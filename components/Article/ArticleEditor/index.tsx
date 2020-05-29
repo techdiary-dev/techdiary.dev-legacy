@@ -71,6 +71,14 @@ const ArticleEditor = ({
     register("body");
   }, [register]);
 
+  let removeItem;
+  if (query?._id) {
+    const { clear } = useFormPersist({ name: query?._id, watch, setValue });
+    removeItem = clear;
+  } else {
+    const { clear } = useFormPersist({ name: "createPost", watch, setValue });
+    removeItem = clear;
+  }
   const onSubmit = (variables) => {
     variables.tags = variables.tags.split(",");
 
@@ -78,12 +86,16 @@ const ArticleEditor = ({
       variables._id = _id;
       updateArticle({ variables })
         .then((res) => {
+          reset({});
+          removeItem();
           router.push(`/${me.username}/${res.data.updateArticle.slug}`);
         })
         .catch(console.error);
     } else {
       createArticle({ variables })
         .then((res) => {
+          reset({});
+          removeItem();
           router.push(`/${me.username}/${res.data.createArticle.slug}`);
         })
         .catch(console.error);
