@@ -1,6 +1,10 @@
 const withSass = require('@zeit/next-sass')
 const withCSS = require('@zeit/next-css')
-const withPWA = require('next-pwa')
+
+if (process.env.NODE_ENV === 'production') {
+	const withPWA = require('next-pwa')
+	module.exports = withPWA({ pwa: { dest: 'public' } })
+}
 
 module.exports = withCSS()
 
@@ -26,5 +30,3 @@ module.exports = {
 		return config
 	}
 }
-
-module.exports = withPWA({ pwa: { dest: 'public' } })
