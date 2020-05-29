@@ -20,7 +20,7 @@ const dashboard: React.FC = () => {
 				return {
 					me: {
 						// @ts-ignore
-						...fetchMoreResult.me,
+						...fetchMoreResult?.me,
 						articles: {
 							//@ts-ignore
 							...fetchMoreResult.me.articles,
