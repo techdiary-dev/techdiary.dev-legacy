@@ -56,7 +56,9 @@ export const UPDATE_ARTICLE = gql`
 
 export const ARTICLE_LIST = gql`
 	query ARTICLE_LIST($page: Int) {
-		articles(pagination: { limit: 5, page: $page }) {
+		articles(
+			pagination: { limit: 5, page: $page, sort: "-isPinned,-createdAt" }
+		) {
 			resourceCount
 			pageCount
 			currentPage
@@ -69,6 +71,7 @@ export const ARTICLE_LIST = gql`
 				createdAt
 				updatedAt
 				isPublished
+				isPinned
 				author {
 					name
 					username
