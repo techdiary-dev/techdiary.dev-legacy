@@ -29,6 +29,7 @@ export const StyledUserAvater = styled.div<{ size?: UserAvaterSize }>`
 
 		.name {
 			font-size: 1.6rem;
+			font-weight: 600;
 		}
 		.username {
 			font-size: 1.4rem;

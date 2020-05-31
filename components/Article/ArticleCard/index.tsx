@@ -7,6 +7,7 @@ import { ArticleCardStyle } from './styles'
 import { Card } from 'components/Card'
 
 import UserAvater from 'components/UserAvater'
+import styled from 'styled-components'
 // import ClockIcon from 'public/icons/clock.svg'
 // import HeartIcon from 'public/icons/heart.svg'
 // import CommentIcon from 'public/icons/comment.svg'
@@ -30,6 +31,10 @@ interface Props {
 	}
 }
 
+const StyledUserCard = styled.div`
+	margin-bottom: 8px;
+`
+
 const ArticleCard: React.FC<Props> = ({
 	title,
 	excerpt,
@@ -50,6 +55,14 @@ const ArticleCard: React.FC<Props> = ({
 					</div>
 				) : null}
 
+				<StyledUserCard>
+					<UserAvater
+						name={author?.name}
+						username={author?.username}
+						profilePhoto={author?.profilePhoto}
+					/>
+				</StyledUserCard>
+
 				<Link
 					href={`/[username]/[articleSlug]`}
 					as={`/${author?.username}/${slug}`}
@@ -57,11 +70,6 @@ const ArticleCard: React.FC<Props> = ({
 					<a className="title">{title}</a>
 				</Link>
 				<p className="time">{moment(+createdAt).format('LLLL')}</p>
-				<UserAvater
-					name={author?.name}
-					username={author?.username}
-					profilePhoto={author?.profilePhoto}
-				/>
 
 				{thumbnail && (
 					<div className="thumbnail">
