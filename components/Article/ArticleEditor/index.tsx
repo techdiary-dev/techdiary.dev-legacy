@@ -118,8 +118,6 @@ const ArticleEditor = ({
     <ArticleEditorStyle>
       {process.env.NODE_ENV !== "production" && <DevTool control={control} />}
 
-      <pre>{JSON.stringify(defaultValues, undefined, 4)}</pre>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         {mOptions.error?.graphQLErrors.map(({ extensions, message }) => (
           <>
