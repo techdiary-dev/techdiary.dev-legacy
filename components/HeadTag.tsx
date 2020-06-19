@@ -22,8 +22,6 @@ const HeadTag: FC<Props> = (props: Props) => (
 			content={props.description ?? defaultDescription}
 		/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta property="og:url" content={props.url ?? defaultOGURL} />
-		<meta property="og:app_id" content="3057719700941134" />
 		<meta property="og:title" content={props.title ?? ''} />
 		<meta
 			property="og:description"
