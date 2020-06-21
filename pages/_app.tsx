@@ -7,6 +7,8 @@ import { theme } from "styles/variables";
 import moment from "moment";
 import "styles/index.css";
 import "react-markdown-editor-lite/lib/index.css";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/solarized.css";
 import useMe from "components/useMe";
 // import Prism from "prismjs";
 // import "prismjs/components/prism-jsx";
