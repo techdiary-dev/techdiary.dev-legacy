@@ -4,6 +4,7 @@ import "codemirror/mode/meta";
 import "codemirror/mode/jsx/jsx";
 import "codemirror/mode/css/css";
 import "codemirror/mode/gfm/gfm";
+import "codemirror/mode/yaml-frontmatter/yaml-frontmatter";
 import "codemirror/mode/python/python";
 import "codemirror/mode/nginx/nginx";
 import "codemirror/mode/markdown/markdown";
@@ -59,7 +60,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     <CodeMirror
       value={value}
       options={{
-        mode: "gfm",
+        mode: "yaml-frontmatter",
         theme: "solarized light",
         indentUnit: 2,
         indentWithTabs: false,

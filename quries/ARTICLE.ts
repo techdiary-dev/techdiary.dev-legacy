@@ -19,7 +19,7 @@ export const CREATE_ARTICLE = gql`
         seriesName: $seriesName
       }
     ) {
-      slug
+      url
     }
   }
 `;
