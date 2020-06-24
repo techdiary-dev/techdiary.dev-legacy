@@ -17,6 +17,8 @@
     "apollo-link-http": "1.5.16",
     "apollo-link-ws": "^1.0.20",
     "bnnum": "^1.0.6",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.12.2",
     "codemirror": "^5.54.0",
     "disqus-react": "^1.0.8",
     "front-matter": "^4.0.2",
@@ -52,6 +54,7 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-decorators": "^7.10.3",
     "@svgr/webpack": "^5.4.0",
     "@types/codemirror": "0.0.95",
     "@types/dompurify": "^2.0.2",

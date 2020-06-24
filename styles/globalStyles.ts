@@ -30,6 +30,10 @@ export const GlobalStyles = createGlobalStyle`
 		box-sizing: inherit;
 	}
 
+	p{
+		font-size: 1.6rem;
+	}
+
 	h1 {
 		margin: 0;
 		font-size: 3.6rem;
@@ -48,6 +52,16 @@ export const GlobalStyles = createGlobalStyle`
 	h4 {
 		margin: 0;
 		font-size: 2rem;
+		line-height: 3.5rem;
+	}
+	h5 {
+		margin: 0;
+		font-size: 1.8rem;
+		line-height: 3.5rem;
+	}
+	h6 {
+		margin: 0;
+		font-size: 1.7rem;
 		line-height: 3.5rem;
 	}
 

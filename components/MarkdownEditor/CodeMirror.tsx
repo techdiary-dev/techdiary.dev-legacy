@@ -32,7 +32,9 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
   useEffect(() => {
     props.onChanged(value);
   }, [value]);
-
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
   const handleMedia = (file: File) => {
     props.mediaHandle(file);
   };
