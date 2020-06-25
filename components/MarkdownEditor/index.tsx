@@ -23,20 +23,22 @@ if (typeof window !== "undefined")
 
 export function makeProperties({
   title = "",
-  tags = "",
+  tags = [],
   isPublished = false,
   thumbnail = "",
   body = "Your content starts from here....",
   seriesName = "",
 }: {
   title?: string;
-  tags?: string | string[];
+  tags?: string[];
   isPublished?: boolean;
   thumbnail?: string;
   body?: string;
   seriesName?: string;
 }) {
-  return `---\ntitle: ${title}\ntags: \nisPublished: ${isPublished}\n${
+  return `---\ntitle: ${title}\ntags: ${tags.join(
+    ", "
+  )} \nisPublished: ${isPublished}\n${
     thumbnail ? `thumbnail: ${thumbnail}\n` : ""
   }${seriesName ? `seriesName: ${seriesName}\n` : ""}---\n\n${body}`;
 }
@@ -52,7 +54,7 @@ interface IAttributes {
 interface Props {
   defaultValues?: {
     title?: string;
-    tags?: string;
+    tags?: string[];
     isPublished?: boolean;
     thumbnail?: string;
     seriesName?: string;
