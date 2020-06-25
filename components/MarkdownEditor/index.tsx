@@ -121,7 +121,6 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
       });
 
       if (err.length) {
-        console.log(err);
         setErrors(err);
         return;
       }
