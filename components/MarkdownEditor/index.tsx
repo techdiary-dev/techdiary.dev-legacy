@@ -81,8 +81,12 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    if (router.query?._id && !localStorage.getItem(`${router.query?._id}`)) {
+    if (
+      Object.keys(defaultValues).length &&
+      !localStorage.getItem(`${router.query?._id}`)
+    ) {
       setContent(makeProperties(defaultValues));
+      console.log(defaultValues);
     }
   }, [defaultValues]);
 
