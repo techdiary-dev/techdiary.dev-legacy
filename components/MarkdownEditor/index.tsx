@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { StyledMarkdownEditor } from "./styles";
-import fm from "front-matter";
+import mater from "gray-matter";
 import Button from "components/Form/Button";
 import { Row } from "styled-grid-system-component";
 import { StyledCol } from "styles/StyledGrid";
@@ -15,7 +15,7 @@ import { validateCreateArticleInput } from "lib/Validator";
 
 let CodeMirrorEditor = null;
 
-if (typeof window === "undefined")
+if (typeof window !== "undefined")
   CodeMirrorEditor = dynamic(() =>
     import("./CodeMirror").then((mod) => mod.CodeMirrorEditor)
   );
@@ -36,8 +36,8 @@ function makeProperties({
   seriesName?: string;
 }) {
   return `---\ntitle: ${title}\ntags: \nisPublished: ${isPublished}\n${
-    thumbnail ? `thumbnail: ${thumbnail}` : ""
-  }\n${seriesName ? `seriesName: ${seriesName}` : ""}\n---\n\n${body}`;
+    thumbnail ? `thumbnail: ${thumbnail}\n` : ""
+  }${seriesName ? `seriesName: ${seriesName}\n` : ""}---\n\n${body}`;
 }
 
 interface IAttributes {
@@ -75,27 +75,33 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     setContent(makeProperties(defaultValues));
   }, [defaultValues]);
 
-  const handleSave = () => {
-    const {
-      attributes,
-      body,
-    }: {
-      attributes: IAttributes;
-      body: string;
-    } = fm(content);
+  const handleSave = async () => {
+    const frontMatter = mater(content);
 
-    validateCreateArticleInput({ ...attributes, body })
-      .then(() => {
-        let validateAttributes: any = { ...attributes };
-        validateAttributes.tags = attributes.tags.split(",");
+    try {
+      const err: any = await validateCreateArticleInput({
+        ...frontMatter.data,
+        body: frontMatter.content,
+      });
 
-        createArticle({ variables: { ...validateAttributes, body } })
-          .then((res) => {
-            router.push(`${res.data.createArticle.url}`);
-          })
-          .catch(console.error);
-      })
-      .catch(setErrors);
+      if (err) {
+        setErrors(err);
+        return;
+      }
+
+      let validateAttributes: Partial<IAttributes> = { ...frontMatter.data };
+      validateAttributes.tags = frontMatter.data.tags.split(",");
+      const res = await createArticle({
+        variables: {
+          variables: { ...validateAttributes, body: frontMatter.content },
+        },
+      });
+      if (res) {
+        router.push(res.data.createArticle.url);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -128,5 +134,4 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     </StyledMarkdownEditor>
   );
 };
-
 export default MarkdownEditor;

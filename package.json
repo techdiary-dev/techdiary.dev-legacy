@@ -24,6 +24,7 @@
     "front-matter": "^4.0.2",
     "graphql": "^14.0.2",
     "graphql-tag": "2.10.3",
+    "gray-matter": "^4.0.2",
     "isomorphic-unfetch": "^3.0.0",
     "moment": "^2.25.3",
     "next": "^9.4.1",

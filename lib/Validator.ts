@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsUrl,
   IsString,
-  validateOrReject,
+  validate,
   IsDefined,
 } from "class-validator";
 
@@ -27,19 +27,19 @@ export class CreateArticlePayload {
   }
   @MinLength(10, { message: "title: টাইটেল এ কমপক্ষে ১০ টি অক্ষর থাকতে হবে" })
   @IsNotEmpty({ message: "title: টাইটেল দিতেই হবে" })
-  public title: string;
+  public title?: string;
 
   @IsNotEmpty({ message: "tags: কমপক্ষে একটি ট্যাগ দিতেই হবে" })
-  public tags: string;
+  public tags?: string;
 
   @MinLength(100, {
     message: "body: ডায়েরিতে কমপক্ষে ১০০ টি অক্ষর থাকতে হবে",
   })
-  public body: string;
+  public body?: string;
 
   @IsNotEmpty({ message: "isPublished: প্রোপার্টি ভেল্যু দেননি" })
   @IsBoolean({ message: "isPublished: এর ভেল্যু বুলিয়ান হতে হবে" })
-  public isPublished: boolean;
+  public isPublished?: boolean;
 
   @IsOptional()
   @IsUrl({}, { message: "thumbnail: থাম্বনিল এ ভুল লিঙ্ক দিয়েছেন" })
@@ -61,7 +61,7 @@ export async function validateCreateArticleInput({
   let errorsArry: string[] = [];
 
   return new Promise((resolve, reject) => {
-    validateOrReject(
+    validate(
       new CreateArticlePayload(
         title,
         tags,
@@ -70,15 +70,13 @@ export async function validateCreateArticleInput({
         thumbnail,
         seriesName
       )
-    )
-      .then(resolve)
-      .catch((errors) => {
-        errorsArry = errors.map((errObj: any) => {
-          return Object.keys(errObj["constraints"]).map(
-            (constrains) => `${errObj["constraints"][constrains]}`
-          )[0];
-        });
-        reject(errorsArry);
+    ).then((errors) => {
+      errorsArry = errors.map((errObj: any) => {
+        return Object.keys(errObj["constraints"]).map(
+          (constrains) => `${errObj["constraints"][constrains]}`
+        )[0];
       });
+      resolve(errorsArry);
+    });
   });
 }
