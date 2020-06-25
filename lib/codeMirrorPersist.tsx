@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { makeProperties } from "components/MarkdownEditor";
 
 const codeMirrorPersist = ({
   name,
@@ -9,6 +10,9 @@ const codeMirrorPersist = ({
   useEffect(() => {
     const str = storage.getItem(name);
     if (str) setValue(str);
+    if (name === "createPost" && !storage.getItem("createPost")) {
+      setValue(makeProperties({}));
+    }
   }, []);
 
   useEffect(() => {

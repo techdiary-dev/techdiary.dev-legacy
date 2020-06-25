@@ -21,7 +21,7 @@ if (typeof window !== "undefined")
     import("./CodeMirror").then((mod) => mod.CodeMirrorEditor)
   );
 
-function makeProperties({
+export function makeProperties({
   title = "",
   tags = "",
   isPublished = false,
@@ -69,6 +69,10 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
 
+  let [updateArticle] = useMutation(UPDATE_ARTICLE, {
+    refetchQueries: [{ query: ARTICLE_LIST }],
+  });
+
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
 
@@ -76,7 +80,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     if (router.query?._id && !localStorage.getItem(`${router.query?._id}`)) {
       setContent(makeProperties(defaultValues));
     }
-  }, [defaultValues]);
+  }, [loading, defaultValues]);
 
   let removeItem;
 
@@ -96,8 +100,13 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     removeItem = clear;
   }
   const handleReset = () => {
-    removeItem();
-    setContent(makeProperties({}));
+    if (router.query._id) {
+      removeItem();
+      setContent(makeProperties(defaultValues));
+    } else {
+      removeItem();
+      setContent(makeProperties({}));
+    }
   };
   const handleSave = async () => {
     const frontMatter = mater(content);
@@ -108,21 +117,39 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
         body: frontMatter.content,
       });
 
-      if (err) {
+      if (err.length) {
+        console.log(err);
         setErrors(err);
         return;
       }
 
       let validateAttributes: Partial<IAttributes> = { ...frontMatter.data };
       validateAttributes.tags = frontMatter.data.tags.split(",");
+      if (router.query._id) {
+        const res = await updateArticle({
+          variables: {
+            ...validateAttributes,
+            body: frontMatter.content,
+            _id: router.query._id,
+          },
+        });
+        if (res) {
+          setContent("");
+          removeItem();
+          router.push("/");
+        }
+        return;
+      }
       const res = await createArticle({
         variables: {
-          variables: { ...validateAttributes, body: frontMatter.content },
+          ...validateAttributes,
+          body: frontMatter.content,
         },
       });
       if (res) {
-        router.push(res.data.createArticle.url);
+        setContent("");
         removeItem();
+        router.push(res.data.createArticle.url);
       }
     } catch (error) {
       console.error(error);
