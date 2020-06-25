@@ -82,7 +82,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     if (router.query?._id && !localStorage.getItem(`${router.query?._id}`)) {
       setContent(makeProperties(defaultValues));
     }
-  }, [loading, defaultValues]);
+  }, [defaultValues]);
 
   let removeItem;
 
