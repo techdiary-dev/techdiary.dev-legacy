@@ -16,7 +16,9 @@ const codeMirrorPersist = ({
   }, []);
 
   useEffect(() => {
-    storage.setItem(name, value);
+    if (!!value) {
+      storage.setItem(name, value);
+    }
   });
 
   return {
