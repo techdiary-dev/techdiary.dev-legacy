@@ -12,6 +12,7 @@ import * as yup from "yup";
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
 import { Danger } from "components/Alert";
 import { validateCreateArticleInput } from "lib/Validator";
+import codeMirrorPersist from "lib/codeMirrorPersist";
 
 let CodeMirrorEditor = null;
 
@@ -72,9 +73,32 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
-    setContent(makeProperties(defaultValues));
+    if (router.query?._id && !localStorage.getItem(`${router.query?._id}`)) {
+      setContent(makeProperties(defaultValues));
+    }
   }, [defaultValues]);
 
+  let removeItem;
+
+  if (router.query._id) {
+    const { clear } = codeMirrorPersist({
+      name: router.query._id,
+      value: content,
+      setValue: setContent,
+    });
+    removeItem = clear;
+  } else {
+    const { clear } = codeMirrorPersist({
+      name: "createPost",
+      value: content,
+      setValue: setContent,
+    });
+    removeItem = clear;
+  }
+  const handleReset = () => {
+    removeItem();
+    setContent(makeProperties({}));
+  };
   const handleSave = async () => {
     const frontMatter = mater(content);
 
@@ -98,6 +122,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
       });
       if (res) {
         router.push(res.data.createArticle.url);
+        removeItem();
       }
     } catch (error) {
       console.error(error);
@@ -127,7 +152,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
             <Button type="button" onClick={handleSave}>
               সংরক্ষণ করুন{" "}
             </Button>
-            <button>Clear changes</button>
+            <Button onClick={handleReset}>Clear changes</Button>
           </div>
         </StyledCol>
       </Row>
