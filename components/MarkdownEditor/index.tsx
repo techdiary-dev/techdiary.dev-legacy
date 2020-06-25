@@ -13,6 +13,7 @@ import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
 import { Danger } from "components/Alert";
 import { validateCreateArticleInput } from "lib/Validator";
 import codeMirrorPersist from "lib/codeMirrorPersist";
+import { CatchServerErrors } from "lib/CatchServerErrors";
 
 let CodeMirrorEditor = null;
 
@@ -154,7 +155,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
         router.push(res.data.createArticle.url);
       }
     } catch (error) {
-      console.error(error);
+      setErrors(CatchServerErrors(error));
     }
   };
 
