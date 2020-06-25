@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import LoadingOverlay from "react-loading-overlay";
 import { StyledMarkdownEditor } from "./styles";
 import mater from "gray-matter";
 import Button from "components/Form/Button";
@@ -8,7 +9,7 @@ import { StyledCol } from "styles/StyledGrid";
 
 import { useMutation } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
-import * as yup from "yup";
+
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
 import { Danger } from "components/Alert";
 import { validateCreateArticleInput } from "lib/Validator";
@@ -68,11 +69,11 @@ interface Props {
 const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   let router = useRouter();
 
-  let [createArticle] = useMutation(CREATE_ARTICLE, {
+  let [createArticle, { loading: cLoading }] = useMutation(CREATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
 
-  let [updateArticle] = useMutation(UPDATE_ARTICLE, {
+  let [updateArticle, { loading: uLoading }] = useMutation(UPDATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
 
@@ -138,7 +139,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
         if (res) {
           setContent("");
           removeItem();
-          router.push("/");
+          router.push(res.data.updateArticle.url);
         }
         return;
       }
@@ -159,33 +160,35 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   };
 
   return (
-    <StyledMarkdownEditor>
-      <Row>
-        <StyledCol md={9}>
-          {Array.isArray(errors) &&
-            errors?.map((err, index) => (
-              <Danger dismissable={false} key={index}>
-                {err}
-              </Danger>
-            ))}
+    <LoadingOverlay active={loading || cLoading || uLoading} spinner>
+      <StyledMarkdownEditor>
+        <Row>
+          <StyledCol md={9}>
+            {Array.isArray(errors) &&
+              errors?.map((err, index) => (
+                <Danger dismissable={false} key={index}>
+                  {err}
+                </Danger>
+              ))}
 
-          {CodeMirrorEditor && (
-            <CodeMirrorEditor
-              value={content}
-              onChanged={(val) => setContent(val)}
-            />
-          )}
-        </StyledCol>
-        <StyledCol md={3}>
-          <div className="actions">
-            <Button type="button" onClick={handleSave}>
-              সংরক্ষণ করুন{" "}
-            </Button>
-            <Button onClick={handleReset}>Clear changes</Button>
-          </div>
-        </StyledCol>
-      </Row>
-    </StyledMarkdownEditor>
+            {CodeMirrorEditor && (
+              <CodeMirrorEditor
+                value={content}
+                onChanged={(val) => setContent(val)}
+              />
+            )}
+          </StyledCol>
+          <StyledCol md={3}>
+            <div className="actions">
+              <Button type="button" onClick={handleSave}>
+                সংরক্ষণ করুন{" "}
+              </Button>
+              <Button onClick={handleReset}>Clear changes</Button>
+            </div>
+          </StyledCol>
+        </Row>
+      </StyledMarkdownEditor>
+    </LoadingOverlay>
   );
 };
 export default MarkdownEditor;

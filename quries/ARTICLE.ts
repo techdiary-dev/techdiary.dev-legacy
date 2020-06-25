@@ -54,6 +54,7 @@ export const UPDATE_ARTICLE = gql`
       }
     ) {
       slug
+      url
     }
   }
 `;
