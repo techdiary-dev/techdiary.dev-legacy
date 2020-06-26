@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { Row, Column } from "styled-grid-system-component";
 import { Card, CardHeader } from "components/Card";
 import Input from "components/Form/Input";
-import Button from "components/Form/Button";
+import Button from "components/Button";
 import { UPDATE_PROFILE, ME } from "quries/AUTH";
 import sweetAlert from "sweetalert";
 import ProfilePhoto from "./ProfilePhoto";
