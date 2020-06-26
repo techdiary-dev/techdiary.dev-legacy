@@ -20,7 +20,7 @@ import { Controlled as CodeMirror } from "react-codemirror2";
 
 interface ICodeMirrorEditor {
   value: string;
-  mediaHandle?: Function;
+  mediaHandle?: (file: File) => void;
   onChanged: Function;
 }
 
@@ -51,7 +51,6 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
   };
 
   const handlePaste = (editor: CodeMirror.Editor, event: ClipboardEvent) => {
-    console.log(event);
     if (event?.clipboardData?.files.length) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
