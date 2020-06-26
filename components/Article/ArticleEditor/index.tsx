@@ -6,7 +6,7 @@ import * as yup from "yup";
 import { ArticleEditorStyle } from "./styles";
 import { Card } from "components/Card";
 import Input from "components/Form/Input";
-import Button from "components/Form/Button";
+import Button from "components/Button";
 import Checkbox from "components/Form/Checkbox";
 import Editor from "components/Form/Editor";
 import { useMutation } from "@apollo/react-hooks";

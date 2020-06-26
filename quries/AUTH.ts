@@ -95,6 +95,7 @@ export const USER_PROFILE = gql`
         pageCount
         currentPage
         data {
+          url
           _id
           title
           excerpt

@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { Row, Column } from "styled-grid-system-component";
 import { Card, CardHeader } from "components/Card";
 import Input from "components/Form/Input";
-import Button from "components/Form/Button";
+import Button from "components/Button";
 import { UPDATE_PROFILE, ME } from "quries/AUTH";
 import sweetAlert from "sweetalert";
 import ProfilePhoto from "./ProfilePhoto";
@@ -198,18 +198,13 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
                 />
               </Column>
               <Column md={2}>
-                <Button size="round" onClick={() => removeLink(index)}>
+                <Button onClick={() => removeLink(index)}>
                   <FiX />
                 </Button>
               </Column>
             </Row>
           ))}
-          <Button
-            size="round"
-            onClick={() => appendLink({ text: "", link: "" })}
-          >
-            +
-          </Button>
+          <Button onClick={() => appendLink({ text: "", link: "" })}>+</Button>
           <Button type="submit">হালনাগাদ করুন</Button>
         </Card>
         <Card>
@@ -269,9 +264,7 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
               />
 
               <Column md={2}>
-                <Button size="round" onClick={() => removeWorkInfo(index)}>
-                  &times;
-                </Button>
+                <Button onClick={() => removeWorkInfo(index)}>&times;</Button>
               </Column>
             </div>
           ))}
@@ -310,20 +303,16 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
                 />
               </Column>
               <Column md={2}>
-                <Button size="round" onClick={() => removeSkill(index)}>
-                  x
-                </Button>
+                <Button onClick={() => removeSkill(index)}>x</Button>
               </Column>
             </Row>
           ))}
-          <Button size="round" onClick={() => appendSkill({ value: "" })}>
-            +
-          </Button>
+          <Button onClick={() => appendSkill({ value: "" })}>+</Button>
           <Button type="submit">হালনাগাদ করুন</Button>
         </Card>
       </form>
     </>
   );
 };
-
+// hey
 export default ProfileSettings;
