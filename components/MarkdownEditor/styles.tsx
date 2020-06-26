@@ -5,6 +5,8 @@ export const StyledMarkdownEditor = styled.div`
     margin: 12px 0;
   }
 
+  box-shadow: 0 0 5px rgba(47, 52, 50, 0.2);
+
   .cm-s-solarized.CodeMirror {
     box-shadow: none;
     font-size: 2rem;
@@ -12,7 +14,7 @@ export const StyledMarkdownEditor = styled.div`
 
   .CodeMirror {
     padding: 15px;
-    height: calc(90vh - 150px);
+    height: calc(95vh - 150px);
   }
 
   .cm-m-markdown.cm-header.cm-header-1 {
@@ -34,5 +36,14 @@ export const StyledMarkdownEditor = styled.div`
     margin: 0;
     font-size: 2rem;
     line-height: 3.5rem;
+  }
+
+  .cm-s-solarized.cm-s-light {
+    background-color: ${({ theme }) => theme.secondary};
+  }
+
+  .editor-ribbon {
+    background-color: #f2f2f2;
+    padding: 7px;
   }
 `;

@@ -4,8 +4,8 @@ import { Col, Row } from "styles/StyledGrid";
 import styled from "styled-components";
 import { Danger, Warning, Message } from "components/Alert";
 import { Card, CardHeader } from "components/Card";
-import Button from "components/Form/Button";
-import { AiFillAccountBook } from "react-icons/ai";
+import Button from "components/Button";
+import { InfoCard } from "components/InfoCard";
 
 const StyledBox = styled.div`
   width: 100%;
@@ -135,14 +135,33 @@ const Buttons = () => (
   <StyledButton>
     <button>Native Button</button>
     <Button type="button">Button Primary</Button>
-    <Button size="sm" type="button">
-      Button SM
+    <Button size="normal" type="button">
+      Button normal
     </Button>
-    <Button size="lg" type="button">
-      Button lg
+    <Button size="large" type="button">
+      Button large
     </Button>
-    <Button size="round" type="button">
-      <AiFillAccountBook />
+    <Button size="small" type="button">
+      Button small
+    </Button>
+
+    <Button color="primary" type="button">
+      Button primary
+    </Button>
+    <Button color="secondary" type="button">
+      Button secondary
+    </Button>
+    <Button color="danger" type="button">
+      Button danger
+    </Button>
+    <Button color="warning" type="button">
+      Button danger
+    </Button>
+    <Button color="dark" type="button">
+      Button danger
+    </Button>
+    <Button color="link" type="button">
+      Button link
     </Button>
   </StyledButton>
 );
@@ -164,6 +183,38 @@ const Design = () => {
       <Row>
         <Col>
           <Buttons />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <InfoCard title="kicho kotha">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
+              deleniti autem ullam et explicabo quam optio. Quisquam atque
+              repellat sint officia eveniet in impedit, corporis placeat quo
+              dicta illo inventore.
+            </p>
+          </InfoCard>
+        </Col>
+        <Col>
+          <InfoCard title="kicho kotha">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
+              deleniti autem ullam et explicabo quam optio. Quisquam atque
+              repellat sint officia eveniet in impedit, corporis placeat quo
+              dicta illo inventore.
+            </p>
+          </InfoCard>
+        </Col>
+        <Col>
+          <InfoCard title="kicho kotha">
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nisi
+              deleniti autem ullam et explicabo quam optio. Quisquam atque
+              repellat sint officia eveniet in impedit, corporis placeat quo
+              dicta illo inventore.
+            </p>
+          </InfoCard>
         </Col>
       </Row>
     </MainLayout>

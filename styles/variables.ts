@@ -22,4 +22,9 @@ export const theme: DefaultTheme = {
   // Red
   red: "#e74c3c",
   yellow: "#f1c40f",
+
+  radius_1: "3px",
+  radius_2: "5px",
+  radius_3: "8px",
+  radius_100p: "100%",
 };

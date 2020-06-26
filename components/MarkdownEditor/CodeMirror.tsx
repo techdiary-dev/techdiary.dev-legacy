@@ -17,10 +17,11 @@ import "codemirror/addon/edit/closebrackets";
 import "codemirror/lib/codemirror";
 import "codemirror/mode/htmlmixed/htmlmixed";
 import { Controlled as CodeMirror } from "react-codemirror2";
+import crypto from "crypto";
 
 interface ICodeMirrorEditor {
   value: string;
-  mediaHandle?: (file: File) => void;
+  mediaHandle?: (file: File) => Promise<String>;
   onChanged: Function;
 }
 
@@ -35,8 +36,18 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
   useEffect(() => {
     setValue(props.value);
   }, [props.value]);
-  const handleMedia = (file: File) => {
-    props.mediaHandle(file);
+
+  const handleMedia = async (file: File) => {
+    const imageUUID = crypto.randomBytes(12).toString("hex");
+    const str = `[Uploading...](${imageUUID})`;
+    setValue(`${value}\n${str}`);
+
+    console.log(str);
+
+    const url = await props.mediaHandle(file);
+    if (url) {
+      setValue(`${value}\n[image_alt_text](${url})`);
+    }
   };
 
   const handleDrop = (editor: CodeMirror.Editor, event: DragEvent) => {

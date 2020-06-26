@@ -23,5 +23,11 @@ declare module "styled-components" {
     // Red
     red: string;
     yellow: string;
+
+    // radius
+    radius_1: string;
+    radius_2: string;
+    radius_3: string;
+    radius_100p: string;
   }
 }

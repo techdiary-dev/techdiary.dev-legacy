@@ -3,10 +3,9 @@ import dynamic from "next/dynamic";
 import LoadingOverlay from "react-loading-overlay";
 import { StyledMarkdownEditor } from "./styles";
 import mater from "gray-matter";
-import Button from "components/Form/Button";
+import Button from "components/Button";
 import { Row } from "styled-grid-system-component";
 import { StyledCol } from "styles/StyledGrid";
-
 import { useMutation } from "@apollo/react-hooks";
 import { useRouter } from "next/router";
 
@@ -15,6 +14,9 @@ import { Danger } from "components/Alert";
 import { validateCreateArticleInput } from "lib/Validator";
 import codeMirrorPersist from "lib/codeMirrorPersist";
 import { CatchServerErrors } from "lib/CatchServerErrors";
+import { InfoCard } from "components/InfoCard";
+import FileUploader from "components/Form/FileUploader";
+import { handleFileUpload } from "lib/fileUpload";
 
 let CodeMirrorEditor = null;
 
@@ -42,7 +44,7 @@ export function makeProperties({
     ","
   )} \nisPublished: ${isPublished}\n${
     thumbnail ? `thumbnail: ${thumbnail}\n` : ""
-  }${seriesName ? `seriesName: ${seriesName}\n` : ""}---\n\n${body}`;
+  }${seriesName ? `seriesName: ${seriesName}\n` : ""}---\n${body}`;
 }
 
 interface IAttributes {
@@ -164,36 +166,95 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   };
 
   return (
-    <LoadingOverlay active={loading || cLoading || uLoading} spinner>
-      <StyledMarkdownEditor>
-        <Row>
-          <StyledCol md={9}>
-            {Array.isArray(errors) &&
-              errors?.map((err, index) => (
-                <Danger dismissable={false} key={index}>
-                  {err}
-                </Danger>
-              ))}
+    <Row>
+      <StyledCol md={9}>
+        {Array.isArray(errors) &&
+          errors?.map((err, index) => (
+            <Danger dismissable={false} key={index}>
+              {err}
+            </Danger>
+          ))}
 
-            {CodeMirrorEditor && (
+        {CodeMirrorEditor && (
+          <LoadingOverlay active={loading || cLoading || uLoading} spinner>
+            <StyledMarkdownEditor>
               <CodeMirrorEditor
                 value={content}
                 onChanged={(val) => setContent(val)}
-                mediaHandle={(file: File) => console.log(file)}
+                mediaHandle={handleFileUpload}
               />
-            )}
-          </StyledCol>
-          <StyledCol md={3}>
-            <div className="actions">
-              <Button type="button" onClick={handleSave}>
-                সংরক্ষণ করুন{" "}
-              </Button>
-              <Button onClick={handleReset}>Clear changes</Button>
-            </div>
-          </StyledCol>
-        </Row>
-      </StyledMarkdownEditor>
-    </LoadingOverlay>
+              <div className="editor-ribbon">
+                <Button type="button" size="small" onClick={handleSave}>
+                  সংরক্ষণ করুন{" "}
+                </Button>
+                <Button
+                  type="button"
+                  color="link"
+                  size="small"
+                  onClick={handleReset}
+                >
+                  Clear changes
+                </Button>
+              </div>
+            </StyledMarkdownEditor>
+          </LoadingOverlay>
+        )}
+      </StyledCol>
+      <StyledCol md={3}>
+        <InfoCard>
+          <p>
+            ইডিটর এর লিখা <b>সেভ</b> করার আগ পর্যন্ত ব্রাউজারে সংরক্ষিত অবস্থায়
+            থাকবে, কোন কারনে এই ট্যাবটি কেটে গেলে বা পেজ রিলোড হয়ে গেলে ভয়
+            পাওয়ার কোন কারন নেই 😊 🎉
+          </p>
+        </InfoCard>
+        <InfoCard title="নির্দেশনা ">
+          <p>
+            এই এডিটরে{" "}
+            <a
+              target="_blank"
+              className="external-link"
+              href="https://guides.github.com/features/mastering-markdown/"
+            >
+              মার্কডাউনের
+            </a>{" "}
+            সাথে{" "}
+            <code>
+              <a
+                target="_blank"
+                className="external-link"
+                href="https://jekyllrb.com/docs/front-matter/"
+              >
+                Jekyll Frontmatter{" "}
+              </a>
+            </code>
+            ব্যবহার করা হয়েছে যেখানে নিম্নোক্ত প্রোপার্টি ব্যবহার করতে হবে:
+            <ul className="list-unstyled">
+              <li>
+                <span className="color-red">title</span>: ডায়েরির টাইটেল
+              </li>
+              <li>
+                <span className="color-red">tags:</span> ডায়েরির ট্যাগসমূহ
+                (একাধিক ট্যাগ কমা(,) দিয়ে আলাদা করে দিতে হবে)
+              </li>
+              <li>
+                <span className="color-red">isPublished:</span> ডায়েরি কি
+                প্রকাশিত করবেন (true or false)
+              </li>
+              <li>
+                <span className="color-red">thumbnail:</span> ডায়েরির কভার ছবি
+                (স্ট্যান্ডার্ড সাইজ ১২০০x৬৩০ পিক্সেল)
+              </li>
+              <li>
+                <span className="color-red">seriesName:</span> সিরিজ আর্টিকেলের
+                নাম
+              </li>
+            </ul>
+          </p>
+        </InfoCard>
+        <FileUploader />
+      </StyledCol>
+    </Row>
   );
 };
 export default MarkdownEditor;

@@ -30,8 +30,33 @@ export const GlobalStyles = createGlobalStyle`
 		box-sizing: inherit;
 	}
 
-	p{
+	a.external-link{
+		color: ${({ theme }) => theme.red};
+		position: relative;
+		&::after {
+		    content: url('/icons/external-link-sm.svg');
+			height: 15px;
+			width: 15px;
+			margin-left: 5px;
+		}
+	}
+
+	.color-red{
+		color: ${({ theme }) => theme.red};
+	}
+
+	.list-unstyled{
+		list-style: none;
+		padding-left: 0;
+	}
+
+
+	p , li{
 		font-size: 1.6rem;
+	}
+
+	ul , ol{
+		padding-left: 2rem;
 	}
 
 	h1 {
