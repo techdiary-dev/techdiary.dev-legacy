@@ -179,6 +179,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               <CodeMirrorEditor
                 value={content}
                 onChanged={(val) => setContent(val)}
+                mediaHandle={(file: File) => console.log(file)}
               />
             )}
           </StyledCol>
