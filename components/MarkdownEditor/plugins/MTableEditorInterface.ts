@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Point, ITextEditor } from "@susisu/mte-kernel";
 
 // See https://doc.esdoc.org/github.com/susisu/mte-kernel/class/lib/text-editor.js~ITextEditor.html
