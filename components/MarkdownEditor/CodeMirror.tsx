@@ -46,7 +46,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
 
     const url = await props.mediaHandle(file);
     if (url) {
-      setValue(`${value}\n[image_alt_text](${url})`);
+      setValue(`${value.replace(str, `[image_alt_text](${url})`)}\n`);
     }
   };
 
@@ -77,23 +77,23 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
         indentUnit: 2,
         indentWithTabs: false,
         autoCloseBrackets: true,
-        extraKeys: {
-          Enter: (editor: CodeMirror.Editor) => {
-            editor.execCommand("newlineAndIndentContinueMarkdownList");
-          },
-          Tab: (editor: CodeMirror.Editor) => {
-            editor.execCommand("autoIndentMarkdownList");
-          },
-          "Shift-Tab": (editor: CodeMirror.Editor) => {
-            editor.execCommand("autoUnindentMarkdownList");
-          },
-        },
+        // extraKeys: {
+        //   Enter: (editor: CodeMirror.Editor) => {
+        //     editor.execCommand("newlineAndIndentContinueMarkdownList");
+        //   },
+        //   Tab: (editor: CodeMirror.Editor) => {
+        //     editor.execCommand("autoIndentMarkdownList");
+        //   },
+        //   "Shift-Tab": (editor: CodeMirror.Editor) => {
+        //     editor.execCommand("autoUnindentMarkdownList");
+        //   },
+        // },
         lineWrapping: true,
         addModeClass: true,
       }}
-      editorDidMount={(editor: CodeMirror.Editor) => {
-        new MTableEditor(editor);
-      }}
+      // editorDidMount={(editor: CodeMirror.Editor) => {
+      //   new MTableEditor(editor);
+      // }}
       onBeforeChange={(editor, data, value) => setValue(value)}
       onDrop={handleDrop}
       onPaste={handlePaste}

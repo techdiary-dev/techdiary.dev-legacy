@@ -174,14 +174,14 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               {err}
             </Danger>
           ))}
-
+        <FileUploader />
+        <div style={{ height: "20px" }}></div>
         {CodeMirrorEditor && (
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
             <StyledMarkdownEditor>
               <CodeMirrorEditor
                 value={content}
                 onChanged={(val) => setContent(val)}
-                mediaHandle={handleFileUpload}
               />
               <div className="editor-ribbon">
                 <Button type="button" size="small" onClick={handleSave}>
@@ -252,7 +252,6 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
             </ul>
           </p>
         </InfoCard>
-        <FileUploader />
       </StyledCol>
     </Row>
   );
