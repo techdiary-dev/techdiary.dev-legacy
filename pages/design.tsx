@@ -4,6 +4,8 @@ import { Col, Row } from "styles/StyledGrid";
 import styled from "styled-components";
 import { Danger, Warning, Message } from "components/Alert";
 import { Card, CardHeader } from "components/Card";
+import Button from "components/Form/Button";
+import { AiFillAccountBook } from "react-icons/ai";
 
 const StyledBox = styled.div`
   width: 100%;
@@ -123,6 +125,28 @@ const CardComponents = () => (
   </Row>
 );
 
+const StyledButton = styled.div`
+  button {
+    margin-right: 15px;
+  }
+`;
+
+const Buttons = () => (
+  <StyledButton>
+    <button>Native Button</button>
+    <Button type="button">Button Primary</Button>
+    <Button size="sm" type="button">
+      Button SM
+    </Button>
+    <Button size="lg" type="button">
+      Button lg
+    </Button>
+    <Button size="round" type="button">
+      <AiFillAccountBook />
+    </Button>
+  </StyledButton>
+);
+
 const Design = () => {
   return (
     <MainLayout>
@@ -137,6 +161,11 @@ const Design = () => {
         </Col>
       </Row>
       <CardComponents />
+      <Row>
+        <Col>
+          <Buttons />
+        </Col>
+      </Row>
     </MainLayout>
   );
 };

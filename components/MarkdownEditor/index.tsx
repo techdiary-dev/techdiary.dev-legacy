@@ -39,7 +39,7 @@ export function makeProperties({
   seriesName?: string;
 }) {
   return `---\ntitle: ${title}\ntags: ${tags.join(
-    ", "
+    ","
   )} \nisPublished: ${isPublished}\n${
     thumbnail ? `thumbnail: ${thumbnail}\n` : ""
   }${seriesName ? `seriesName: ${seriesName}\n` : ""}---\n\n${body}`;

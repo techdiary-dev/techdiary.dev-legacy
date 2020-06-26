@@ -6,7 +6,6 @@ import {
   IsUrl,
   IsString,
   validate,
-  IsDefined,
 } from "class-validator";
 
 export class CreateArticlePayload {
