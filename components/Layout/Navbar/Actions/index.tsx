@@ -1,12 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "react-tooltip";
-import {
-  FiSettings,
-  FiBookOpen,
-  FiPlus,
-  FiLogOut,
-  FiGithub,
-} from "react-icons/fi";
+import { FiSettings, FiBookOpen, FiPlus, FiLogOut } from "react-icons/fi";
 
 import { GrLogin } from "react-icons/gr";
 
@@ -17,10 +11,61 @@ import { LOGOUT } from "quries/AUTH";
 // import nProgress from 'nprogress'
 import { useMutation } from "@apollo/react-hooks";
 
-import { StyledActions } from "./styles";
+import { StyledActions, StyledUserActionMenu } from "./styles";
 import UserAvater from "components/UserAvater";
 import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
+
+const UserDropdownActionMenu = ({
+  profilePhoto,
+  name,
+  username,
+  handleLogout,
+}) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <StyledUserActionMenu>
+      <div className="avater" onClick={() => setOpen(!open)}>
+        <img className="avater" src={profilePhoto} alt={name} />
+      </div>
+      {open && (
+        <ul className="dropdown-menu">
+          <li>
+            <Link href="/dashboard/update-profile">
+              <a className="dropdown-menu__item">
+                <FiSettings className="dropdown-menu__icon" />
+                <span className="label">প্রোফাইল হালনাগাদ</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard">
+              <a className="dropdown-menu__item">
+                <FiBookOpen className="dropdown-menu__icon" />
+                <span className="label">আমার ড্যাসবোর্ড</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/new">
+              <a className="dropdown-menu__item">
+                <FiPlus className="dropdown-menu__icon" />
+                <span className="label">নতুন ডায়েরি</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <div className="dropdown-menu__item" onClick={handleLogout}>
+              <FiLogOut className="dropdown-menu__icon" />
+              <span className="label">লগআউট</span>
+            </div>
+          </li>
+        </ul>
+      )}
+    </StyledUserActionMenu>
+  );
+};
 
 const Actions: React.FC = () => {
   let { data, error, refetch, loading } = useMe();
@@ -44,46 +89,15 @@ const Actions: React.FC = () => {
     });
   };
 
-  if (loading) return <BounceLoader size={8} color="#24B3AE" />;
+  if (loading) return <BounceLoader size={22} color="#24B3AE" />;
   if (data && !error)
     return (
-      <>
-        <StyledActions>
-          <Link href="/dashboard/update-profile">
-            <a data-tip data-for="settings">
-              <FiSettings />
-            </a>
-          </Link>
-          <Link href="/dashboard">
-            <a data-tip data-for="dashboard">
-              <FiBookOpen />
-            </a>
-          </Link>
-          <Link href="/new">
-            <a data-tip data-for="new">
-              <FiPlus />
-            </a>
-          </Link>
-          <FiLogOut data-tip data-for="logout" onClick={handleLogout} />
-        </StyledActions>
-        <UserAvater
-          name={data?.name}
-          username={data?.username}
-          profilePhoto={data?.profilePhoto}
-        />
-        <ReactTooltip id="logout" aria-haspopup="true">
-          লগআউট
-        </ReactTooltip>
-        <ReactTooltip id="dashboard" aria-haspopup="true">
-          আপনার ড্যাসবোর্ড
-        </ReactTooltip>
-        <ReactTooltip id="settings" aria-haspopup="true">
-          আপনার প্রোফাইল হালনাগাদ করুন
-        </ReactTooltip>
-        <ReactTooltip id="new" aria-haspopup="true">
-          নতুন ডায়েরি লিখুন
-        </ReactTooltip>
-      </>
+      <UserDropdownActionMenu
+        name={data?.name}
+        username={data?.username}
+        profilePhoto={data?.profilePhoto}
+        handleLogout={handleLogout}
+      />
     );
   else
     return (
