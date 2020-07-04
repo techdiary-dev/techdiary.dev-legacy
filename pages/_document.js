@@ -48,11 +48,12 @@ export default class TechdiaryRoot extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-									// Google analytics snippet
-									window.dataLayer = window.dataLayer || [];
-									function gtag(){dataLayer.push(arguments);}
-									gtag('js', new Date());
-									gtag('config', 'UA-167986263-1');
+						// Google analytics snippet
+						window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+
+						gtag('config', 'UA-171611258-1');
               					`,
             }}
           />

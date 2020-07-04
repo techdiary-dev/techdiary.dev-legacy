@@ -190,11 +190,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
         {CodeMirrorEditor && (
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
             <StyledMarkdownEditor>
-              <CodeMirrorEditor
-                value={content}
-                onChanged={(val: string) => setContent(val)}
-                handleMedia={(file: File) => handleMedia(file)}
-              />
+              <CodeMirrorEditor value={content} onChanged={setContent} />
               <div className="editor-ribbon">
                 <Button type="button" size="small" onClick={handleSave}>
                   সংরক্ষণ করুন{" "}
