@@ -1,12 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="143" height="28" viewBox="0 0 143 28">
-  <g id="Logo" transform="translate(52 -2525)">
-    <text id="Logo-2" data-name="Logo" transform="translate(-21 2546)" fill="#2f3432" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="18" font-family="SpaceMono-Bold, Space Mono" font-weight="700"><tspan x="0" y="0">TECH DIARY</tspan></text>
-    <g id="coffee" transform="translate(-53 2527)">
-      <path id="Path_11" data-name="Path 11" d="M18,8h1a4,4,0,0,1,0,8H18" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <path id="Path_12" data-name="Path 12" d="M2,8H18v9a4,4,0,0,1-4,4H6a4,4,0,0,1-4-4Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line id="Line_7" data-name="Line 7" y2="3" transform="translate(6 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line id="Line_8" data-name="Line 8" y2="3" transform="translate(10 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-      <line id="Line_9" data-name="Line 9" y2="3" transform="translate(14 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="141" height="23" viewBox="0 0 141 23">
+  <defs>
+    <clipPath id="clip-Artboard_1">
+      <rect width="141" height="23"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard – 1" clip-path="url(#clip-Artboard_1)">
+    <g id="Logo" transform="translate(52 -2526)">
+      <text id="Logo-2" data-name="Logo" transform="translate(-21 2546)" fill="#2f3432" stroke="rgba(0,0,0,0)" stroke-width="1" font-size="18" font-family="SpaceMono-Bold, Space Mono" font-weight="700"><tspan x="0" y="0">TECH DIARY</tspan></text>
+      <g id="coffee" transform="translate(-53 2527)">
+        <path id="Path_11" data-name="Path 11" d="M18,8h1a4,4,0,0,1,0,8H18" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <path id="Path_12" data-name="Path 12" d="M2,8H18v9a4,4,0,0,1-4,4H6a4,4,0,0,1-4-4Z" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <line id="Line_7" data-name="Line 7" y2="3" transform="translate(6 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <line id="Line_8" data-name="Line 8" y2="3" transform="translate(10 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+        <line id="Line_9" data-name="Line 9" y2="3" transform="translate(14 1)" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+      </g>
     </g>
   </g>
 </svg>
