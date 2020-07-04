@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-import "react-tooltip";
-import { FiSettings, FiBookOpen, FiPlus, FiLogOut } from "react-icons/fi";
+import React, { useState, useEffect } from "react";
+// import "react-tooltip";
+import {
+  FiSettings,
+  FiBookOpen,
+  FiPlus,
+  FiLogOut,
+  FiUser,
+} from "react-icons/fi";
 
 import { GrLogin } from "react-icons/gr";
 
@@ -12,8 +18,8 @@ import { LOGOUT } from "quries/AUTH";
 import { useMutation } from "@apollo/react-hooks";
 
 import { StyledActions, StyledUserActionMenu } from "./styles";
-import UserAvater from "components/UserAvater";
-import ReactTooltip from "react-tooltip";
+// import UserAvater from "components/UserAvater";
+// import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
 
 const UserDropdownActionMenu = ({
@@ -24,6 +30,13 @@ const UserDropdownActionMenu = ({
 }) => {
   const [open, setOpen] = useState(false);
 
+  // useEffect(() => {
+  //   // document.addEventListener("click", function(e) {
+  //   //   e.stopPropagation();
+  //   //   setOpen(false);
+  //   // });
+  // });
+
   return (
     <StyledUserActionMenu>
       <div className="avater" onClick={() => setOpen(!open)}>
@@ -31,6 +44,14 @@ const UserDropdownActionMenu = ({
       </div>
       {open && (
         <ul className="dropdown-menu">
+          <li>
+            <Link href={`/${username}`}>
+              <a className="dropdown-menu__item">
+                <FiUser className="dropdown-menu__icon" />
+                <span className="label">আমার প্রোফাইল</span>
+              </a>
+            </Link>
+          </li>
           <li>
             <Link href="/dashboard/update-profile">
               <a className="dropdown-menu__item">
