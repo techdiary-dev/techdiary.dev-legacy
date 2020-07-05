@@ -5,7 +5,7 @@ export function handleFileUpload(file: File) {
     return swal("ছবি ছাড়া অন্য কোন ফাইল আপলোড করতে পারবেন না।", "", "error");
   }
 
-  return new Promise(async (resolve) => {
+  return new Promise<string>(async (resolve) => {
     const fd = new FormData();
     fd.append("file", file);
     fd.append("upload_preset", "techdiary-article-assets");

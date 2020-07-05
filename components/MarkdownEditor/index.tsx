@@ -17,6 +17,7 @@ import { CatchServerErrors } from "lib/CatchServerErrors";
 import { InfoCard } from "components/InfoCard";
 import FileUploader from "components/Form/FileUploader";
 import { handleFileUpload } from "lib/fileUpload";
+import crypto from "crypto";
 
 let CodeMirrorEditor = null;
 
@@ -165,6 +166,13 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     }
   };
 
+  const handleMedia = async (file: File) => {
+    const url: string = await handleFileUpload(file);
+    return url;
+    // if (url.length) {
+    //   setContent(`${content}[image_alt_text](${url})\n`);
+    // }
+  };
   return (
     <Row>
       <StyledCol md={9}>
@@ -174,14 +182,15 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               {err}
             </Danger>
           ))}
-
+        <FileUploader />
+        <div style={{ height: "20px" }}></div>
         {CodeMirrorEditor && (
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
             <StyledMarkdownEditor>
               <CodeMirrorEditor
                 value={content}
-                onChanged={(val) => setContent(val)}
-                mediaHandle={handleFileUpload}
+                onChanged={setContent}
+                handleMedia={handleMedia}
               />
               <div className="editor-ribbon">
                 <Button type="button" size="small" onClick={handleSave}>
@@ -229,30 +238,29 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               </a>
             </code>
             ব্যবহার করা হয়েছে যেখানে নিম্নোক্ত প্রোপার্টি ব্যবহার করতে হবে:
-            <ul className="list-unstyled">
-              <li>
-                <span className="color-red">title</span>: ডায়েরির টাইটেল
-              </li>
-              <li>
-                <span className="color-red">tags:</span> ডায়েরির ট্যাগসমূহ
-                (একাধিক ট্যাগ কমা(,) দিয়ে আলাদা করে দিতে হবে)
-              </li>
-              <li>
-                <span className="color-red">isPublished:</span> ডায়েরি কি
-                প্রকাশিত করবেন (true or false)
-              </li>
-              <li>
-                <span className="color-red">thumbnail:</span> ডায়েরির কভার ছবি
-                (স্ট্যান্ডার্ড সাইজ ১২০০x৬৩০ পিক্সেল)
-              </li>
-              <li>
-                <span className="color-red">seriesName:</span> সিরিজ আর্টিকেলের
-                নাম
-              </li>
-            </ul>
           </p>
+          <ul className="list-unstyled">
+            <li>
+              <span className="color-red">title</span>: ডায়েরির টাইটেল
+            </li>
+            <li>
+              <span className="color-red">tags:</span> ডায়েরির ট্যাগসমূহ (একাধিক
+              ট্যাগ কমা(,) দিয়ে আলাদা করে দিতে হবে)
+            </li>
+            <li>
+              <span className="color-red">isPublished:</span> ডায়েরি কি প্রকাশিত
+              করবেন (true or false)
+            </li>
+            <li>
+              <span className="color-red">thumbnail:</span> ডায়েরির কভার ছবি
+              (স্ট্যান্ডার্ড সাইজ ১২০০x৬৩০ পিক্সেল)
+            </li>
+            <li>
+              <span className="color-red">seriesName:</span> সিরিজ আর্টিকেলের
+              নাম
+            </li>
+          </ul>
         </InfoCard>
-        <FileUploader />
       </StyledCol>
     </Row>
   );

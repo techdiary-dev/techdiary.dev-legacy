@@ -1,32 +1,33 @@
-const withSass = require('@zeit/next-sass')
-const withCSS = require('@zeit/next-css')
+const withSass = require("@zeit/next-sass");
+const withCSS = require("@zeit/next-css");
 
-if (process.env.NODE_ENV === 'production') {
-	const withPWA = require('next-pwa')
-	module.exports = withPWA({ pwa: { dest: 'public' } })
+if (process.env.NODE_ENV === "production") {
+  const withPWA = require("next-pwa");
+  module.exports = withPWA({ pwa: { dest: "public" } });
 }
 
-module.exports = withCSS()
+module.exports = withCSS();
 
 module.exports = withSass({
-	sassLoaderOptions: {
-		sourceMap: true
-	},
-	postcssLoaderOptions: {
-		sourceMap: true
-	}
-})
+  sassLoaderOptions: {
+    sourceMap: true,
+  },
+  postcssLoaderOptions: {
+    sourceMap: true,
+  },
+});
 
 module.exports = {
-	webpack(config) {
-		config.module.rules.push({
-			test: /\.svg$/,
-			issuer: {
-				test: /\.(js|ts)x?$/
-			},
-			use: ['@svgr/webpack']
-		})
+  target: "serverless",
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: {
+        test: /\.(js|ts)x?$/,
+      },
+      use: ["@svgr/webpack"],
+    });
 
-		return config
-	}
-}
+    return config;
+  },
+};

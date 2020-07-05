@@ -17,39 +17,39 @@ import "codemirror/addon/edit/closebrackets";
 import "codemirror/lib/codemirror";
 import "codemirror/mode/htmlmixed/htmlmixed";
 import { Controlled as CodeMirror } from "react-codemirror2";
-import crypto from "crypto";
+import { randomBytes } from "crypto";
 
 interface ICodeMirrorEditor {
   value: string;
-  mediaHandle?: (file: File) => Promise<String>;
-  onChanged: Function;
+  handleMedia?: (file: File) => Promise<string>;
+  onChanged: (value: string) => void;
 }
 
 export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
   props: ICodeMirrorEditor
 ) => {
-  const [value, setValue] = useState(props.value);
-
-  useEffect(() => {
-    props.onChanged(value);
-  }, [value]);
-  useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
-
-  const handleMedia = async (file: File) => {
-    const imageUUID = crypto.randomBytes(12).toString("hex");
+  const handleMedia = async (editor: CodeMirror.Editor, file: File) => {
+    if (typeof props.handleMedia === "undefined") {
+      return;
+    }
+    const imageUUID = randomBytes(12).toString("hex");
     const str = `[Uploading...](${imageUUID})`;
-    setValue(`${value}\n${str}`);
+    const cursor = editor.getCursor();
+    // if (!file.type.startsWith("image/")) return;
 
-    console.log(str);
-
-    const url = await props.mediaHandle(file);
-    if (url) {
-      setValue(`${value}\n[image_alt_text](${url})`);
+    editor.getDoc().replaceRange(`\n${str}`, cursor);
+    props.onChanged(`${editor.getValue()}`);
+    const url = await props.handleMedia(file);
+    if (url.length) {
+      props.onChanged(
+        `${editor
+          .getValue()
+          .replace(str, `[${file.name.split(".")[0]}](${url})`)}\n`
+      );
+    } else {
+      props.onChanged(`${editor.getValue().replace(str, ``)}\n`);
     }
   };
-
   const handleDrop = (editor: CodeMirror.Editor, event: DragEvent) => {
     if (!event.dataTransfer) return;
 
@@ -57,7 +57,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     if (files.length) {
       event.preventDefault();
       const file = files[0];
-      handleMedia(file);
+      handleMedia(editor, file);
     }
   };
 
@@ -65,12 +65,12 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     if (event?.clipboardData?.files.length) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
-      handleMedia(file);
+      handleMedia(editor, file);
     }
   };
   return (
     <CodeMirror
-      value={value}
+      value={props.value}
       options={{
         mode: "yaml-frontmatter",
         theme: "solarized light",
@@ -94,7 +94,9 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
       editorDidMount={(editor: CodeMirror.Editor) => {
         new MTableEditor(editor);
       }}
-      onBeforeChange={(editor, data, value) => setValue(value)}
+      onBeforeChange={(editor, data, value) => {
+        props.onChanged(value);
+      }}
       onDrop={handleDrop}
       onPaste={handlePaste}
     />
