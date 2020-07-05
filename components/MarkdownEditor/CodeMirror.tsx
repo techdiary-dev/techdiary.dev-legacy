@@ -35,12 +35,15 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     const imageUUID = randomBytes(12).toString("hex");
     const str = `[Uploading...](${imageUUID})`;
     const cursor = editor.getCursor();
-    editor.getDoc().replaceRange(`\n${str}`, cursor);
-    props.onChanged(`${editor.getValue()}\n${str}`);
     const url = await props.handleMedia(file);
+    if (!file.type.startsWith("images")) return;
+    editor.getDoc().replaceRange(`\n${str}`, cursor);
+    props.onChanged(`${editor.getValue()}`);
     if (url.length) {
       props.onChanged(
-        `${editor.getValue().replace(str, `[${file.name}](${url})`)}\n`
+        `${editor
+          .getValue()
+          .replace(str, `[${file.name.split(".")[0]}](${url})`)}\n`
       );
     }
   };
@@ -89,10 +92,8 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
         new MTableEditor(editor);
       }}
       onBeforeChange={(editor, data, value) => {
-        console.log("codemirror value", value);
         props.onChanged(value);
       }}
-      onChange={(editor, data, value) => props.onChanged(value)}
       onDrop={handleDrop}
       onPaste={handlePaste}
     />

@@ -19,7 +19,6 @@ const codeMirrorPersist = ({
     if (!!value) {
       storage.setItem(name, value);
     }
-    console.log("persist", value);
   });
 
   return {
