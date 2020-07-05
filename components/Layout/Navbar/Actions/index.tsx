@@ -16,6 +16,7 @@ import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
 // import nProgress from 'nprogress'
 import { useMutation } from "@apollo/react-hooks";
+import { motion } from "framer-motion";
 
 import { StyledActions, StyledUserActionMenu } from "./styles";
 // import UserAvater from "components/UserAvater";
@@ -28,7 +29,7 @@ const UserDropdownActionMenu = ({
   username,
   handleLogout,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>();
 
   // useEffect(() => {
   //   // document.addEventListener("click", function(e) {
@@ -39,11 +40,26 @@ const UserDropdownActionMenu = ({
 
   return (
     <StyledUserActionMenu>
-      <div className="avater" onClick={() => setOpen(!open)}>
+      <div
+        className="avater"
+        onClick={() => setOpen(open === undefined ? true : !open)}
+        onBlur={() => setOpen(false)}
+        tabIndex={0}
+      >
         <img className="avater" src={profilePhoto} alt={name} />
       </div>
-      {open && (
-        <ul className="dropdown-menu">
+      {open !== undefined && (
+        <motion.ul
+          className="dropdown-menu"
+          animate={open ? "open" : "close"}
+          variants={{
+            open: { y: 0, opacity: 1 },
+            close: {
+              y: -14,
+              opacity: 0,
+            },
+          }}
+        >
           <li>
             <Link href={`/${username}`}>
               <a className="dropdown-menu__item">
@@ -82,7 +98,7 @@ const UserDropdownActionMenu = ({
               <span className="label">লগআউট</span>
             </div>
           </li>
-        </ul>
+        </motion.ul>
       )}
     </StyledUserActionMenu>
   );
