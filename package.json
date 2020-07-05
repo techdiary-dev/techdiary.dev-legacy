@@ -22,6 +22,7 @@
     "class-validator": "^0.12.2",
     "codemirror": "^5.54.0",
     "disqus-react": "^1.0.8",
+    "framer-motion": "^1.11.1",
     "front-matter": "^4.0.2",
     "graphql": "^14.0.2",
     "graphql-tag": "2.10.3",

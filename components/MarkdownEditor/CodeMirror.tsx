@@ -17,18 +17,32 @@ import "codemirror/addon/edit/closebrackets";
 import "codemirror/lib/codemirror";
 import "codemirror/mode/htmlmixed/htmlmixed";
 import { Controlled as CodeMirror } from "react-codemirror2";
+import { randomBytes } from "crypto";
 
 interface ICodeMirrorEditor {
   value: string;
-  handleMedia?: (file: File) => void;
+  handleMedia?: (file: File) => Promise<string>;
   onChanged: (value: string) => void;
 }
 
 export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
   props: ICodeMirrorEditor
 ) => {
-  const handleMedia = (file: File) => {
-    if (typeof props.handleMedia !== "undefined") props.handleMedia(file);
+  const handleMedia = async (editor: CodeMirror.Editor, file: File) => {
+    if (typeof props.handleMedia === "undefined") {
+      return;
+    }
+    const imageUUID = randomBytes(12).toString("hex");
+    const str = `[Uploading...](${imageUUID})`;
+    const cursor = editor.getCursor();
+    editor.getDoc().replaceRange(`\n${str}`, cursor);
+    props.onChanged(`${editor.getValue()}\n${str}`);
+    const url = await props.handleMedia(file);
+    if (url.length) {
+      props.onChanged(
+        `${editor.getValue().replace(str, `[${file.name}](${url})`)}\n`
+      );
+    }
   };
   const handleDrop = (editor: CodeMirror.Editor, event: DragEvent) => {
     if (!event.dataTransfer) return;
@@ -37,7 +51,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     if (files.length) {
       event.preventDefault();
       const file = files[0];
-      handleMedia(file);
+      handleMedia(editor, file);
     }
   };
 
@@ -45,7 +59,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     if (event?.clipboardData?.files.length) {
       event.preventDefault();
       const file = event.clipboardData.files[0];
-      handleMedia(file);
+      handleMedia(editor, file);
     }
   };
   return (
@@ -78,6 +92,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
         console.log("codemirror value", value);
         props.onChanged(value);
       }}
+      onChange={(editor, data, value) => props.onChanged(value)}
       onDrop={handleDrop}
       onPaste={handlePaste}
     />

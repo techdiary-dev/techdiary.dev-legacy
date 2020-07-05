@@ -166,12 +166,9 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     }
   };
 
-  const handleMedia = (file: File) => {
-    const imageUUID = crypto.randomBytes(12).toString("hex");
-    const str = `[Uploading...](${imageUUID})`;
-    setContent(`${content}\n${str}`);
-    console.count(`handleMedia${content}`);
-    // const url: string = await handleFileUpload(file);
+  const handleMedia = async (file: File) => {
+    const url: string = await handleFileUpload(file);
+    return url;
     // if (url.length) {
     //   setContent(`${content}[image_alt_text](${url})\n`);
     // }
@@ -190,7 +187,11 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
         {CodeMirrorEditor && (
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
             <StyledMarkdownEditor>
-              <CodeMirrorEditor value={content} onChanged={setContent} />
+              <CodeMirrorEditor
+                value={content}
+                onChanged={setContent}
+                handleMedia={handleMedia}
+              />
               <div className="editor-ribbon">
                 <Button type="button" size="small" onClick={handleSave}>
                   সংরক্ষণ করুন{" "}
