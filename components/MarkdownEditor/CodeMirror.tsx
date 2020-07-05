@@ -35,16 +35,19 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
     const imageUUID = randomBytes(12).toString("hex");
     const str = `[Uploading...](${imageUUID})`;
     const cursor = editor.getCursor();
-    const url = await props.handleMedia(file);
-    if (!file.type.startsWith("images")) return;
+    // if (!file.type.startsWith("image/")) return;
+
     editor.getDoc().replaceRange(`\n${str}`, cursor);
     props.onChanged(`${editor.getValue()}`);
+    const url = await props.handleMedia(file);
     if (url.length) {
       props.onChanged(
         `${editor
           .getValue()
           .replace(str, `[${file.name.split(".")[0]}](${url})`)}\n`
       );
+    } else {
+      props.onChanged(`${editor.getValue().replace(str, ``)}\n`);
     }
   };
   const handleDrop = (editor: CodeMirror.Editor, event: DragEvent) => {
