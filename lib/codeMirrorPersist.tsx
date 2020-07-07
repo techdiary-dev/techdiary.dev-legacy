@@ -23,7 +23,7 @@ const codeMirrorPersist = ({
 
   return {
     clear: () => storage.removeItem(name),
-    reset: (value) => storage.setItem(name, value),
+    reset: (value: string) => storage.setItem(name, value),
   };
 };
 
