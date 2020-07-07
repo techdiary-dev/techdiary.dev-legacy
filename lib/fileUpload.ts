@@ -1,6 +1,6 @@
 import swal from "sweetalert";
 
-export function handleFileUpload(file: File) {
+export function handleFileUpload(file: File): Promise<string> {
   if (!file.type.startsWith("image/")) {
     return swal("ছবি ছাড়া অন্য কোন ফাইল আপলোড করতে পারবেন না।", "", "error");
   }

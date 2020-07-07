@@ -48,10 +48,11 @@ const UserDropdownActionMenu = ({
         initial="close"
         animate={open ? "open" : "close"}
         variants={{
-          open: { y: 0, opacity: 1 },
+          open: { y: 0, opacity: 1, display: "visible" },
           close: {
             y: -14,
             opacity: 0,
+            display: "none",
           },
         }}
       >
