@@ -16,13 +16,13 @@ import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
 // import nProgress from 'nprogress'
 import { useMutation } from "@apollo/react-hooks";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 import { StyledActions, StyledUserActionMenu } from "./styles";
 // import UserAvater from "components/UserAvater";
 // import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
-import { css } from "styled-components";
+// import { css } from "styled-components";
 
 const UserDropdownActionMenu = ({
   profilePhoto,
@@ -38,23 +38,13 @@ const UserDropdownActionMenu = ({
         className="avater"
         onClick={() => setOpen(!open)}
         onBlur={() => setOpen(false)}
-        tabIndex={0}
       >
         <img className="avater" src={profilePhoto} alt={name} />
       </div>
 
-      <motion.ul
+      <ul
         className="dropdown-menu"
-        initial="close"
-        animate={open ? "open" : "close"}
-        variants={{
-          open: { y: 0, opacity: 1, display: "visible" },
-          close: {
-            y: -14,
-            opacity: 0,
-            display: "none",
-          },
-        }}
+        style={{ display: open ? "block" : "none" }}
       >
         <li>
           <Link href={`/${username}`}>
@@ -94,7 +84,7 @@ const UserDropdownActionMenu = ({
             <span className="label">লগআউট</span>
           </div>
         </li>
-      </motion.ul>
+      </ul>
     </StyledUserActionMenu>
   );
 };
