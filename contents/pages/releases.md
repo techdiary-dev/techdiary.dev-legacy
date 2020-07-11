@@ -1,7 +1,6 @@
 ---
 title: টেকডায়েরি রিলিস সমূহ
 slug: releases
-updatedAt: 2020-07-07
 ---
 
 ### v0.5.0
