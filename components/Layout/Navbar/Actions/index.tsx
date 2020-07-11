@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import "react-tooltip";
 import {
   FiSettings,
@@ -16,7 +16,7 @@ import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
 // import nProgress from 'nprogress'
 import { useMutation } from "@apollo/react-hooks";
-// import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 import { StyledActions, StyledUserActionMenu } from "./styles";
 // import UserAvater from "components/UserAvater";
@@ -31,60 +31,85 @@ const UserDropdownActionMenu = ({
   handleLogout,
 }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const divImageRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    function handleClickoutSide(event) {
+      if (divImageRef.current && !divImageRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickoutSide);
+
+    return () => document.removeEventListener("mousedown", handleClickoutSide);
+  }, [divImageRef]);
   return (
     <StyledUserActionMenu>
-      <div
-        className="avater"
-        onClick={() => setOpen(!open)}
-        onBlur={() => setOpen(false)}
-      >
+      <div className="avater" onClick={() => setOpen(!open)} ref={divImageRef}>
         <img className="avater" src={profilePhoto} alt={name} />
-      </div>
 
-      <ul
-        className="dropdown-menu"
-        style={{ display: open ? "block" : "none" }}
-      >
-        <li>
-          <Link href={`/${username}`}>
-            <a className="dropdown-menu__item">
-              <FiUser className="dropdown-menu__icon" />
-              <span className="label">আমার প্রোফাইল</span>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/dashboard/update-profile">
-            <a className="dropdown-menu__item">
-              <FiSettings className="dropdown-menu__icon" />
-              <span className="label">প্রোফাইল হালনাগাদ</span>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/dashboard">
-            <a className="dropdown-menu__item">
-              <FiBookOpen className="dropdown-menu__icon" />
-              <span className="label">আমার ড্যাসবোর্ড</span>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/new">
-            <a className="dropdown-menu__item">
-              <FiPlus className="dropdown-menu__icon" />
-              <span className="label">নতুন ডায়েরি</span>
-            </a>
-          </Link>
-        </li>
-        <li>
-          <div className="dropdown-menu__item" onClick={handleLogout}>
-            <FiLogOut className="dropdown-menu__icon" />
-            <span className="label">লগআউট</span>
-          </div>
-        </li>
-      </ul>
+        <motion.ul
+          animate={open ? "open" : "close"}
+          initial="close"
+          variants={{
+            open: {
+              opacity: 1,
+              // visibility: "visible",
+              clipPath: "circle(200% at 50% 0%)",
+              y: 0,
+            },
+            close: {
+              opacity: 0,
+              // visibility: "hidden",
+              clipPath: "circle(0% at 50% 0%)",
+              y: 20,
+            },
+          }}
+          className="dropdown-menu"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          // style={{ display: "block", transition: ".2s easeInOut" }}
+        >
+          <li>
+            <Link href={`/${username}`}>
+              <a className="dropdown-menu__item">
+                <FiUser className="dropdown-menu__icon" />
+                <span className="label">আমার প্রোফাইল</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/update-profile">
+              <a className="dropdown-menu__item">
+                <FiSettings className="dropdown-menu__icon" />
+                <span className="label">প্রোফাইল হালনাগাদ</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard">
+              <a className="dropdown-menu__item">
+                <FiBookOpen className="dropdown-menu__icon" />
+                <span className="label">আমার ড্যাসবোর্ড</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/new">
+              <a className="dropdown-menu__item">
+                <FiPlus className="dropdown-menu__icon" />
+                <span className="label">নতুন ডায়েরি</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <div className="dropdown-menu__item" onClick={handleLogout}>
+              <FiLogOut className="dropdown-menu__icon" />
+              <span className="label">লগআউট</span>
+            </div>
+          </li>
+        </motion.ul>
+      </div>
     </StyledUserActionMenu>
   );
 };

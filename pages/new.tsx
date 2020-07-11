@@ -10,7 +10,7 @@ const NewArticlePage = () => {
     <MainLayout>
       <HeadTag title="নতুন ডায়েরি লিখুন" />
       <PleaseLogin>
-        <MarkdownEditor />
+        {typeof window !== "undefined" && <MarkdownEditor />}
         {/* <ArticleEditor /> */}
       </PleaseLogin>
     </MainLayout>
