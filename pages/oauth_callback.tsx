@@ -14,7 +14,8 @@ const OAuthRedirect = () => {
 
   useEffect(() => {
     login({ variables: { code: router.query?.code } })
-      .then(() => {
+      .then((res) => {
+        window.localStorage.setItem("token", res.data.login.token);
         router.push("/");
       })
       .catch((e) => {

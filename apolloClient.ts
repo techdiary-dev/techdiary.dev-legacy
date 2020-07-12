@@ -42,7 +42,8 @@ export default function createApolloClient(initialState, ctx) {
   const authLink = setContext((_, { headers }) => ({
     headers: {
       ...headers,
-      Cookie: ctx && ctx?.req?.headers?.cookie ? ctx?.req.headers.cookie : "",
+      authorization: "Bearer " + localStorage.getItem("token"),
+      // Cookie: ctx && ctx?.req?.headers?.cookie ? ctx?.req.headers.cookie : "",
     },
   }));
   return new ApolloClient({
