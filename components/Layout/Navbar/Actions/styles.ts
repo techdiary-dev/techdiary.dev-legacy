@@ -29,13 +29,13 @@ export const StyledActions = styled.div`
 
 export const StyledUserActionMenu = styled.div`
   position: relative;
-
   .avater {
     height: 40px;
     width: 40px;
     border-radius: 100%;
     margin-right: 1.3rem;
     cursor: pointer;
+    outline: none;
   }
 
   .dropdown-menu {

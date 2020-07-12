@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 // import "react-tooltip";
 import {
   FiSettings,
@@ -22,6 +22,7 @@ import { StyledActions, StyledUserActionMenu } from "./styles";
 // import UserAvater from "components/UserAvater";
 // import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
+// import { css } from "styled-components";
 
 const UserDropdownActionMenu = ({
   profilePhoto,
@@ -29,36 +30,45 @@ const UserDropdownActionMenu = ({
   username,
   handleLogout,
 }) => {
-  const [open, setOpen] = useState<boolean>();
+  const [open, setOpen] = useState<boolean>(false);
+  const divImageRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   // document.addEventListener("click", function(e) {
-  //   //   e.stopPropagation();
-  //   //   setOpen(false);
-  //   // });
-  // });
+  useEffect(() => {
+    function handleClickoutSide(event) {
+      if (divImageRef.current && !divImageRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
 
+    document.addEventListener("mousedown", handleClickoutSide);
+
+    return () => document.removeEventListener("mousedown", handleClickoutSide);
+  }, [divImageRef]);
   return (
     <StyledUserActionMenu>
-      <div
-        className="avater"
-        onClick={() => setOpen(open === undefined ? true : !open)}
-        onBlur={() => setOpen(false)}
-        tabIndex={0}
-      >
+      <div className="avater" onClick={() => setOpen(!open)} ref={divImageRef}>
         <img className="avater" src={profilePhoto} alt={name} />
-      </div>
-      {open !== undefined && (
+
         <motion.ul
-          className="dropdown-menu"
           animate={open ? "open" : "close"}
+          initial="close"
           variants={{
-            open: { y: 0, opacity: 1 },
+            open: {
+              opacity: 1,
+              // visibility: "visible",
+              clipPath: "circle(200% at 50% 0%)",
+              y: 0,
+            },
             close: {
-              y: -14,
               opacity: 0,
+              // visibility: "hidden",
+              clipPath: "circle(0% at 50% 0%)",
+              y: 20,
             },
           }}
+          className="dropdown-menu"
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          // style={{ display: "block", transition: ".2s easeInOut" }}
         >
           <li>
             <Link href={`/${username}`}>
@@ -99,7 +109,7 @@ const UserDropdownActionMenu = ({
             </div>
           </li>
         </motion.ul>
-      )}
+      </div>
     </StyledUserActionMenu>
   );
 };

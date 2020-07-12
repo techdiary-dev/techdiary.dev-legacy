@@ -16,14 +16,14 @@ interface Props {
 }
 
 export const Logout = ({ refetchMe }: Props) => {
-  let [logout, { loading }] = useMutation(LOGOUT);
+  let [logout, { loading, client }] = useMutation(LOGOUT);
 
   if (loading) np.start();
   else np.done();
 
   const handleClick = (e) => {
     logout().then(() => {
-      refetchMe();
+      client.clearStore();
     });
   };
 

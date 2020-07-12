@@ -33,7 +33,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
       return;
     }
     const imageUUID = randomBytes(12).toString("hex");
-    const str = `[Uploading...](${imageUUID})`;
+    const str = `![Uploading...](${imageUUID})`;
     const cursor = editor.getCursor();
     // if (!file.type.startsWith("image/")) return;
 
@@ -44,7 +44,7 @@ export const CodeMirrorEditor: React.FC<ICodeMirrorEditor> = (
       props.onChanged(
         `${editor
           .getValue()
-          .replace(str, `[${file.name.split(".")[0]}](${url})`)}\n`
+          .replace(str, `![${file.name.split(".")[0]}](${url})`)}\n`
       );
     } else {
       props.onChanged(`${editor.getValue().replace(str, ``)}\n`);
