@@ -14,6 +14,7 @@ import { StyledArticleDetails } from "components/Article/ArticleDetails/styles";
 import Link from "next/link";
 import { InfoCard } from "components/InfoCard";
 import styled from "styled-components";
+import HeadTag from "components/HeadTag";
 
 const StyledSidebar = styled.ul`
   list-style: none;
@@ -30,9 +31,9 @@ const StyledSidebar = styled.ul`
 `;
 
 const StaticPage = ({ content, frontmatter, pages }) => {
-  console.log({ pages });
   return (
     <MainLayout>
+      <HeadTag title={frontmatter.title} />
       <Row>
         <StyledCol md={3}>
           <InfoCard title="অন্যান্য পাতা সমূহ">

@@ -6,7 +6,6 @@ import styled, { ThemeProvider } from "styled-components";
 import { theme } from "styles/variables";
 import moment from "moment";
 import "styles/index.css";
-import "react-markdown-editor-lite/lib/index.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
 import useMe from "components/useMe";
@@ -27,12 +26,6 @@ let StyledServerError = styled.div`
   max-width: 1200px;
   text-align: center;
   margin: 25px auto;
-  /* margin: auto; */
-  /* position: absolute;
-	top: 50%;
-	left: 50%; */
-  /* transform: translate(-50%, -50%); */
-
   pre {
     font-size: 18px;
     overflow: scroll;
