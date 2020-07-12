@@ -123,9 +123,9 @@ export const UPDATE_PROFILE = gql`
     $designation: String
     $location: String
     $bio: String
-    $links: [linksInput!]
+    $links: [LinkInput!]
     $skills: [String!]
-    $workInfo: [workInfoInput!]
+    $workInfo: [WorkInfoInput!]
   ) {
     updateProfile(
       data: {

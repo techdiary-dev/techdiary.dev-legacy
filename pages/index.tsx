@@ -12,6 +12,7 @@ import UserCardWithArticles from "components/UserCardWithArticles";
 import HeadTag from "components/HeadTag";
 import styled from "styled-components";
 import { NextPage } from "next";
+import FooterLinks from "components/FooterLinks";
 
 const StyledBetaAlert = styled.div`
   font-size: 2.2rem;
@@ -59,6 +60,8 @@ const index: NextPage<Props> = (props) => {
             ) : (
               !error && data && <UserCardWithArticles user={data} />
             )}
+
+            <FooterLinks />
           </StyledCol>
         </Row>
       </MainLayout>
