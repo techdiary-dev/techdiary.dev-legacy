@@ -5,25 +5,21 @@ import Link from "next/link";
 const FooterLinks = () => {
   return (
     <StyledFooterLinks>
-      <Link href="/p/privacy">
-        <a>গোপনীয়তার নীতিমালা</a>
-      </Link>
-
       <span className="seperator"> · </span>
 
-      <Link href="/p/code-of-conduct">
+      <Link href={`/p/[slug]`} as="/p/code-of-conduct">
         <a>আচরনবিধি</a>
       </Link>
 
       <span className="seperator"> · </span>
 
-      <Link href="/p/about-us">
+      <Link href={`/p/[slug]`} as="/p/about-us">
         <a>আমাদের সম্পর্কে</a>
       </Link>
 
       <span className="seperator"> · </span>
 
-      <Link href="/p/contact">
+      <Link href={`/p/[slug]`} as="/p/contact">
         <a>যোগাযোগ</a>
       </Link>
     </StyledFooterLinks>

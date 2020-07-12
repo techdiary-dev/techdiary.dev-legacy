@@ -46,7 +46,7 @@ const index: NextPage<Props> = (props) => {
         <Row>
           <StyledCol md={3} sidebar>
             <StyledBetaAlert>
-              <FiInfo /> বেটা ভার্সন <br /> <span>0.5.0</span>
+              <FiInfo /> বেটা ভার্সন <br /> <span>0.6.0</span>
             </StyledBetaAlert>
           </StyledCol>
 
@@ -60,7 +60,6 @@ const index: NextPage<Props> = (props) => {
             ) : (
               !error && data && <UserCardWithArticles user={data} />
             )}
-
             <FooterLinks />
           </StyledCol>
         </Row>
