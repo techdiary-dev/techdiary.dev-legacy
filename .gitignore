@@ -32,3 +32,7 @@ public/sw.js
 public/workbox*.js
 .vercel
 .env.example
+
+
+out_functions/
+out_publish/
