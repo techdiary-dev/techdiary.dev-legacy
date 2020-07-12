@@ -41,6 +41,10 @@ export const GlobalStyles = createGlobalStyle`
 		}
 	}
 
+	img{
+		max-width: 100%;
+	}
+
 	.color-red{
 		color: ${({ theme }) => theme.red};
 	}
@@ -109,6 +113,15 @@ export const GlobalStyles = createGlobalStyle`
 
 	input:focus {
 		outline: none;
+	}
+
+	.flex-center{
+		display: flex;
+    	align-items: center;
+	}
+
+	.text-center{
+		text-align: center;
 	}
 
 	#nprogress{pointer-events:none}
