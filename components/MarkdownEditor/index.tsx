@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import LoadingOverlay from "react-loading-overlay";
 import { StyledMarkdownEditor } from "./styles";
-import mater from "gray-matter";
+import matter from "gray-matter";
 import Button from "components/Button";
 import { Row } from "styled-grid-system-component";
 import { StyledCol } from "styles/StyledGrid";
@@ -17,7 +17,9 @@ import { CatchServerErrors } from "lib/CatchServerErrors";
 import { InfoCard } from "components/InfoCard";
 import FileUploader from "components/Form/FileUploader";
 import { handleFileUpload } from "lib/fileUpload";
-import crypto from "crypto";
+import ReactMarkdown from "react-markdown";
+import { Highlighter } from "lib/prismhiglight";
+import classNames from "classnames";
 
 let CodeMirrorEditor = null;
 
@@ -71,7 +73,7 @@ interface Props {
 
 const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   let router = useRouter();
-
+  const [preview, togglePreview] = useState(false);
   let [createArticle, { loading: cLoading }] = useMutation(CREATE_ARTICLE, {
     refetchQueries: [{ query: ARTICLE_LIST }],
   });
@@ -120,7 +122,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     }
   };
   const handleSave = async () => {
-    const frontMatter = mater(content);
+    const frontMatter = matter(content);
 
     try {
       const err: any = await validateCreateArticleInput({
@@ -169,9 +171,6 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
   const handleMedia = async (file: File) => {
     const url: string = await handleFileUpload(file);
     return url;
-    // if (url.length) {
-    //   setContent(`${content}[image_alt_text](${url})\n`);
-    // }
   };
   return (
     <Row>
@@ -182,9 +181,39 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               {err}
             </Danger>
           ))}
+        <div className="flex mb-4">
+          <div className="w-1/3"></div>
+
+          <a
+            className={classNames(
+              "inline-block border  py-4 text-xl px-3 rounded mr-6 cursor-pointer transition ease-in-out duration-300 ",
+              {
+                "bg-teal-500 text-white": preview,
+                "hover:bg-green-300": !preview,
+              }
+            )}
+            onClick={() => togglePreview(true)}
+          >
+            Preview
+          </a>
+          <a
+            className={classNames(
+              "inline-block border py-4 text-xl px-3 rounded mr-6 cursor-pointer transition ease-in-out duration-300 ",
+              {
+                "bg-teal-500 text-white": !preview,
+                "hover:bg-green-300": preview,
+              }
+            )}
+            onClick={() => togglePreview(false)}
+          >
+            Edit
+          </a>
+
+          <div className="w-1/3"></div>
+        </div>
         <FileUploader />
         <div style={{ height: "20px" }}></div>
-        {CodeMirrorEditor && (
+        {!preview && CodeMirrorEditor && (
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
             <StyledMarkdownEditor>
               <CodeMirrorEditor
@@ -192,6 +221,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
                 onChanged={setContent}
                 handleMedia={handleMedia}
               />
+
               <div className="editor-ribbon">
                 <Button type="button" size="small" onClick={handleSave}>
                   সংরক্ষণ করুন{" "}
@@ -207,6 +237,20 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
               </div>
             </StyledMarkdownEditor>
           </LoadingOverlay>
+        )}
+
+        {preview && (
+          <ReactMarkdown
+            source={matter(content).content}
+            renderers={{
+              code: Highlighter,
+              inlineCode: ({ value }) => (
+                <code className="language-text">{value}</code>
+              ),
+            }}
+            linkTarget="_blank"
+            className="markdown"
+          />
         )}
       </StyledCol>
       <StyledCol md={3}>
