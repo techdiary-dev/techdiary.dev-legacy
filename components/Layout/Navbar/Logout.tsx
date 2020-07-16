@@ -1,7 +1,7 @@
 import React from "react";
 import LogoutIcon from "public/icons/log-out.svg";
 import styled from "styled-components";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { LOGOUT } from "quries/AUTH";
 import np from "nprogress";
 

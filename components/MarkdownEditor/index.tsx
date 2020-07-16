@@ -6,7 +6,7 @@ import matter from "gray-matter";
 import Button from "components/Button";
 import { Row } from "styled-grid-system-component";
 import { StyledCol } from "styles/StyledGrid";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";

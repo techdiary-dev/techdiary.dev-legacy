@@ -15,7 +15,7 @@ import useMe from "components/useMe";
 import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
 // import nProgress from 'nprogress'
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { motion } from "framer-motion";
 
 import { StyledActions, StyledUserActionMenu } from "./styles";
