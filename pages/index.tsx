@@ -11,8 +11,10 @@ import useMe from "components/useMe";
 import UserCardWithArticles from "components/UserCardWithArticles";
 import HeadTag from "components/HeadTag";
 import styled from "styled-components";
-import { NextPage } from "next";
+import { NextPage, GetStaticProps } from "next";
 import FooterLinks from "components/FooterLinks";
+import { initializeApollo } from "lib/apolloClient";
+import { ARTICLE_LIST } from "quries/ARTICLE";
 
 const StyledBetaAlert = styled.div`
   font-size: 2.2rem;
@@ -67,4 +69,20 @@ const index: NextPage<Props> = (props) => {
     </div>
   );
 };
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const apolloClient = initializeApollo(null, ctx);
+
+  await apolloClient.query({
+    query: ARTICLE_LIST,
+    variables: { page: 1 },
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+};
+
 export default index;

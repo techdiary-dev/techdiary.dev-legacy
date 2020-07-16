@@ -1,4 +1,4 @@
-import { HttpLink, ApolloClient, InMemoryCache } from "@apollo/client";
+import { createHttpLink, ApolloClient, InMemoryCache } from "@apollo/client";
 import fetch from "isomorphic-unfetch";
 
 export default function createApolloClient(initialState, ctx) {
@@ -8,10 +8,12 @@ export default function createApolloClient(initialState, ctx) {
   //     Cookie: ctx && ctx?.req?.headers?.cookie ? ctx?.req.headers.cookie : "",
   //   },
   // }));
-  const httpLink = new HttpLink({
+  const httpLink = createHttpLink({
     uri: process.env.NEXT_PUBLIC_API,
-    credentials: "include",
-
+    credentials: "same-origin",
+    headers: {
+      cookie: ctx && ctx?.req?.headers?.cookie ? ctx?.req.headers.cookie : "",
+    },
     fetch,
   });
   return new ApolloClient({

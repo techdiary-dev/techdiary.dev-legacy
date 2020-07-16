@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import {
   ApolloClient,
   NormalizedCacheObject,
-  HttpLink,
+  createHttpLink,
   InMemoryCache,
 } from "@apollo/client";
 
@@ -11,7 +11,7 @@ let apolloClient: ApolloClient<NormalizedCacheObject>;
 function createApolloClient(ctx?) {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
-    link: new HttpLink({
+    link: createHttpLink({
       uri: process.env.NEXT_PUBLIC_API, // Server URL (must be absolute)
       credentials: "include", // Additional fetch() options like `credentials` or `headers`
       headers: {

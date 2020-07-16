@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import "react-tooltip";
 import {
   FiSettings,
   FiBookOpen,
@@ -14,15 +13,10 @@ import Link from "next/link";
 import useMe from "components/useMe";
 import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
-// import nProgress from 'nprogress'
 import { useMutation } from "@apollo/client";
 import { motion } from "framer-motion";
-
 import { StyledActions, StyledUserActionMenu } from "./styles";
-// import UserAvater from "components/UserAvater";
-// import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
-// import { css } from "styled-components";
 
 const UserDropdownActionMenu = ({
   profilePhoto,
@@ -71,7 +65,7 @@ const UserDropdownActionMenu = ({
           // style={{ display: "block", transition: ".2s easeInOut" }}
         >
           <li>
-            <Link href={`/${username}`}>
+            <Link href="/[username]" as={`/${username}`}>
               <a className="dropdown-menu__item">
                 <FiUser className="dropdown-menu__icon" />
                 <span className="label">আমার প্রোফাইল</span>
