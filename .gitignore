@@ -36,3 +36,5 @@ public/workbox*.js
 
 out_functions/
 out_publish/
+.env
+pnpm-lock.yaml

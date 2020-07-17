@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DevTool } from "react-hook-form-devtools";
 import { FiX } from "react-icons/fi";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import np from "nprogress";
 import * as yup from "yup";
 import { Row, Column } from "styled-grid-system-component";
