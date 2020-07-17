@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery, useSubscription } from "@apollo/client";
 import { SyncLoader } from "react-spinners";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -16,10 +16,15 @@ const StyledLoadmore = styled.div`
 `;
 
 const ArticleList: React.FC = () => {
-  let { data, fetchMore } = useQuery(ARTICLE_LIST, {
+  let { data, fetchMore, refetch } = useQuery(ARTICLE_LIST, {
     variables: { page: 1 },
+    notifyOnNetworkStatusChange: true,
     fetchPolicy: "cache-and-network",
   });
+
+  useEffect(() => {
+    refetch({ page: 1 });
+  }, []);
 
   const handleFetch = () => {
     fetchMore({

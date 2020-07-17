@@ -14,7 +14,7 @@ const OAuthRedirect = () => {
   useEffect(() => {
     login({ variables: { code: router.query?.code } })
       .then(() => {
-        router.push("/");
+        router.back();
       })
       .catch((e) => {
         CatchServerErrors(e);

@@ -17,6 +17,7 @@ import { useMutation } from "@apollo/client";
 import { motion } from "framer-motion";
 import { StyledActions, StyledUserActionMenu } from "./styles";
 import swal from "sweetalert";
+import { useRouter } from "next/router";
 
 const UserDropdownActionMenu = ({
   profilePhoto,
@@ -109,9 +110,9 @@ const UserDropdownActionMenu = ({
 };
 
 const Actions: React.FC = () => {
-  let { data, error, refetch, loading } = useMe();
-  let [logout, { loading: loginLogout }] = useMutation(LOGOUT);
-
+  let { data, error, loading } = useMe();
+  let [logout, { loading: loginLogout, client }] = useMutation(LOGOUT);
+  const router = useRouter();
   // if (loading || loginLogout) nProgress.start()
   // else nProgress.done()
 
@@ -124,7 +125,9 @@ const Actions: React.FC = () => {
     }).then((willDelete) => {
       if (willDelete) {
         logout().then(() => {
-          refetch();
+          // refetch();
+          router.push("/");
+          client.clearStore();
         });
       }
     });

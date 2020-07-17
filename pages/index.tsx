@@ -11,7 +11,7 @@ import useMe from "components/useMe";
 import UserCardWithArticles from "components/UserCardWithArticles";
 import HeadTag from "components/HeadTag";
 import styled from "styled-components";
-import { NextPage, GetStaticProps } from "next";
+import { NextPage, GetServerSideProps } from "next";
 import FooterLinks from "components/FooterLinks";
 import { initializeApollo } from "lib/apolloClient";
 import { ARTICLE_LIST } from "quries/ARTICLE";
@@ -70,7 +70,7 @@ const index: NextPage<Props> = (props) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apolloClient = initializeApollo(null, ctx);
 
   await apolloClient.query({
