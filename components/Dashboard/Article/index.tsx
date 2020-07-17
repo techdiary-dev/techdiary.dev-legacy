@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import swal from "sweetalert";
 import { FiEdit2, FiTrash } from "react-icons/fi";
 import Link from "next/link";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { DELETE_ARTICLE, ARTICLE_LIST } from "quries/ARTICLE";
 import { ME } from "quries/AUTH";
 import { CatchServerErrors } from "lib/CatchServerErrors";
