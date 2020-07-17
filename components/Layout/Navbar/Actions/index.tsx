@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-// import "react-tooltip";
 import {
   FiSettings,
   FiBookOpen,
@@ -14,15 +13,11 @@ import Link from "next/link";
 import useMe from "components/useMe";
 import { BounceLoader } from "react-spinners";
 import { LOGOUT } from "quries/AUTH";
-// import nProgress from 'nprogress'
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { motion } from "framer-motion";
-
 import { StyledActions, StyledUserActionMenu } from "./styles";
-// import UserAvater from "components/UserAvater";
-// import ReactTooltip from "react-tooltip";
 import swal from "sweetalert";
-// import { css } from "styled-components";
+import { useRouter } from "next/router";
 
 const UserDropdownActionMenu = ({
   profilePhoto,
@@ -71,7 +66,7 @@ const UserDropdownActionMenu = ({
           // style={{ display: "block", transition: ".2s easeInOut" }}
         >
           <li>
-            <Link href={`/${username}`}>
+            <Link href="/[username]" as={`/${username}`}>
               <a className="dropdown-menu__item">
                 <FiUser className="dropdown-menu__icon" />
                 <span className="label">আমার প্রোফাইল</span>
@@ -115,9 +110,9 @@ const UserDropdownActionMenu = ({
 };
 
 const Actions: React.FC = () => {
-  let { data, error, refetch, loading } = useMe();
-  let [logout, { loading: loginLogout }] = useMutation(LOGOUT);
-
+  let { data, error, loading } = useMe();
+  let [logout, { loading: loginLogout, client }] = useMutation(LOGOUT);
+  const router = useRouter();
   // if (loading || loginLogout) nProgress.start()
   // else nProgress.done()
 
@@ -130,7 +125,9 @@ const Actions: React.FC = () => {
     }).then((willDelete) => {
       if (willDelete) {
         logout().then(() => {
-          refetch();
+          // refetch();
+          router.push("/");
+          client.clearStore();
         });
       }
     });

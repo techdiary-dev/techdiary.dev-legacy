@@ -4,7 +4,7 @@ import { StyledPhotoUpdater } from "./styles";
 import { Card } from "components/Card";
 import Button from "components/Button";
 import gql from "graphql-tag";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { ME } from "quries/AUTH";
 import np from "nprogress";
 

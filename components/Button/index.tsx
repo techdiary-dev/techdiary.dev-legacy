@@ -1,9 +1,9 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC, ReactNode, HTMLAttributes } from "react";
 import { StyledButton, ButtonSize, ButtonTheme } from "./styles";
 
 type ButtonType = "button" | "submit";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLButtonElement> {
   onClick?: React.FormEventHandler<HTMLButtonElement>;
   children: ReactNode;
   size?: ButtonSize;
@@ -11,16 +11,16 @@ interface Props {
   color?: ButtonTheme;
 }
 
-const Button: FC<Props> = ({
-  onClick,
-  children,
-  type = "button",
-  size = "normal",
-  color = "primary",
-}: Props): JSX.Element => {
+const Button: FC<Props> = (props: Props): JSX.Element => {
   return (
-    <StyledButton type={type} onClick={onClick} size={size} color={color}>
-      {children}
+    <StyledButton
+      type={props.type || "button"}
+      onClick={props.onClick}
+      size={props.size || "normal"}
+      color={props.color || "primary"}
+      {...props}
+    >
+      {props.children}
     </StyledButton>
   );
 };
