@@ -1,7 +1,6 @@
 import React from "react";
 import Router from "next/router";
 import np from "nprogress";
-import { withApollo } from "lib/apollo";
 import styled, { ThemeProvider } from "styled-components";
 import { theme } from "styles/variables";
 import moment from "moment";
@@ -10,8 +9,6 @@ import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "lib/apolloClient";
-// import Prism from "prismjs";
-// import "prismjs/components/prism-jsx";
 
 Router.events.on("routeChangeStart", () => {
   np.start();

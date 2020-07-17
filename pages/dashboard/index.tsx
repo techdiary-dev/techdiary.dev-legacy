@@ -40,7 +40,6 @@ const dashboard: React.FC = () => {
 	return (
 		<DashboardLayout>
 			<HeadTag title="সকল ডায়েরি" />
-
 			<InfiniteScroll
 				dataLength={data?.articles?.data.length ?? 5}
 				next={handleFetch}

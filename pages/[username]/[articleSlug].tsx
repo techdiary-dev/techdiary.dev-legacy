@@ -1,5 +1,5 @@
 import React from "react";
-import { useRouter } from "next/dist/client/router";
+import { useRouter } from "next/router";
 import MainLayout from "components/Layout/MainLayout";
 import { useQuery } from "@apollo/client";
 import { ARTICLE_DETAILS } from "quries/ARTICLE";
