@@ -23,7 +23,7 @@ export const Logout = ({ refetchMe }: Props) => {
   if (loading) np.start();
   else np.done();
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     logout().then(() => {
       router.push("/");
       client.clearStore();
