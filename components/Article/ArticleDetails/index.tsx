@@ -18,9 +18,8 @@ interface Props {
   loading: boolean;
 }
 
-const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
+const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
   let router = useRouter();
-  if (loading) return <ArticleDetailsSkeleton />;
 
   return (
     <StyledArticleDetails>
@@ -30,7 +29,11 @@ const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
 
           {article?.thumbnail && (
             <div className="thumbnail">
-              <img src={article.thumbnail} alt={article?.title} />
+              <img
+                src={article.thumbnail}
+                alt={article?.title}
+                className="w-full"
+              />
             </div>
           )}
           <div className="meta">
