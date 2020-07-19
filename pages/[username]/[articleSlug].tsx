@@ -5,6 +5,8 @@ import { useQuery } from "@apollo/client";
 import { ARTICLE_DETAILS } from "quries/ARTICLE";
 import ArticleDetails from "components/Article/ArticleDetails";
 import HeadTag from "components/HeadTag";
+import { GetServerSideProps } from "next";
+import { initializeApollo } from "lib/apolloClient";
 
 const ArticleDetailsPage = () => {
   let { query } = useRouter();
@@ -26,6 +28,21 @@ const ArticleDetailsPage = () => {
       <ArticleDetails loading={loading} article={data?.article} />
     </MainLayout>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apolloClient = initializeApollo(null, ctx);
+
+  await apolloClient.query({
+    query: ARTICLE_DETAILS,
+    variables: { slug: ctx.params.articleSlug },
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
 };
 
 export default ArticleDetailsPage;
