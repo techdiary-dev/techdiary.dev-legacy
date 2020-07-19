@@ -90,6 +90,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
 
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
     if (
@@ -128,6 +129,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     }
   };
   const handleSave = async () => {
+    const fonst = matter.test(content);
     const frontMatter = matter(content);
 
     try {
@@ -137,6 +139,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
       });
 
       if (err.length) {
+        window.scrollTo(0, 0);
         setErrors(err);
         return;
       }
