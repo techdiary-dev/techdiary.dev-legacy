@@ -8,11 +8,6 @@ import { Card } from "components/Card";
 
 import UserAvater from "components/UserAvater";
 import styled from "styled-components";
-// import ClockIcon from 'public/icons/clock.svg'
-// import HeartIcon from 'public/icons/heart.svg'
-// import CommentIcon from 'public/icons/comment.svg'
-// import BookmarkIcon from 'public/icons/bookmark.svg'
-// import BookmarkIcon from 'public/icons/bookmark.svg'
 
 interface Props {
   title: string;
@@ -77,29 +72,6 @@ const ArticleCard: React.FC<Props> = ({
         )}
 
         <div className="excerpt">{excerpt}</div>
-        {/* <div className="tags">
-					{tags?.map((t, key) => (
-						<Link href={`/t/${t}`} key={key}>
-							<a>#{t}</a>
-						</Link>
-					))}
-				</div> */}
-        {/* <div className="footer">
-					<div className="state">
-						<ClockIcon />
-						{bnnum(7)} মিনিট
-					</div>
-					<div className="commentsAndLikes">
-						<div className="state">
-							<HeartIcon />
-							{bnnum(147)}
-						</div>
-						<div className="state">
-							<CommentIcon />
-							{bnnum(16)}
-						</div>
-					</div>
-				</div> */}
       </Card>
     </ArticleCardStyle>
   );

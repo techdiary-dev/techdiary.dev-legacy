@@ -1,11 +1,8 @@
-import styled from 'styled-components'
-import screenSizes from 'styles/DEVICES'
+import styled from "styled-components";
+import tw from "twin.macro";
 
 export const StyledMainLayout = styled.section`
-	main {
-		margin: 10rem 0;
-		@media all and (max-width: ${screenSizes.MOBILE_SCREEN}) {
-			margin: 7rem 0;
-		}
-	}
-`
+  main {
+    ${tw`md:py-24 py-20`}
+  }
+`;

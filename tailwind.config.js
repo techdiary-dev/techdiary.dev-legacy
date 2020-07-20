@@ -1,7 +1,18 @@
 module.exports = {
   purge: ["./components/**/*.tsx", "./styles/index.css"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#28C7C1",
+        primaryDark: "#24B3AE",
+        secondary: "#FDF9F3",
+        secondaryDark: "#FEF4E5",
+
+        dark: "#2F3432",
+        semiDark: "#484E4E",
+        lightDark: "#929999",
+      },
+    },
   },
   variants: {},
   plugins: [],

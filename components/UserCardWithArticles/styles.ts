@@ -1,29 +1,27 @@
-import styled from 'styled-components'
+import styled from "styled-components";
+import tw from "twin.macro";
 
 export const StyledUserCardWithArticles = styled.div`
 	.heading {
-		color: ${({ theme }) => theme.primaryDark};
+		/* color: ${({ theme }) => theme.primaryDark};
 		font-size: 1.4rem;
-		margin-top: 18px;
+		margin-top: 18px; */
+		${tw`text-lg mt-2 text-primary`}
 	}
 
 	.link {
 		color: ${({ theme }) => theme.primaryDark};
-		font-size: 1.4rem;
-		font-weight: bold;
+		${tw`font-bold text-base`}
 	}
 	.articles {
 	}
 	.article {
+		${tw`mt-4`}
 		&__title {
-			font-size: 1.6rem;
-			color: ${({ theme }) => theme.semiDark};
+			${tw`text-base text-semiDark`}
 		}
 		&__time {
-			font-size: 1.4rem;
-			color: ${({ theme }) => theme.darkGrey};
-			font-weight: bold;
-			margin-top: 0;
+			${tw`text-sm text-gray-700`}
 		}
 	}
-`
+`;

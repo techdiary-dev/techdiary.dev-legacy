@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-
 	@font-face {
 		font-family: 'Kohinoor Bangla';
 		src: url('/fonts/KohinoorBangla-Regular.eot');
@@ -13,116 +12,6 @@ export const GlobalStyles = createGlobalStyle`
 		font-style: normal;
 	}
 
-	html {
-		box-sizing: border-box;
-		font-size: 10px;
-	}
-	body {
-		margin: 0;
-		padding: 0;
-		font-family: 'Kohinoor Bangla';
-		font-weight: 400;
-		background-color: #f9f9fa;
-	}
-	*,
-	*:before,
-	*:after {
-		box-sizing: inherit;
-	}
-
-	a.external-link{
-		color: ${({ theme }) => theme.red};
-		position: relative;
-		&::after {
-		    content: url('/icons/external-link-sm.svg');
-			height: 15px;
-			width: 15px;
-			margin-left: 5px;
-		}
-	}
-
-	img{
-		max-width: 100%;
-	}
-
-	.color-red{
-		color: ${({ theme }) => theme.red};
-	}
-
-	.list-unstyled{
-		list-style: none;
-		padding-left: 0;
-	}
-
-
-	p , li{
-		font-size: 1.6rem;
-	}
-
-	ul , ol{
-		padding-left: 2rem;
-	}
-
-	h1 {
-		margin: 0;
-		font-size: 3.6rem;
-		line-height: 4.5rem;
-	}
-	h2 {
-		margin: 0;
-		font-size: 3rem;
-		line-height: 4.5rem;
-	}
-	h3 {
-		margin: 0;
-		font-size: 2.5rem;
-		line-height: 4.5rem;
-	}
-	h4 {
-		margin: 0;
-		font-size: 2rem;
-		line-height: 3.5rem;
-	}
-	h5 {
-		margin: 0;
-		font-size: 1.8rem;
-		line-height: 3.5rem;
-	}
-	h6 {
-		margin: 0;
-		font-size: 1.7rem;
-		line-height: 3.5rem;
-	}
-
-	a {
-		color: #484e4e;
-		text-decoration: none;
-	}
-
-	a:hover {
-		opacity: 0.9;
-		color: #000;
-		/* text-decoration: underline; */
-	}
-	button{
-		font-family: 'Kohinoor Bangla';
-	}
-	button:hover {
-		cursor: pointer;
-	}
-
-	input:focus {
-		outline: none;
-	}
-
-	.flex-center{
-		display: flex;
-    	align-items: center;
-	}
-
-	.text-center{
-		text-align: center;
-	}
 
 	#nprogress{pointer-events:none}
 	#nprogress .bar{background:#24b3ae;position:fixed;z-index:1031;top:0;left:0;width:100%;height:2px}

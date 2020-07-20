@@ -1,29 +1,18 @@
 import styled from "styled-components";
 import deviceScreens from "styles/DEVICES";
+import tw from "twin.macro";
 
 export const StyledActions = styled.div`
   display: flex;
   align-items: center;
-
-  svg {
-    cursor: pointer;
-    height: 22px;
-    width: 22px;
-    color: ${({ theme }) => theme.semiDark};
-
-    margin-right: 12px;
-  }
+  ${tw`flex items-center`}
 
   .login-url {
-    display: flex;
-    font-size: 1.6rem;
-    align-items: center;
+    ${tw`flex items-center`}
   }
 
-  @media all and (max-width: ${deviceScreens.MOBILE_SCREEN}) {
-    .label {
-      display: none;
-    }
+  .label {
+    ${tw`ml-1 text-lg hidden md:inline-block`}
   }
 `;
 
@@ -39,32 +28,19 @@ export const StyledUserActionMenu = styled.div`
   }
 
   .dropdown-menu {
-    border-radius: 0 0 5px 5px;
-    margin: 0;
-    background-color: ${({ theme }) => theme.secondary};
-    position: absolute;
+    ${tw`bg-secondary rounded shadow absolute p-3`}
+    width: 200px;
     top: 50px;
     right: 0;
-    width: 180px;
-    padding: 1.2rem;
-
-    box-shadow: 0px 4px 7px 0px rgba(0, 0, 0, 0.14);
 
     &__item {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      &:hover {
-        background-color: ${({ theme }) => theme.secondaryDark};
-      }
+      ${tw`flex justify-start items-center hover:bg-secondaryDark px-2 rounded`}
     }
     &__icon {
       margin-right: 5px;
     }
-
     li {
-      list-style: none;
-      line-height: 3.5rem;
+      ${tw`leading-9`}
     }
   }
 `;

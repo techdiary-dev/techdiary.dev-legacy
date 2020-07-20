@@ -1,3 +1,23 @@
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind screens;
+
+body {
+  @apply bg-gray-100;
+}
+
+a {
+  @apply text-dark;
+}
+a:hover {
+  @apply text-semiDark;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
 
 .custom-html-style pre code {
@@ -41,7 +61,3 @@ pre.highlight-pre-tag {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-@tailwind components;
-
-@tailwind utilities;

@@ -1,80 +1,81 @@
-import styled from 'styled-components'
+import styled from "styled-components";
+import tw from "twin.macro";
 
 export const ArticleCardStyle = styled.div`
-	position: relative;
-	padding: 2px;
-	.floatingActions {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		display: flex;
-		flex-direction: column;
+  position: relative;
+  padding: 2px;
+  .floatingActions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
 
-		.pinned {
-			height: 20px;
-			width: 20px;
-			path {
-				stroke: ${({ theme }) => theme.primaryDark} !important;
-			}
-		}
-	}
+    .pinned {
+      height: 20px;
+      width: 20px;
+      path {
+        stroke: ${({ theme }) => theme.primaryDark} !important;
+      }
+    }
+  }
 
-	.title {
-		font-size: 2.2rem;
-	}
-	.time {
-		font-size: 1.4rem;
-		color: ${({ theme }) => theme.darkGrey};
-		margin-top: 0;
-	}
+  .title {
+    ${tw`text-xl`}
+  }
+  .time {
+    color: ${({ theme }) => theme.darkGrey};
+    margin-top: 0;
+  }
 
-	.excerpt {
-		color: ${({ theme }) => theme.lightDark};
-		font-size: 1.6rem;
-	}
+  .excerpt {
+    color: ${({ theme }) => theme.lightDark};
+    ${tw`text-base`}
+  }
 
-	.thumbnail {
-		margin: 10px -15px 10px -15px;
+  .thumbnail {
+    margin: 10px -15px 10px -15px;
 
-		img {
-			max-width: 100%;
-		}
-		cursor: pointer;
-	}
+    img {
+      ${tw`w-full`}
+      max-width: 100%;
+    }
+    cursor: pointer;
+  }
 
-	.tags {
-		a {
-			font-size: 1.6rem;
-			margin-right: 8px;
+  .tags {
+    a {
+      font-size: 1.6rem;
+      margin-right: 8px;
 
-			&:hover {
-				text-decoration: underline;
-			}
-		}
-	}
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 
-	.footer {
-		display: flex;
-		justify-content: space-between;
-		margin-top: 8px;
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
 
-		.state {
-			font-size: 1.4rem;
-			display: flex;
-			align-items: center;
-			margin-right: 12px;
+    .state {
+      ${tw`text-sm`}
+      display: flex;
+      align-items: center;
+      margin-right: 12px;
 
-			&:last-child {
-				margin-right: 0;
-			}
+      &:last-child {
+        margin-right: 0;
+      }
 
-			svg {
-				margin-right: 6px;
-			}
-		}
+      svg {
+        margin-right: 6px;
+      }
+    }
 
-		.commentsAndLikes {
-			display: flex;
-		}
-	}
-`
+    .commentsAndLikes {
+      display: flex;
+    }
+  }
+`;
