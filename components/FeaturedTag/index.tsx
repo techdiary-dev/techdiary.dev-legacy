@@ -16,7 +16,7 @@ const StyledFeaturedTag = styled.div`
       ${tw`my-3`}
     }
     &__creator {
-      ${tw`block text-sm`}
+      ${tw`block text-sm `}
     }
   }
 `;

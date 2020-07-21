@@ -11,6 +11,7 @@ module.exports = {
         dark: "#2F3432",
         semiDark: "#484E4E",
         lightDark: "#929999",
+        offWhite: "rgb(248, 249, 250)",
       },
     },
   },
