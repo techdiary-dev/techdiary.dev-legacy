@@ -1,6 +1,6 @@
 import React from "react";
-import { Row } from "styled-grid-system-component";
-import { StyledUserprofile, StyledCol } from "./styles";
+import { StyledUserprofile } from "./styles";
+import { Col, Row } from "styles/StyledGrid";
 import ArticleCard from "components/Article/ArticleCard";
 import UserProfileData from "./UserProfileData";
 import UserProfileMetaData from "./UserProfileMetaData";
@@ -61,11 +61,11 @@ const UserProfile = ({ username }: Props) => {
 
       <div className="body">
         <Row>
-          <StyledCol md={3} sidebar>
+          <Col md={3} sidebar>
             <UserProfileMetaData user={data?.profile} />
-          </StyledCol>
+          </Col>
 
-          <StyledCol md={6} main>
+          <Col md={6} main>
             {data.profile?.articles?.data?.map((article) => (
               <ArticleCard {...article} key={article._id} />
             ))}
@@ -86,9 +86,9 @@ const UserProfile = ({ username }: Props) => {
                 <ArticleCard {...article} key={article.slug} />
               ))}
             </InfiniteScroll>
-          </StyledCol>
+          </Col>
 
-          <StyledCol md={3} sidebar></StyledCol>
+          <Col md={3} sidebar></Col>
         </Row>
       </div>
     </StyledUserprofile>
