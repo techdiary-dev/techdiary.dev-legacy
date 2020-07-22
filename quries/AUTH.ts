@@ -100,6 +100,7 @@ export const USER_PROFILE = gql`
           title
           excerpt
           slug
+          url
           thumbnail
           tags
           createdAt

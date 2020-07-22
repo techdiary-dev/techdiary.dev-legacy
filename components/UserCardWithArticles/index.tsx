@@ -34,7 +34,7 @@ const UserCardWithArticles: React.FC<Props> = ({ user }: Props) => {
           size="xl"
         />
         <h4 className="heading">আমার সাম্প্রতিক ডাইরি সমূহ</h4>
-        <div className="articles">
+        <div className="articles mb-2">
           {user?.articles?.data?.map((article, key) => (
             <article className="article" key={key}>
               <Link href={`/[username]/[articleSlug]`} as={article.url}>

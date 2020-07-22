@@ -1,18 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import { GrPin } from "react-icons/gr";
-// import bnnum from 'bnnum'
 import moment from "moment";
 import { ArticleCardStyle } from "./styles";
 import { Card } from "components/Card";
+import "twin.macro";
+import bnnum from "bnnum";
 
 import UserAvater from "components/UserAvater";
 import styled from "styled-components";
-// import ClockIcon from 'public/icons/clock.svg'
-// import HeartIcon from 'public/icons/heart.svg'
-// import CommentIcon from 'public/icons/comment.svg'
-// import BookmarkIcon from 'public/icons/bookmark.svg'
-// import BookmarkIcon from 'public/icons/bookmark.svg'
+
+import { BsHeart, BsClock as ClockIcon } from "react-icons/bs";
+import { FaRegCommentAlt as CommentIcon } from "react-icons/fa";
 
 interface Props {
   title: string;
@@ -39,15 +38,15 @@ const StyledUserCard = styled.div`
 const ArticleCard: React.FC<Props> = ({
   title,
   excerpt,
-  slug,
   thumbnail,
   url,
   isPinned,
   author,
   createdAt,
+  tags,
 }: Props) => {
   return (
-    <ArticleCardStyle>
+    <ArticleCardStyle tw="mb-4">
       <Card>
         {isPinned ? (
           <div className="floatingActions">
@@ -63,43 +62,49 @@ const ArticleCard: React.FC<Props> = ({
           />
         </StyledUserCard>
 
-        <Link href={`/[username]/[articleSlug]`} as={url}>
-          <a className="title">{title}</a>
+        <Link href={`/[username]/[articleSlug]`} as={url} passHref>
+          <a tw="text-xl">{title}</a>
         </Link>
-        <p className="time">{moment(+createdAt).format("LLLL")}</p>
+
+        {/* Time */}
+        <p tw="text-base text-semiDark">{moment(+createdAt).format("LLLL")}</p>
 
         {thumbnail && (
-          <div className="thumbnail">
+          <div tw="-ml-4 -mr-4 my-3 cursor-pointer">
             <Link href={`/[username]/[articleSlug]`} as={url}>
-              <img src={thumbnail} alt="article-thumbnail" />
+              <img tw="w-full" src={thumbnail} alt="article-thumbnail" />
             </Link>
           </div>
         )}
 
-        <div className="excerpt">{excerpt}</div>
-        {/* <div className="tags">
-					{tags?.map((t, key) => (
-						<Link href={`/t/${t}`} key={key}>
-							<a>#{t}</a>
-						</Link>
-					))}
-				</div> */}
-        {/* <div className="footer">
-					<div className="state">
-						<ClockIcon />
-						{bnnum(7)} মিনিট
-					</div>
-					<div className="commentsAndLikes">
-						<div className="state">
-							<HeartIcon />
-							{bnnum(147)}
-						</div>
-						<div className="state">
-							<CommentIcon />
-							{bnnum(16)}
-						</div>
-					</div>
-				</div> */}
+        <div tw="text-base text-gray-600">{excerpt}</div>
+
+        <div tw="my-4">
+          {tags?.map((t, key) => (
+            <Link href={`/t/${t.trim()}`} key={key} passHref>
+              <a tw="mr-2">#{t.trim()}</a>
+            </Link>
+          ))}
+        </div>
+
+        {/* Footer */}
+        <div tw="flex justify-between mt-2">
+          <div tw="flex items-center">
+            <ClockIcon tw="mr-1" />
+            {bnnum(7)} মিনিট
+          </div>
+          <div tw="flex items-center">
+            <div tw="flex items-center mr-2">
+              <BsHeart tw="mr-1" />
+              {bnnum(147)}
+            </div>
+
+            <div tw="flex items-center">
+              <CommentIcon tw="mr-1" />
+              {bnnum(16)}
+            </div>
+          </div>
+        </div>
       </Card>
     </ArticleCardStyle>
   );

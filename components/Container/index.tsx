@@ -1,9 +1,9 @@
-import React from 'react'
-
-import { StyledContainer } from './styles'
+import React from "react";
+import "twin.macro";
+import { StyledContainer } from "./styles";
 
 const Container: React.FC = ({ children }) => {
-	return <StyledContainer>{children}</StyledContainer>
-}
+  return <StyledContainer tw="container">{children}</StyledContainer>;
+};
 
-export default Container
+export default Container;

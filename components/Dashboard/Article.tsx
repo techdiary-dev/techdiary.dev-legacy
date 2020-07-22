@@ -1,10 +1,9 @@
 import React from "react";
 import moment from "moment";
-import { DashboardArticle } from "./styles";
-import { Card } from "components/Card";
+import "twin.macro";
+
 import ReactMarkdown from "react-markdown";
 import swal from "sweetalert";
-import { FiEdit2, FiTrash } from "react-icons/fi";
 import Link from "next/link";
 import { useMutation } from "@apollo/client";
 import { DELETE_ARTICLE, ARTICLE_LIST } from "quries/ARTICLE";
@@ -18,6 +17,7 @@ interface Props {
   excerpt: string;
   isPublished: boolean;
   slug: string;
+  url: string;
   title: string;
   username: any;
 }
@@ -26,9 +26,8 @@ const Article: React.FC<Props> = ({
   _id,
   title,
   excerpt,
-  slug,
   createdAt,
-  username,
+  url,
   isPublished,
 }: Props) => {
   let [deleteArticle, { loading: dLoading }] = useMutation(DELETE_ARTICLE, {
@@ -54,37 +53,37 @@ const Article: React.FC<Props> = ({
           });
       }
     });
-
-    // if (confirm("Sure to delete?")) {
-
-    // }
   };
 
   return (
-    <DashboardArticle isPublished={isPublished}>
+    <div tw="mb-8">
       <LoadingOverlay active={dLoading} spinner>
-        <Card>
-          <h4 className="title">
-            <Link
-              href={`/[username]/[articleSlug]`}
-              as={`/${username}/${slug}`}
-            >
-              <a>{title}</a>
-            </Link>
-          </h4>
-          <span className="time">{moment(+createdAt).fromNow()}</span>
-          <ReactMarkdown source={excerpt} className="excerpt" />
-          <div className="actions">
+        <div
+          tw={"p-3 rounded shadow bg-white"}
+          className={!isPublished ? "bg-gray-300" : undefined}
+        >
+          <Link href={`/[username]/[articleSlug]`} as={`/${url}`}>
+            <a tw="text-xl cursor-pointer block">{title}</a>
+          </Link>
+
+          <span tw="text-sm text-semiDark">{moment(+createdAt).fromNow()}</span>
+
+          <ReactMarkdown source={excerpt} tw="my-2 text-semiDark" />
+
+          <div tw="my-2">
             <Link href="/edit/[_id]" as={`/edit/${_id}`}>
-              <a>
-                <FiEdit2 />
+              <a tw="mr-3 text-green-500 cursor-pointer hover:text-green-400">
+                সংস্কার
               </a>
             </Link>
-            <FiTrash onClick={handleDelete} />
+
+            <button tw="text-red-500" onClick={handleDelete}>
+              মুছে ফেলুন
+            </button>
           </div>
-        </Card>
+        </div>
       </LoadingOverlay>
-    </DashboardArticle>
+    </div>
   );
 };
 

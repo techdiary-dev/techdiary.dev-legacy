@@ -15,6 +15,7 @@ import { NextPage, GetServerSideProps } from "next";
 import FooterLinks from "components/FooterLinks";
 import { initializeApollo } from "lib/apolloClient";
 import { ARTICLE_LIST } from "quries/ARTICLE";
+import FeaturedTag from "components/FeaturedTag";
 
 const StyledBetaAlert = styled.div`
   font-size: 2.2rem;
@@ -47,9 +48,9 @@ const index: NextPage<Props> = (props) => {
       <MainLayout>
         <Row>
           <StyledCol md={3} sidebar>
-            <StyledBetaAlert>
-              <FiInfo /> বেটা ভার্সন <br /> <span>0.6.0</span>
-            </StyledBetaAlert>
+            <FeaturedTag />
+            <FeaturedTag />
+            <FeaturedTag />
           </StyledCol>
 
           <StyledCol md={6} main>

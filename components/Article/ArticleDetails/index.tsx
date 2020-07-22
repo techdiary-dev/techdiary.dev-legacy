@@ -36,12 +36,13 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
               />
             </div>
           )}
-          <div className="meta">
+          <div className="meta" tw="text-center">
             <h2 className="meta__title">{article?.title}</h2>
             <p className="meta__time">
               {moment(+article?.createdAt).format("LLLL")}
             </p>
           </div>
+
           <Card>
             <div className="article-content">
               {article?.seriesName && (

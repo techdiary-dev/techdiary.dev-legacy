@@ -1,61 +1,20 @@
-import styled from 'styled-components'
-import { UserAvaterSize } from './index'
+import styled from "styled-components";
+import { UserAvaterSize } from "./index";
+import tw from "twin.macro";
 
 export const StyledUserAvater = styled.div<{ size?: UserAvaterSize }>`
-	display: flex;
-	align-items: center;
-	.avater {
-		height: 40px;
-		width: 40px;
-		border-radius: 100%;
-		margin-right: 1.3rem;
-		${({ size }) =>
-			size === 'xl' &&
-			`
-			height: 65px;
-			width: 65px;
-		  
-		`}
-		${({ size }) =>
-			size === 'sm' &&
-			`
-		  	height: 20px;
-			width: 20px;
-		`}
-	}
+  ${tw`flex items-center`}
 
-	.info {
-		font-family: inherit;
+  .avater {
+    ${tw`h-10 w-10 rounded-full mr-2`}
+  }
 
-		.name {
-			font-size: 1.6rem;
-			font-weight: 600;
-		}
-		.username {
-			font-size: 1.4rem;
-		}
-
-		${({ size }) =>
-			size === 'xl' &&
-			`
-			.name{
-				font-size: 2.2rem
-			}
-			.username {
-				font-size: 1.6rem;
-			}
-		  
-		`}
-		${({ size }) =>
-			size === 'sm' &&
-			`
-			.name{
-				display: none;
-			}
-			.username {
-				font-size: 1.4rem;
-			}
-		  
-		`}
-	}
-`
+  .info {
+    &__name {
+      ${tw`text-base font-bold`}
+    }
+    &__username {
+      ${tw`text-sm`}
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
-import { GlobalStyles } from "styles/globalStyles";
+// import { GlobalStyles } from "styles/globalStyles";
 
 export default class TechdiaryRoot extends Document {
   static getInitialProps({ renderPage }) {
@@ -8,7 +8,7 @@ export default class TechdiaryRoot extends Document {
     const page = renderPage((App) => (props) =>
       sheet.collectStyles(
         <>
-          <GlobalStyles />
+          {/* <GlobalStyles /> */}
           <App {...props} />
         </>
       )
