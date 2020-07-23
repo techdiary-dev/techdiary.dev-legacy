@@ -1,20 +1,20 @@
 import React from "react";
-import { StyledWrapper, StyledNavbarInner } from "./styles";
+import "twin.macro";
+import { StyledWrapper } from "./styles";
 import Logo from "./Logo";
 import Search from "./Search";
-import Container from "components/Container";
 import Actions from "./Actions";
 
 const Navbar = () => {
   return (
     <StyledWrapper>
-      <Container>
-        <StyledNavbarInner>
+      <div tw="container m-auto px-2 md:px-0">
+        <div tw="flex justify-between items-center h-12">
           <Logo />
           <Search />
           <Actions />
-        </StyledNavbarInner>
-      </Container>
+        </div>
+      </div>
     </StyledWrapper>
   );
 };

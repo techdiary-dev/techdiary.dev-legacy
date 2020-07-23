@@ -32,36 +32,12 @@ export const StyledUserProfileData = styled.div`
       width: 100%;
     }
   }
-
-  .user-profile-data {
-    &__name {
-      font-size: 2.5rem;
-    }
-    &__username {
-      font-size: 1.6rem;
-      margin-top: 0;
-    }
-    &__bio {
-      font-size: 1.6rem;
-      margin-top: 0;
-    }
-  }
-`;
-
-export const StyledCol = styled(Column)<{ sidebar: boolean; main: boolean }>`
-  @media all and (max-width: 800px) {
-    padding-left: 0;
-    padding-right: 0;
-    position: ${(props) => props.sidebar && "sticky"};
-
-    display: ${(props) => props.sidebar && "none"};
-  }
 `;
 
 export const StyledUserMetaData = styled.div`
-  font-size: 1.5rem;
+  ${tw`text-base`}
   a {
-    font-size: 1.5rem;
+    ${tw`text-base`}
   }
   .infos {
     display: flex;
@@ -82,7 +58,7 @@ export const StyledUserMetaData = styled.div`
     flex-direction: column;
     margin-top: 2.5rem;
     &__heading {
-      font-size: 1.6rem;
+      ${tw`text-base`}
     }
     &__link {
       display: flex;

@@ -1,17 +1,17 @@
 import React from "react";
 import { Row, Column } from "styled-grid-system-component";
+import "twin.macro";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
 import Disqus from "disqus-react";
-import { StyledArticleDetails } from "./styles";
+import { StyledArticleContent } from "./styles";
 import { Card } from "components/Card";
 import UserCardWithArticles from "components/UserCardWithArticles";
-import ArticleDetailsSkeleton from "./ArticleDetailsSkeleton";
+
 import { useRouter } from "next/router";
 import { Highlighter } from "lib/prismhiglight";
-import { StyledCol } from "styles/StyledGrid";
-import UnPiblishedWarning from "./UnPiblishedWarning";
 import SeriesArticle from "./SeriesArticle";
+import ArticleActions from "./ArticleActions";
 
 interface Props {
   article: any;
@@ -22,36 +22,49 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
   let router = useRouter();
 
   return (
-    <StyledArticleDetails>
+    <>
+      <ArticleActions />
+
       <Row>
-        <StyledCol md={9}>
-          {!article?.isPublished && <UnPiblishedWarning />}
+        <Column md={9}>
+          {/* Unpublished article warning */}
+          {!article?.isPublished && (
+            <div tw="bg-red-100 p-4 rounded inline-block">
+              <h3 tw="text-red-500 text-xl">
+                অপ্রকাশিত ডায়েরি, তবে আপনি চাইলে URL এর মাধ্যমে যে কাউকে দেখাতে
+                পারবেন।
+              </h3>
+              <p tw="text-red-500">
+                অপ্রকাশিত ডায়েরি প্রথম পাতায় দেখানো হবে না।
+              </p>
+            </div>
+          )}
 
           {article?.thumbnail && (
-            <div className="thumbnail">
+            <div tw="w-full rounded overflow-hidden">
               <img
                 src={article.thumbnail}
                 alt={article?.title}
-                className="w-full"
+                tw="max-w-full"
               />
             </div>
           )}
-          <div className="meta" tw="text-center">
-            <h2 className="meta__title">{article?.title}</h2>
-            <p className="meta__time">
+
+          <div tw="my-8">
+            <h2 tw="text-2xl">{article?.title}</h2>
+            <p tw="text-base text-semiDark">
               {moment(+article?.createdAt).format("LLLL")}
             </p>
           </div>
 
           <Card>
-            <div className="article-content">
-              {article?.seriesName && (
-                <SeriesArticle
-                  currentUrl={article?.url}
-                  articles={article?.series}
-                />
-              )}
-
+            {article?.seriesName && (
+              <SeriesArticle
+                currentUrl={article?.url}
+                articles={article?.series}
+              />
+            )}
+            <StyledArticleContent>
               <ReactMarkdown
                 source={article?.body}
                 renderers={{
@@ -63,8 +76,9 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
                 linkTarget="_blank"
                 className="markdown"
               />
-            </div>
+            </StyledArticleContent>
           </Card>
+
           <Disqus.DiscussionEmbed
             shortname="techdiary-2"
             config={{
@@ -73,12 +87,12 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
               identifier: article?._id,
             }}
           />
-        </StyledCol>
-        <StyledCol md={3}>
+        </Column>
+        <Column md={3}>
           <UserCardWithArticles user={article?.author} />
-        </StyledCol>
+        </Column>
       </Row>
-    </StyledArticleDetails>
+    </>
   );
 };
 

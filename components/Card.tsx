@@ -11,5 +11,5 @@ export const Card = ({ children }) => {
 };
 
 export const CardHeader = ({ children }) => {
-  return <div>{children}</div>;
+  return <div tw="text-lightDark">{children}</div>;
 };

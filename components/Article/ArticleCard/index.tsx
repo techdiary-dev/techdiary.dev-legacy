@@ -77,7 +77,7 @@ const ArticleCard: React.FC<Props> = ({
           </div>
         )}
 
-        <div tw="text-base text-gray-600">{excerpt}</div>
+        <p tw="text-base text-lightDark">{excerpt}</p>
 
         <div tw="my-4">
           {tags?.map((t, key) => (

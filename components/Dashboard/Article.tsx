@@ -62,7 +62,7 @@ const Article: React.FC<Props> = ({
           tw={"p-3 rounded shadow bg-white"}
           className={!isPublished ? "bg-gray-300" : undefined}
         >
-          <Link href={`/[username]/[articleSlug]`} as={`/${url}`}>
+          <Link href={`/[username]/[articleSlug]`} as={url} passHref>
             <a tw="text-xl cursor-pointer block">{title}</a>
           </Link>
 

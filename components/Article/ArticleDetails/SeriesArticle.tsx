@@ -1,38 +1,39 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
+import "twin.macro";
 import Link from "next/link";
 import { BsBook } from "react-icons/bs";
+import styled from "styled-components";
 
 const StyledSeriesArticle = styled.div`
-  padding: 15px;
-  h4 {
-    display: flex;
-    align-items: center;
-    span {
-      margin-left: 12px;
-    }
-  }
-  ol {
-    li {
-      margin-bottom: 15px;
+  a {
+    color: ${({ theme }) => theme.dark};
+    border-bottom: 1px dashed ${({ theme }) => theme.primary};
+
+    position: relative;
+    &::after {
+      content: url("/icons/external-link-sm.svg");
+      height: 15px;
+      width: 15px;
+      margin-left: 5px;
     }
   }
 `;
 
 const SeriesArticle = ({ articles, currentUrl }) => {
   return (
-    <StyledSeriesArticle>
-      <h4>
-        <BsBook /> <span>সিরিজ ডায়েরি</span>
+    <StyledSeriesArticle tw="bg-gray-200 p-4 rounded mb-5">
+      <h4 tw="flex items-center">
+        <BsBook tw="mr-2" /> <span>সিরিজ ডায়েরি</span>
       </h4>
       <ol>
         {articles.map(({ title, url, _id }) => (
-          <li key={_id}>
+          <li key={_id} tw="list-decimal list-inside ml-6 leading-10">
             {currentUrl === url ? (
-              <div>{title}</div>
+              <span tw="text-base">{title}</span>
             ) : (
-              <Link href={`/[username]/[articleSlug]`} as={url}>
-                <a>{title}</a>
+              <Link href={`/[username]/[articleSlug]`} as={url} passHref>
+                <a tw="text-base">{title}</a>
               </Link>
             )}
           </li>
