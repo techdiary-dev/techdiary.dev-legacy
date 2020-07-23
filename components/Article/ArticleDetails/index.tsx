@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { Highlighter } from "lib/prismhiglight";
 import SeriesArticle from "./SeriesArticle";
 import ArticleActions from "./ArticleActions";
+import Comments from "./Comments";
 
 interface Props {
   article: any;
@@ -79,14 +80,9 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
             </StyledArticleContent>
           </Card>
 
-          <Disqus.DiscussionEmbed
-            shortname="techdiary-2"
-            config={{
-              title: article?.title,
-              url: "https://www.techdiary.dev" + router.asPath,
-              identifier: article?._id,
-            }}
-          />
+          <div tw="my-5">
+            <Comments />
+          </div>
         </Column>
         <Column md={3}>
           <UserCardWithArticles user={article?.author} />
