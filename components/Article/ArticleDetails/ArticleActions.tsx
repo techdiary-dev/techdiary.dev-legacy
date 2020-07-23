@@ -7,21 +7,28 @@ import styled from "styled-components";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
-
   z-index: 999;
 
   .action {
-    ${tw`sm:mb-3 mb-0`}
+    ${tw`sm:mb-8 mb-0`}
     ${tw`h-12 w-8 flex flex-col items-center justify-center`}
 
     &::last-child {
       ${tw`mb-0`}
+    }
+
+    &__icon {
+      ${tw`rounded-full p-2 hover:bg-opacity-50 transition duration-300 cursor-pointer`}
     }
   }
 
   @media all and (max-width: 750px) {
     .action {
       ${tw`mr-8 w-16 flex-row`}
+
+      &__icon {
+        ${tw``}
+      }
 
       svg {
         ${tw`mr-2`}
@@ -40,17 +47,23 @@ const ArticleActions = () => {
   return (
     <StyledArticleActions>
       <div className="action">
-        <HeartIcon tw="h-6 w-6" />
+        <span className="action__icon" tw="hover:bg-red-500">
+          <HeartIcon tw="h-6 w-6" />
+        </span>
         <span>{bnnum(147)}</span>
       </div>
 
       <div className="action">
-        <BsBookmarkPlus tw="h-6 w-6" />
+        <span className="action__icon" tw="hover:bg-green-500">
+          <BsBookmarkPlus tw="h-6 w-6" />
+        </span>
         <span>{bnnum(147)}</span>
       </div>
 
       <div className="action">
-        <GoComment tw="h-6 w-6" />
+        <span className="action__icon">
+          <GoComment tw="h-6 w-6" />
+        </span>
         <span>{bnnum(147)}</span>
       </div>
     </StyledArticleActions>
