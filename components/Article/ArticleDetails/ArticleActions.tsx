@@ -4,6 +4,7 @@ import bnnum from "bnnum";
 import { BsHeart as HeartIcon, BsBookmarkPlus } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import styled from "styled-components";
+import Link from "next/link";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -61,9 +62,11 @@ const ArticleActions = () => {
       </div>
 
       <div className="action">
-        <span className="action__icon">
-          <GoComment tw="h-6 w-6" />
-        </span>
+        <Link href="#comments" passHref>
+          <span className="action__icon">
+            <GoComment tw="h-6 w-6" />
+          </span>
+        </Link>
         <span>{bnnum(147)}</span>
       </div>
     </StyledArticleActions>

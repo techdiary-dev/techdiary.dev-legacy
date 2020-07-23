@@ -42,7 +42,7 @@ const Replay = () => {
   );
 };
 
-const Comment = ({ children }) => {
+const Comment = () => {
   return (
     <div tw="mb-5 border p-2 rounded last:border-b-0">
       <h2 tw="text-base">
@@ -75,7 +75,7 @@ const Comment = ({ children }) => {
 
 const Comments = () => {
   return (
-    <>
+    <div id="comments">
       <Card tw="mb-3">
         <CommentBox />
       </Card>
@@ -86,7 +86,7 @@ const Comments = () => {
         <Comment />
         <Comment />
       </Card>
-    </>
+    </div>
   );
 };
 
