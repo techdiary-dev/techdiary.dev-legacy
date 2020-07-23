@@ -26,7 +26,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
       <ArticleActions />
 
       <Row>
-        <Column md={9}>
+        <Column md={9} tw="p-0 sm:px-4">
           {/* Unpublished article warning */}
           {!article?.isPublished && (
             <div tw="bg-red-100 p-4 rounded inline-block">

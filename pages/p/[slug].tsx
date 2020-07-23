@@ -10,7 +10,6 @@ import { Row } from "styled-grid-system-component";
 import { StyledCol } from "styles/StyledGrid";
 import { Card } from "components/Card";
 import ReactMarkdown from "react-markdown";
-import { StyledArticleDetails } from "components/Article/ArticleDetails/styles";
 import Link from "next/link";
 import { InfoCard } from "components/InfoCard";
 import styled from "styled-components";
@@ -52,13 +51,13 @@ const StaticPage = ({ content, frontmatter, pages }) => {
           </InfoCard>
         </StyledCol>
         <StyledCol md={9}>
-          <StyledArticleDetails>
+          <div>
             <h3>{frontmatter.title}</h3>
             <div style={{ height: 15 }}></div>
             <Card>
               <ReactMarkdown escapeHtml={false} source={content} />
             </Card>
-          </StyledArticleDetails>
+          </div>
         </StyledCol>
       </Row>
     </MainLayout>
