@@ -6,6 +6,7 @@ import { Danger, Warning, Message } from "components/Alert";
 import { Card, CardHeader } from "components/Card";
 import Button from "components/Button";
 import { InfoCard } from "components/InfoCard";
+import "twin.macro";
 
 const StyledBox = styled.div`
   width: 100%;
@@ -62,7 +63,7 @@ const Grid = () => (
 const AlertsSection = () => {
   return (
     <div>
-      <h3>এলার্ট কম্পোনেন্ট সমূহ </h3>
+      <h3 tw="text-xl">এলার্ট কম্পোনেন্ট সমূহ </h3>
       <div style={{ margin: "15px 0" }}>
         <Danger>এটি একটি বিপদজনক বার্তা</Danger>
       </div>
@@ -86,12 +87,12 @@ const Headings = () => (
   <>
     <h3>হেডিং সমূহ</h3>
     <div style={{ margin: "15px 0" }}>
-      <h1>heading 1</h1>
-      <h2>heading 2</h2>
-      <h3>heading 3</h3>
-      <h4>heading 4</h4>
-      <h5>heading 5</h5>
-      <h6>heading 6</h6>
+      <h1>H1: 2.25rem</h1>
+      <h2>H2: 1.875rem</h2>
+      <h3>H3: 1.5rem</h3>
+      <h4>H4: 1.5rem</h4>
+      <h5>H5: 1.125rem</h5>
+      <h6>H6: 1rem</h6>
     </div>
   </>
 );
@@ -125,45 +126,82 @@ const CardComponents = () => (
   </Row>
 );
 
-const StyledButton = styled.div`
-  button {
-    margin-right: 15px;
-  }
-`;
-
 const Buttons = () => (
-  <StyledButton>
-    <button>Native Button</button>
-    <Button type="button">Button Primary</Button>
-    <Button size="normal" type="button">
-      Button normal
-    </Button>
-    <Button size="large" type="button">
-      Button large
-    </Button>
-    <Button size="small" type="button">
-      Button small
-    </Button>
+  <div tw="grid grid-cols-6 my-16">
+    <div>
+      <Button tw="mb-3" size="small" color="primary">
+        Primary Small
+      </Button>
 
-    <Button color="primary" type="button">
-      Button primary
-    </Button>
-    <Button color="secondary" type="button">
-      Button secondary
-    </Button>
-    <Button color="danger" type="button">
-      Button danger
-    </Button>
-    <Button color="warning" type="button">
-      Button danger
-    </Button>
-    <Button color="dark" type="button">
-      Button danger
-    </Button>
-    <Button color="link" type="button">
-      Button link
-    </Button>
-  </StyledButton>
+      <Button tw="mb-3" size="normal" color="primary">
+        Primary normal
+      </Button>
+
+      <Button tw="mb-3" size="large" color="primary">
+        Primary Large
+      </Button>
+    </div>
+
+    <div>
+      <Button tw="mb-3" size="small" color="secondary">
+        Secondary Small
+      </Button>
+      <Button tw="mb-3" size="normal" color="secondary">
+        Secondary normal
+      </Button>
+      <Button tw="mb-3" size="large" color="secondary">
+        Secondary Large
+      </Button>
+    </div>
+
+    <div>
+      <Button tw="mb-3" size="small" color="danger">
+        Danger Small
+      </Button>
+      <Button tw="mb-3" size="normal" color="danger">
+        Danger normal
+      </Button>
+      <Button tw="mb-3" size="large" color="danger">
+        Danger Large
+      </Button>
+    </div>
+
+    <div>
+      <Button tw="mb-3" size="small" color="warning">
+        Warning Small
+      </Button>
+      <Button tw="mb-3" size="normal" color="warning">
+        Warning normal
+      </Button>
+      <Button tw="mb-3" size="large" color="warning">
+        Warning Large
+      </Button>
+    </div>
+
+    <div tw="flex flex-col items-start">
+      <Button tw="mb-3" size="small" color="dark">
+        Dark Small
+      </Button>
+      <Button tw="mb-3" size="normal" color="dark">
+        Dark normal
+      </Button>
+      <Button tw="mb-3" size="large" color="dark">
+        Dark Large
+      </Button>
+    </div>
+
+    <div tw="flex flex-col items-start">
+      <Button tw="mb-3" size="small" color="link">
+        Link Small
+      </Button>
+      <Button tw="mb-3" size="normal" color="link">
+        Link normal
+      </Button>
+      <Button tw="mb-3" size="large" color="link">
+        Link Large
+      </Button>
+    </div>
+  </div>
 );
 
 const Design = () => {

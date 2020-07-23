@@ -1,14 +1,15 @@
 import React from "react";
 import Navbar from "./Navbar";
-import Container from "components/Container";
 import "twin.macro";
 
 const MainLayout: React.FC = ({ children }) => {
   return (
-    <main tw="md:py-24 py-20">
+    <>
       <Navbar />
-      <Container>{children}</Container>
-    </main>
+      <main>
+        <div tw="container m-auto md:py-24 py-20 px-2 md:px-0">{children}</div>
+      </main>
+    </>
   );
 };
 
