@@ -24,6 +24,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
   return (
     <>
       <ArticleActions />
+
       <Row>
         <Column md={9}>
           {/* Unpublished article warning */}
