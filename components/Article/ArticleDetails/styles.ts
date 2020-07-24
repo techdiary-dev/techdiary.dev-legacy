@@ -21,7 +21,8 @@ export const StyledArticleContent = styled.article`
   h4,
   h5,
   h6 {
-    ${tw`text-semiDark mt-8 mb-0 inline-block border-b-2`}
+    ${tw`text-semiDark inline-block border-b-2`}
+    ${tw`mt-8 mb-0 first:mt-0`}
   }
 
   img {

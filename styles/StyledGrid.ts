@@ -14,7 +14,7 @@ export const StyledCol = styled(Column)<{ sidebar: boolean; main: boolean }>`
   @media all and (max-width: 750px) {
     padding-left: 0;
     padding-right: 0;
-    display: none;
+    display: ${(props) => props.sidebar && "none"};
   }
 `;
 

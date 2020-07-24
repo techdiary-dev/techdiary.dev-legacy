@@ -7,13 +7,14 @@ import MainLayout from "components/Layout/MainLayout";
 import { FiPaperclip } from "react-icons/fi";
 
 import { Row } from "styled-grid-system-component";
-import { StyledCol } from "styles/StyledGrid";
+import { Col } from "styles/StyledGrid";
 import { Card } from "components/Card";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 import { InfoCard } from "components/InfoCard";
 import styled from "styled-components";
 import HeadTag from "components/HeadTag";
+import { StyledArticleContent } from "components/Article/ArticleDetails/styles";
 
 const StyledSidebar = styled.ul`
   list-style: none;
@@ -34,7 +35,7 @@ const StaticPage = ({ content, frontmatter, pages }) => {
     <MainLayout>
       <HeadTag title={frontmatter.title} />
       <Row>
-        <StyledCol md={3}>
+        <Col md={3}>
           <InfoCard title="অন্যান্য পাতা সমূহ">
             <StyledSidebar>
               {pages.map((page, key) => {
@@ -49,16 +50,18 @@ const StaticPage = ({ content, frontmatter, pages }) => {
               })}
             </StyledSidebar>
           </InfoCard>
-        </StyledCol>
-        <StyledCol md={9}>
+        </Col>
+        <Col md={9}>
           <div>
             <h3>{frontmatter.title}</h3>
             <div style={{ height: 15 }}></div>
             <Card>
-              <ReactMarkdown escapeHtml={false} source={content} />
+              <StyledArticleContent>
+                <ReactMarkdown escapeHtml={false} source={content} />
+              </StyledArticleContent>
             </Card>
           </div>
-        </StyledCol>
+        </Col>
       </Row>
     </MainLayout>
   );

@@ -1,10 +1,11 @@
 import React from "react";
 import Router from "next/router";
 import np from "nprogress";
-import styled, { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { theme } from "styles/variables";
 import moment from "moment";
 import "styles/index.css";
+import "@brainhubeu/react-carousel/lib/style.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/solarized.css";
 import { ApolloProvider } from "@apollo/client";
