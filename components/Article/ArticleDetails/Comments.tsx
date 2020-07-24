@@ -9,10 +9,7 @@ const CommentBox = () => {
       <textarea
         tw="w-full border p-2 focus:outline-none"
         placeholder="আপনার মন্তব্য লিখুন"
-        name=""
-        id=""
-        cols="100%"
-        rows="4"
+        rows={4}
       ></textarea>
       <div>
         <Button color="dark" size="small" tw="px-3 float-right">
