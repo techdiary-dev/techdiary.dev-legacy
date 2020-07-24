@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.1",
+    "@brainhubeu/react-carousel": "^1.19.24",
     "@susisu/mte-kernel": "git+https://github.com/shoaibsharif/mte-kernel.git",
     "autoprefixer": "^9.8.5",
     "bnnum": "^1.0.6",
