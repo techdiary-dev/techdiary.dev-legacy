@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, useSubscription } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { SyncLoader } from "react-spinners";
+import "twin.macro";
+
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Container } from "./styles";
 import { ARTICLE_LIST } from "quries/ARTICLE";
 import ArticleCard from "../ArticleCard";
-import styled from "styled-components";
-
-const StyledLoadmore = styled.div`
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-`;
 
 const ArticleList: React.FC = () => {
   let { data, fetchMore, refetch } = useQuery(ARTICLE_LIST, {
@@ -52,9 +45,9 @@ const ArticleList: React.FC = () => {
         next={handleFetch}
         hasMore={data?.articles?.data.length < data?.articles?.resourceCount}
         loader={
-          <StyledLoadmore>
+          <div tw="w-full h-24 flex items-center justify-center">
             <SyncLoader size={8} color="#24B3AE" />
-          </StyledLoadmore>
+          </div>
         }
       >
         {data?.articles?.data.map((article) => (

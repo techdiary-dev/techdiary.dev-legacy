@@ -7,6 +7,10 @@ const FooterLinks = () => {
   return (
     <div>
       <div>
+        <Link href={`/p/[slug]`} as="/p/about">
+          <a>আমাদের সম্পর্কে</a>
+        </Link>
+        <span className="seperator"> · </span>
         <Link href={`/p/[slug]`} as="/p/code-of-conduct">
           <a>আচরনবিধি</a>
         </Link>

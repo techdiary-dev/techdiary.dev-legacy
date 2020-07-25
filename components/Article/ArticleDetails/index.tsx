@@ -13,6 +13,7 @@ import { Highlighter } from "lib/prismhiglight";
 import SeriesArticle from "./SeriesArticle";
 import ArticleActions from "./ArticleActions";
 import Comments from "./Comments";
+import Link from "next/link";
 
 interface Props {
   article: any;
@@ -20,7 +21,7 @@ interface Props {
 }
 
 const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
-  let router = useRouter();
+  // let router = useRouter();
 
   return (
     <>
@@ -30,7 +31,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
         <Column md={9} tw="p-0 sm:px-4">
           {/* Unpublished article warning */}
           {!article?.isPublished && (
-            <div tw="bg-red-100 p-4 rounded inline-block">
+            <div tw="bg-red-100 p-4 rounded w-full">
               <h3 tw="text-red-500 text-xl">
                 অপ্রকাশিত ডায়েরি, তবে আপনি চাইলে URL এর মাধ্যমে যে কাউকে দেখাতে
                 পারবেন।
@@ -53,9 +54,31 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
 
           <div tw="my-8">
             <h2 tw="text-2xl">{article?.title}</h2>
-            <p tw="text-base text-semiDark">
-              {moment(+article?.createdAt).format("LLLL")}
+
+            <p tw="text-base">
+              <Link href="/[username]" as={`/${article?.author.username}`}>
+                <a tw="text-black font-bold">{article?.author.name}</a>
+              </Link>
+              {" · "}
+              <span tw="text-gray-700">
+                {moment(+article?.createdAt).format("LLLL")}
+              </span>
             </p>
+
+            <div tw="mt-2">
+              {article.tags?.map((t, key) => (
+                <Link
+                  href="/t/[tagName]"
+                  as={`/t/${t.trim()}`}
+                  key={key}
+                  passHref
+                >
+                  <a tw="mr-2 bg-gray-300 rounded px-1 hover:bg-gray-400 transition duration-300">
+                    #{t.trim()}
+                  </a>
+                </Link>
+              ))}
+            </div>
           </div>
 
           <Card>

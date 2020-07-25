@@ -88,6 +88,36 @@ export const ARTICLE_LIST = gql`
   }
 `;
 
+export const ARTICLE_LIST_BY_TAG = gql`
+  query ARTICLE_LIST_BY_TAG($page: Int, $tags: [String!]!) {
+    articlesByTag(
+      pagination: { limit: 5, page: $page, sort: "-isPinned,-createdAt" }
+      tags: $tags
+    ) {
+      resourceCount
+      pageCount
+      currentPage
+      data {
+        title
+        excerpt
+        slug
+        url
+        thumbnail
+        tags
+        createdAt
+        updatedAt
+        isPublished
+        isPinned
+        author {
+          name
+          username
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
+
 export const ARTICLE_DETAILS = gql`
   query ARTICLE_DETAILS($slug: String, $_id: ID) {
     article(idOrSlug: { slug: $slug, _id: $_id }) {
@@ -122,13 +152,3 @@ export const ARTICLE_DETAILS = gql`
     }
   }
 `;
-
-// export const NEW_DIARY_ARRIAVED_NOTIFICATION = gql`
-//   subscription NEW_DIARY_ARRIAVED_NOTIFICATION {
-//     newArticle {
-//       articleTitle
-//       authorName
-//       articleUrl
-//     }
-//   }
-// `;
