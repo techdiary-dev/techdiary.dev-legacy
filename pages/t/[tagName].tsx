@@ -1,7 +1,7 @@
 import React from "react";
 import "twin.macro";
 import MainLayout from "components/Layout/MainLayout";
-import ArticleList from "components/Article/ArticleList";
+import ArticleListByTag from "components/Article/ArticleListByTag";
 import Skeleton from "react-loading-skeleton";
 import { Row, Col } from "styles/StyledGrid";
 import useMe from "components/useMe";
@@ -10,9 +10,9 @@ import HeadTag from "components/HeadTag";
 import { NextPage, GetServerSideProps } from "next";
 import FooterLinks from "components/FooterLinks";
 import { initializeApollo } from "lib/apolloClient";
-import { ARTICLE_LIST } from "quries/ARTICLE";
+import { ARTICLE_LIST_BY_TAG } from "quries/ARTICLE";
 import FeaturedTag from "components/FeaturedTag";
-import FeaturedCarousel from "components/FeaturedCarousel";
+import { useRouter } from "next/router";
 
 interface Props {
   version?: string;
@@ -20,14 +20,16 @@ interface Props {
 
 const index: NextPage<Props> = (props) => {
   let { data, loading, error } = useMe();
+  const router = useRouter();
 
   return (
-    <>
+    <div>
       <HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
-      {/* <div tw="py-12">
-        <h1>Slider</h1>
-        <FeaturedCarousel />
-      </div> */}
+
+      <div tw="pt-20 pb-4 text-center bg-gray-300">
+        <h1 tw="text-5xl">#{router.query.tagName}</h1>
+      </div>
+
       <MainLayout>
         <Row>
           <Col md={3} sidebar>
@@ -37,7 +39,7 @@ const index: NextPage<Props> = (props) => {
           </Col>
 
           <Col md={6} main>
-            <ArticleList />
+            <ArticleListByTag />
           </Col>
 
           <Col md={3} sidebar>
@@ -55,7 +57,7 @@ const index: NextPage<Props> = (props) => {
           </Col>
         </Row>
       </MainLayout>
-    </>
+    </div>
   );
 };
 
@@ -63,8 +65,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apolloClient = initializeApollo(null, ctx);
 
   await apolloClient.query({
-    query: ARTICLE_LIST,
-    variables: { page: 1 },
+    query: ARTICLE_LIST_BY_TAG,
+    variables: { page: 1, tags: [ctx.params.tagName] },
   });
 
   return {

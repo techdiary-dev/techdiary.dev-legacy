@@ -81,7 +81,7 @@ const ArticleCard: React.FC<Props> = ({
 
         <div tw="my-4">
           {tags?.map((t, key) => (
-            <Link href={`/t/${t.trim()}`} key={key} passHref>
+            <Link href="/t/[tagName]" as={`/t/${t.trim()}`} key={key} passHref>
               <a tw="mr-2">#{t.trim()}</a>
             </Link>
           ))}

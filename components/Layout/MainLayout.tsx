@@ -7,7 +7,7 @@ const MainLayout: React.FC = ({ children }) => {
     <>
       <Navbar />
       <main>
-        <div tw="container m-auto md:py-24 py-20 px-2 md:px-0">{children}</div>
+        <div tw="container m-auto md:my-24 my-20 px-2 md:px-0">{children}</div>
       </main>
     </>
   );

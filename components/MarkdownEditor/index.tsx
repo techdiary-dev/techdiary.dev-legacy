@@ -145,7 +145,9 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
       }
 
       let validateAttributes: Partial<IAttributes> = { ...frontMatter.data };
-      validateAttributes.tags = frontMatter.data.tags.split(",");
+      validateAttributes.tags = frontMatter.data.tags
+        .split(",")
+        .map((t) => t.trim());
       if (router.query._id) {
         const res = await updateArticle({
           variables: {
