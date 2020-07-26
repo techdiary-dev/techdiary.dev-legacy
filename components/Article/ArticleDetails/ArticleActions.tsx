@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import bnnum from "bnnum";
 import {
@@ -12,6 +12,7 @@ import Link from "next/link";
 import ClassNames from "classnames";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
+import useMe from "components/useMe";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -58,23 +59,48 @@ const StyledArticleActions = styled.div`
 `;
 
 const ArticleActions = ({ articleId }) => {
+  /**
+   * Autrhorization data
+   */
+
+  const me = useMe();
+  const myId = me?.data?._id;
+
+  /**
+   * Likes
+   */
   const [isLiked, toggleLike] = useState(false);
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
+    refetchQueries: [{ query: LIKERS, variables: { articleId } }],
+  });
 
-  const [
-    toggleLikeMutation,
-    { loading, data: toggleLikeData, error },
-  ] = useMutation(TOGGLE_LIKE);
+  const { data: likersData, loading: likersLoading } = useQuery(LIKERS, {
+    variables: { articleId },
+  });
 
-  const { data: likersData } = useQuery(LIKERS);
+  const isAmILiked = (): boolean => {
+    const users = likersData?.articleLikers?.data.map((l) => l.user);
+    return (
+      users?.findIndex((user) => user._id === myId) !== -1 && !likersLoading
+    );
+  };
+
+  const likersCount: number = likersData?.articleLikers?.data.length;
+
+  useEffect(() => {
+    if (isAmILiked()) {
+      toggleLike(true);
+    } else {
+      toggleLike(false);
+    }
+  });
 
   const handleLike = async () => {
-    // const backupLike = isLiked;
     toggleLike(!isLiked);
-
-    const liked = await toggleLikeMutation({
+    await toggleLikeMutation({
       variables: {
         articleId,
-        isLiked: true,
+        isLiked: !isLiked,
       },
     });
   };
@@ -89,7 +115,7 @@ const ArticleActions = ({ articleId }) => {
         >
           {isLiked ? <BsHeartFill tw="h-6 w-6" /> : <HeartIcon tw="h-6 w-6" />}
         </span>
-        <span>{bnnum(147)}</span>
+        <span>{bnnum(likersCount || 0)}</span>
       </div>
 
       <div className="action">
