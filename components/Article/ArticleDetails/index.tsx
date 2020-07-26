@@ -25,7 +25,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
 
   return (
     <>
-      <ArticleActions />
+      <ArticleActions articleId={article._id} />
 
       <Row>
         <Column md={9} tw="p-0 sm:px-4">

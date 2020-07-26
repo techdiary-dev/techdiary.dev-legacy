@@ -121,6 +121,7 @@ export const ARTICLE_LIST_BY_TAG = gql`
 export const ARTICLE_DETAILS = gql`
   query ARTICLE_DETAILS($slug: String, $_id: ID) {
     article(idOrSlug: { slug: $slug, _id: $_id }) {
+      _id
       title
       thumbnail
       body

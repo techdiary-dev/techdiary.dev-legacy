@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import tw from "twin.macro";
 import bnnum from "bnnum";
-import { BsHeart as HeartIcon, BsBookmarkPlus } from "react-icons/bs";
+import {
+  BsHeart as HeartIcon,
+  BsHeartFill,
+  BsBookmarkPlus,
+} from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import styled from "styled-components";
 import Link from "next/link";
+import ClassNames from "classnames";
+import gql from "graphql-tag";
+import { useMutation, useQuery } from "@apollo/client";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -20,6 +27,12 @@ const StyledArticleActions = styled.div`
 
     &__icon {
       ${tw`rounded-full p-2 hover:bg-opacity-50 transition duration-300 cursor-pointer`}
+    }
+
+    &.isLiked {
+      .action__icon {
+        ${tw`text-red-500`}
+      }
     }
   }
 
@@ -44,12 +57,37 @@ const StyledArticleActions = styled.div`
   }
 `;
 
-const ArticleActions = () => {
+const ArticleActions = ({ articleId }) => {
+  const [isLiked, toggleLike] = useState(false);
+
+  const [
+    toggleLikeMutation,
+    { loading, data: toggleLikeData, error },
+  ] = useMutation(TOGGLE_LIKE);
+
+  const { data: likersData } = useQuery(LIKERS);
+
+  const handleLike = async () => {
+    // const backupLike = isLiked;
+    toggleLike(!isLiked);
+
+    const liked = await toggleLikeMutation({
+      variables: {
+        articleId,
+        isLiked: true,
+      },
+    });
+  };
+
   return (
     <StyledArticleActions>
-      <div className="action">
-        <span className="action__icon" tw="hover:bg-red-500">
-          <HeartIcon tw="h-6 w-6" />
+      <div className={ClassNames("action", { isLiked })}>
+        <span
+          className="action__icon"
+          tw="hover:bg-red-500"
+          onClick={handleLike}
+        >
+          {isLiked ? <BsHeartFill tw="h-6 w-6" /> : <HeartIcon tw="h-6 w-6" />}
         </span>
         <span>{bnnum(147)}</span>
       </div>
@@ -74,3 +112,23 @@ const ArticleActions = () => {
 };
 
 export default ArticleActions;
+
+export const TOGGLE_LIKE = gql`
+  mutation TOGGLE_LIKE($articleId: ID!, $isLiked: Boolean!) {
+    toggleLike(data: { articleId: $articleId, isLiked: $isLiked })
+  }
+`;
+
+export const LIKERS = gql`
+  query LIKERS($articleId: ID!) {
+    articleLikers(articleId: $articleId) {
+      data {
+        user {
+          _id
+          username
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
