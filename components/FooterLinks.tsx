@@ -31,6 +31,8 @@ const FooterLinks = () => {
           </a>
         </h3>
       </div>
+
+      <p tw="text-gray-500 mt-2">version: 0.7.1</p>
     </div>
   );
 };

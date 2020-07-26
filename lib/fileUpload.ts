@@ -19,8 +19,6 @@ export function handleFileUpload(file: File): Promise<string> {
         }
       )
     ).json();
-
-    console.log(res.secure_url);
     resolve(res.secure_url);
   });
 }
