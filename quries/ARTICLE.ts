@@ -118,6 +118,21 @@ export const ARTICLE_LIST_BY_TAG = gql`
   }
 `;
 
+export const SIDEBAR_FEATURED_TAG = gql`
+  query SIDEBAR_FEATURED_TAG($tags: [String!]!, $and: Boolean) {
+    articlesByTag(pagination: { limit: 4, page: 1 }, tags: $tags, and: $and) {
+      data {
+        title
+        url
+        createdAt
+        author {
+          username
+        }
+      }
+    }
+  }
+`;
+
 export const ARTICLE_DETAILS = gql`
   query ARTICLE_DETAILS($slug: String, $_id: ID) {
     article(idOrSlug: { slug: $slug, _id: $_id }) {
@@ -137,6 +152,7 @@ export const ARTICLE_DETAILS = gql`
         url
       }
       author {
+        _id
         profilePhoto
         name
         username
