@@ -13,6 +13,7 @@ import { initializeApollo } from "lib/apolloClient";
 import { ARTICLE_LIST } from "quries/ARTICLE";
 import FeaturedTag from "components/FeaturedTag";
 import FeaturedCarousel from "components/FeaturedCarousel";
+import LeftSidebar from "components/LeftSidebar";
 
 interface Props {
   version?: string;
@@ -31,9 +32,7 @@ const index: NextPage<Props> = (props) => {
       <MainLayout>
         <Row>
           <Col md={3} sidebar>
-            <FeaturedTag />
-            <FeaturedTag />
-            <FeaturedTag />
+            <LeftSidebar />
           </Col>
 
           <Col md={6} main>

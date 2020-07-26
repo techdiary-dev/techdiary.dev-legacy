@@ -14,6 +14,8 @@ import SeriesArticle from "./SeriesArticle";
 import ArticleActions from "./ArticleActions";
 import Comments from "./Comments";
 import Link from "next/link";
+import useMe from "components/useMe";
+import Button from "components/Button";
 
 interface Props {
   article: any;
@@ -22,6 +24,7 @@ interface Props {
 
 const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
   // let router = useRouter();
+  const me = useMe();
 
   return (
     <>
@@ -78,6 +81,16 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
                   </a>
                 </Link>
               ))}
+            </div>
+
+            <div tw="mt-4">
+              {article?.author?._id === me?.data?._id && (
+                <Link href={`/edit/${article?._id}`} passHref>
+                  <a tw="bg-green-300 rounded px-2 hover:bg-gray-400 transition duration-300">
+                    সংস্কার করুন
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
 

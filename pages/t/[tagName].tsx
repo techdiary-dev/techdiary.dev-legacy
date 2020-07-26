@@ -13,6 +13,7 @@ import { initializeApollo } from "lib/apolloClient";
 import { ARTICLE_LIST_BY_TAG } from "quries/ARTICLE";
 import FeaturedTag from "components/FeaturedTag";
 import { useRouter } from "next/router";
+import LeftSidebar from "components/LeftSidebar";
 
 interface Props {
   version?: string;
@@ -33,9 +34,7 @@ const index: NextPage<Props> = (props) => {
       <MainLayout>
         <Row>
           <Col md={3} sidebar>
-            <FeaturedTag />
-            <FeaturedTag />
-            <FeaturedTag />
+            <LeftSidebar />
           </Col>
 
           <Col md={6} main>
