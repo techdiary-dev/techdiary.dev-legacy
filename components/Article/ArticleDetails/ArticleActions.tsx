@@ -13,6 +13,7 @@ import ClassNames from "classnames";
 import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import useMe from "components/useMe";
+import { TOGGLE_LIKE, LIKERS } from "quries/INTERACTION";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -70,7 +71,7 @@ const ArticleActions = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
-  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
+  const [toggleLikeMutation, { client }] = useMutation(TOGGLE_LIKE, {
     refetchQueries: [{ query: LIKERS, variables: { articleId } }],
   });
 
@@ -85,7 +86,7 @@ const ArticleActions = ({ articleId }) => {
     );
   };
 
-  const likersCount: number = likersData?.articleLikers?.data.length;
+  const likersCount: number = likersData?.articleLikers?.resourceCount;
 
   useEffect(() => {
     if (isAmILiked()) {
@@ -93,7 +94,7 @@ const ArticleActions = ({ articleId }) => {
     } else {
       toggleLike(false);
     }
-  });
+  }, [likersLoading, me.loading]);
 
   const handleLike = async () => {
     toggleLike(!isLiked);
@@ -138,23 +139,3 @@ const ArticleActions = ({ articleId }) => {
 };
 
 export default ArticleActions;
-
-export const TOGGLE_LIKE = gql`
-  mutation TOGGLE_LIKE($articleId: ID!, $isLiked: Boolean!) {
-    toggleLike(data: { articleId: $articleId, isLiked: $isLiked })
-  }
-`;
-
-export const LIKERS = gql`
-  query LIKERS($articleId: ID!) {
-    articleLikers(articleId: $articleId) {
-      data {
-        user {
-          _id
-          username
-          profilePhoto
-        }
-      }
-    }
-  }
-`;
