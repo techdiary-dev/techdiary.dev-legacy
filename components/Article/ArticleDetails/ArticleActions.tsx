@@ -5,15 +5,21 @@ import {
   BsHeart as HeartIcon,
   BsHeartFill,
   BsBookmarkPlus,
+  BsBookmarkFill,
 } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import styled from "styled-components";
 import Link from "next/link";
 import ClassNames from "classnames";
-import gql from "graphql-tag";
 import { useMutation, useQuery } from "@apollo/client";
 import useMe from "components/useMe";
-import { TOGGLE_LIKE, LIKERS } from "quries/INTERACTION";
+import {
+  TOGGLE_LIKE,
+  LIKERS,
+  TOGGLE_BOOKMARK,
+  ARTICLE_BOOKMARKS,
+} from "quries/INTERACTION";
+import swal from "sweetalert";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -36,15 +42,17 @@ const StyledArticleActions = styled.div`
         ${tw`text-red-500`}
       }
     }
+
+    &.isBookmarked {
+      .action__icon {
+        ${tw`text-green-500`}
+      }
+    }
   }
 
   @media all and (max-width: 750px) {
     .action {
       ${tw`mr-8 w-16 flex-row`}
-
-      &__icon {
-        ${tw``}
-      }
 
       svg {
         ${tw`mr-2`}
@@ -71,38 +79,90 @@ const ArticleActions = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
-  const [toggleLikeMutation, { client }] = useMutation(TOGGLE_LIKE, {
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     refetchQueries: [{ query: LIKERS, variables: { articleId } }],
   });
-
   const { data: likersData, loading: likersLoading } = useQuery(LIKERS, {
     variables: { articleId },
   });
 
-  const isAmILiked = (): boolean => {
+  const amiILiked = (): boolean => {
     const users = likersData?.articleLikers?.data.map((l) => l.user);
     return (
       users?.findIndex((user) => user._id === myId) !== -1 && !likersLoading
     );
   };
-
   const likersCount: number = likersData?.articleLikers?.resourceCount;
 
+  /**
+   * Bookmark
+   */
+  const [isBookmarked, toggleBookmark] = useState(false);
+  const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
+    refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
+  });
+  const { data: bookmarksData, loading: bookmarksLoading } = useQuery(
+    ARTICLE_BOOKMARKS,
+    {
+      variables: { articleId },
+    }
+  );
+
+  const amIBookmarked = (): boolean => {
+    const users = bookmarksData?.articleBookMarks?.data.map((l) => l.user);
+    return (
+      users?.findIndex((user) => user._id === myId) !== -1 && !bookmarksLoading
+    );
+  };
+  const bookmarkCount: number = bookmarksData?.articleBookMarks?.resourceCount;
+
   useEffect(() => {
-    if (isAmILiked()) {
+    if (amiILiked()) {
       toggleLike(true);
     } else {
       toggleLike(false);
     }
   }, [likersLoading, me.loading]);
 
+  useEffect(() => {
+    if (amIBookmarked()) {
+      toggleBookmark(true);
+    } else {
+      toggleBookmark(false);
+    }
+  }, [bookmarksData, me.loading]);
+
   const handleLike = async () => {
     toggleLike(!isLiked);
-    await toggleLikeMutation({
+    try {
+      await toggleLikeMutation({
+        variables: {
+          articleId,
+          isLiked: !isLiked,
+        },
+      });
+    } catch (error) {
+      toggleLike(false);
+      swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
+    }
+  };
+
+  const handleBookmark = async () => {
+    toggleBookmark(!isBookmarked);
+    await toggleBookmarkMutation({
       variables: {
         articleId,
-        isLiked: !isLiked,
+        isBookmarked: !isBookmarked,
       },
+    }).catch(() => {
+      toggleBookmark(false);
+      swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
     });
   };
 
@@ -119,11 +179,19 @@ const ArticleActions = ({ articleId }) => {
         <span>{bnnum(likersCount || 0)}</span>
       </div>
 
-      <div className="action">
-        <span className="action__icon" tw="hover:bg-green-500">
-          <BsBookmarkPlus tw="h-6 w-6" />
+      <div className={ClassNames("action", { isBookmarked })}>
+        <span
+          className="action__icon"
+          tw="hover:bg-green-500"
+          onClick={handleBookmark}
+        >
+          {isBookmarked ? (
+            <BsBookmarkFill tw="h-6 w-6" />
+          ) : (
+            <BsBookmarkPlus tw="h-6 w-6" />
+          )}
         </span>
-        <span>{bnnum(147)}</span>
+        <span>{bnnum(bookmarkCount || 0)}</span>
       </div>
 
       <div className="action">
