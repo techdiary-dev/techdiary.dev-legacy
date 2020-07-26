@@ -32,8 +32,6 @@ const FeaturedTag = ({ tags = [], primaryTag, and = false }) => {
     },
   });
 
-  console.log(data);
-
   return (
     <StyledFeaturedTag>
       <h1 className="title">

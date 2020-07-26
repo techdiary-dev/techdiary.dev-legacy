@@ -98,7 +98,6 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
       !localStorage.getItem(`${router.query?._id}`)
     ) {
       setContent(makeProperties(defaultValues));
-      console.log(defaultValues);
     }
   }, [defaultValues]);
 
