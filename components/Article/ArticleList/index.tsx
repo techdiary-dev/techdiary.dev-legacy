@@ -11,7 +11,6 @@ import ArticleCard from "../ArticleCard";
 const ArticleList: React.FC = () => {
   let { data, fetchMore, refetch } = useQuery(ARTICLE_LIST, {
     variables: { page: 1 },
-    notifyOnNetworkStatusChange: true,
   });
 
   // useEffect(() => {
@@ -36,8 +35,6 @@ const ArticleList: React.FC = () => {
       },
     });
   };
-
-  console.log(data.articles);
 
   return (
     <Container>

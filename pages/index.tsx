@@ -57,19 +57,19 @@ const index: NextPage<Props> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const apolloClient = initializeApollo(null, ctx);
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const apolloClient = initializeApollo(null, ctx);
 
-  await apolloClient.query({
-    query: ARTICLE_LIST,
-    variables: { page: 1 },
-  });
+//   await apolloClient.query({
+//     query: ARTICLE_LIST,
+//     variables: { page: 1 },
+//   });
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
-};
+//   return {
+//     props: {
+//       initialApolloState: apolloClient.cache.extract(),
+//     },
+//   };
+// };
 
 export default index;

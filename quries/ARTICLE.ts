@@ -100,7 +100,9 @@ export const FEATURED_ARTICLES = gql`
         thumbnail
         url
         author {
+          name
           username
+          profilePhoto
         }
       }
     }

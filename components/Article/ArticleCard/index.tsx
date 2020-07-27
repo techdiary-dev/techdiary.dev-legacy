@@ -96,7 +96,7 @@ const ArticleCard: React.FC<Props> = ({
         <div tw="flex justify-between mt-2">
           <div tw="flex items-center">
             <ClockIcon tw="mr-1" />
-            {bnnum(timeToRead)} মিনিট
+            {bnnum(timeToRead ?? 0)} মিনিট
           </div>
           <ArticleCardInteraction articleId={_id} />
         </div>
