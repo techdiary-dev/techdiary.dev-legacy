@@ -117,7 +117,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
           </Card>
 
           <div tw="my-5">
-            <Comments />
+            <Comments articleId={article._id} />
           </div>
         </Column>
         <Column md={3}>
