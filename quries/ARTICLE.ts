@@ -68,8 +68,10 @@ export const ARTICLE_LIST = gql`
       pageCount
       currentPage
       data {
+        _id
         title
         excerpt
+        timeToRead
         slug
         url
         thumbnail
@@ -88,6 +90,22 @@ export const ARTICLE_LIST = gql`
   }
 `;
 
+export const FEATURED_ARTICLES = gql`
+  query FEATURED_ARTICLES {
+    featuredArticles {
+      data {
+        _id
+        title
+        thumbnail
+        url
+        author {
+          username
+        }
+      }
+    }
+  }
+`;
+
 export const ARTICLE_LIST_BY_TAG = gql`
   query ARTICLE_LIST_BY_TAG($page: Int, $tags: [String!]!) {
     articlesByTag(
@@ -98,8 +116,10 @@ export const ARTICLE_LIST_BY_TAG = gql`
       pageCount
       currentPage
       data {
+        _id
         title
         excerpt
+        timeToRead
         slug
         url
         thumbnail
@@ -138,6 +158,7 @@ export const ARTICLE_DETAILS = gql`
     article(idOrSlug: { slug: $slug, _id: $_id }) {
       _id
       title
+      timeToRead
       thumbnail
       body
       createdAt

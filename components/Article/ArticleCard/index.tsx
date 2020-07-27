@@ -12,10 +12,13 @@ import styled from "styled-components";
 
 import { BsHeart, BsClock as ClockIcon } from "react-icons/bs";
 import { FaRegCommentAlt as CommentIcon } from "react-icons/fa";
+import ArticleCardInteraction from "./ArticleCardInteraction";
 
 interface Props {
+  _id: string;
   title: string;
   slug: string;
+  timeToRead: number;
   thumbnail: string;
   url: string;
   excerpt: string;
@@ -36,8 +39,10 @@ const StyledUserCard = styled.div`
 `;
 
 const ArticleCard: React.FC<Props> = ({
+  _id,
   title,
   excerpt,
+  timeToRead,
   thumbnail,
   url,
   isPinned,
@@ -91,19 +96,9 @@ const ArticleCard: React.FC<Props> = ({
         <div tw="flex justify-between mt-2">
           <div tw="flex items-center">
             <ClockIcon tw="mr-1" />
-            {bnnum(7)} মিনিট
+            {bnnum(timeToRead)} মিনিট
           </div>
-          <div tw="flex items-center">
-            <div tw="flex items-center mr-2">
-              <BsHeart tw="mr-1" />
-              {bnnum(147)}
-            </div>
-
-            <div tw="flex items-center">
-              <CommentIcon tw="mr-1" />
-              {bnnum(16)}
-            </div>
-          </div>
+          <ArticleCardInteraction articleId={_id} />
         </div>
       </Card>
     </ArticleCardStyle>

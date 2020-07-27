@@ -4,12 +4,13 @@ import np from "nprogress";
 import { ThemeProvider } from "styled-components";
 import { theme } from "styles/variables";
 import moment from "moment";
-import "styles/index.css";
-import "@brainhubeu/react-carousel/lib/style.css";
-import "codemirror/lib/codemirror.css";
-import "codemirror/theme/solarized.css";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "lib/apolloClient";
+
+import "styles/index.css";
+import "react-multi-carousel/lib/styles.css";
+import "codemirror/lib/codemirror.css";
+import "codemirror/theme/solarized.css";
 
 Router.events.on("routeChangeStart", () => {
   np.start();
