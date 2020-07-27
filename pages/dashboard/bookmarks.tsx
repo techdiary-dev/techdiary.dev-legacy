@@ -9,6 +9,7 @@ import "twin.macro";
 import { useQuery, useMutation } from "@apollo/client";
 import { MY_BOOKMARKS, TOGGLE_BOOKMARK } from "quries/INTERACTION";
 import Link from "next/link";
+import swal from "sweetalert";
 
 const Article = ({ title, url, author, _id }) => {
   const [removeBookmark, { loading }] = useMutation(TOGGLE_BOOKMARK, {
