@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.1",
-    "@brainhubeu/react-carousel": "^1.19.24",
     "@susisu/mte-kernel": "git+https://github.com/shoaibsharif/mte-kernel.git",
     "autoprefixer": "^9.8.5",
     "bnnum": "^1.0.6",
@@ -39,6 +38,7 @@
     "react-loading-overlay": "^1.0.1",
     "react-loading-skeleton": "^2.0.1",
     "react-markdown": "^4.3.1",
+    "react-multi-carousel": "^2.5.5",
     "react-overlay-loading": "^1.0.3",
     "react-spinners": "^0.8.3",
     "react-syntax-highlighter": "^12.2.1",

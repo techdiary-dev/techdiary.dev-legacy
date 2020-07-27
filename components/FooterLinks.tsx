@@ -7,20 +7,20 @@ const FooterLinks = () => {
   return (
     <div>
       <div>
-        <Link href={`/p/[slug]`} as="/p/about">
-          <a>আমাদের সম্পর্কে</a>
+        <Link href={`/p/[slug]`} as="/p/about" passHref>
+          <a tw="text-sm text-gray-600">আমাদের সম্পর্কে</a>
         </Link>
         <span className="seperator"> · </span>
-        <Link href={`/p/[slug]`} as="/p/code-of-conduct">
-          <a>আচরনবিধি</a>
+        <Link href={`/p/[slug]`} as="/p/code-of-conduct" passHref>
+          <a tw="text-sm text-gray-600">আচরনবিধি</a>
         </Link>
         <span className="seperator"> · </span>
-        <Link href={`/p/[slug]`} as="/p/terms-of-use">
-          <a>ব্যাবহার এর নীতিমালা</a>
+        <Link href={`/p/[slug]`} as="/p/releases" passHref>
+          <a tw="text-sm text-gray-600">রিলিজ সমূহ</a>
         </Link>
         <span className="seperator"> · </span> <br />
-        <Link href={`/p/[slug]`} as="/p/releases">
-          <a>রিলিজ সমূহ</a>
+        <Link href={`/p/[slug]`} as="/p/terms-of-use" passHref>
+          <a tw="text-sm text-gray-600">ব্যবহার এর নীতিমালা</a>
         </Link>
       </div>
       <div tw="mt-3">

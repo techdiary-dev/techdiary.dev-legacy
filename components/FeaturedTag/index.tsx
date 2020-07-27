@@ -42,7 +42,7 @@ const FeaturedTag = ({ tags = [], primaryTag, and = false }) => {
       <div className="entries">
         {data?.articlesByTag?.data?.map((article) => {
           return (
-            <div className="entry">
+            <div className="entry" key={article.url}>
               <Link
                 href={`/[username]/[articleSlug]`}
                 as={article.url}

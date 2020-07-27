@@ -10,7 +10,7 @@ import HeadTag from "components/HeadTag";
 import { NextPage, GetServerSideProps } from "next";
 import FooterLinks from "components/FooterLinks";
 import { initializeApollo } from "lib/apolloClient";
-import { ARTICLE_LIST } from "quries/ARTICLE";
+import { ARTICLE_LIST, FEATURED_ARTICLES } from "quries/ARTICLE";
 import FeaturedTag from "components/FeaturedTag";
 import FeaturedCarousel from "components/FeaturedCarousel";
 import LeftSidebar from "components/LeftSidebar";
@@ -25,8 +25,7 @@ const index: NextPage<Props> = (props) => {
   return (
     <>
       <HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
-      {/* <div tw="py-12">
-        <h1>Slider</h1>
+      {/* <div tw="py-12 mt-12 -mb-24">
         <FeaturedCarousel />
       </div> */}
       <MainLayout>

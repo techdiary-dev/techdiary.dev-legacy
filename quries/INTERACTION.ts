@@ -6,12 +6,6 @@ export const TOGGLE_LIKE = gql`
   }
 `;
 
-export const TOGGLE_BOOKMARK = gql`
-  mutation TOGGLE_BOOKMARK($articleId: ID!, $isBookmarked: Boolean!) {
-    toggleBookmark(data: { articleId: $articleId, isBookmarked: $isBookmarked })
-  }
-`;
-
 export const LIKERS = gql`
   query LIKERS($articleId: ID!) {
     articleLikers(articleId: $articleId) {
@@ -19,6 +13,25 @@ export const LIKERS = gql`
       data {
         user {
           _id
+          username
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
+
+export const MY_LIKES = gql`
+  query MY_LIKES {
+    myLikes {
+      _id
+      type
+      article {
+        _id
+        title
+        url
+        thumbnail
+        author {
           username
           profilePhoto
         }
@@ -37,5 +50,30 @@ export const ARTICLE_BOOKMARKS = gql`
         }
       }
     }
+  }
+`;
+
+export const MY_BOOKMARKS = gql`
+  query MY_BOOKMARKS {
+    myBookmarks {
+      _id
+      type
+      article {
+        _id
+        title
+        url
+        thumbnail
+        author {
+          username
+          profilePhoto
+        }
+      }
+    }
+  }
+`;
+
+export const TOGGLE_BOOKMARK = gql`
+  mutation TOGGLE_BOOKMARK($articleId: ID!, $isBookmarked: Boolean!) {
+    toggleBookmark(data: { articleId: $articleId, isBookmarked: $isBookmarked })
   }
 `;

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   FiSettings,
   FiBookOpen,
+  FiBookmark,
   FiPlus,
   FiLogOut,
   FiUser,
@@ -40,6 +41,7 @@ const UserDropdownActionMenu = ({
 
     return () => document.removeEventListener("mousedown", handleClickoutSide);
   }, [divImageRef]);
+
   return (
     <StyledUserActionMenu>
       <div className="avater" onClick={() => setOpen(!open)} ref={divImageRef}>
@@ -64,7 +66,6 @@ const UserDropdownActionMenu = ({
           }}
           className="dropdown-menu"
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          // style={{ display: "block", transition: ".2s easeInOut" }}
         >
           <li>
             <Link href="/[username]" as={`/${username}`}>
@@ -75,10 +76,10 @@ const UserDropdownActionMenu = ({
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/update-profile">
+            <Link href="/dashboard/bookmarks">
               <a className="dropdown-menu__item">
-                <FiSettings className="dropdown-menu__icon" />
-                <span className="label">প্রোফাইল হালনাগাদ</span>
+                <FiBookmark className="dropdown-menu__icon" />
+                <span className="label">বুকমার্ক সমূহ</span>
               </a>
             </Link>
           </li>
@@ -87,6 +88,14 @@ const UserDropdownActionMenu = ({
               <a className="dropdown-menu__item">
                 <FiBookOpen className="dropdown-menu__icon" />
                 <span className="label">আমার ড্যাসবোর্ড</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/update-profile">
+              <a className="dropdown-menu__item">
+                <FiSettings className="dropdown-menu__icon" />
+                <span className="label">প্রোফাইল হালনাগাদ</span>
               </a>
             </Link>
           </li>
@@ -114,8 +123,6 @@ const Actions: React.FC = () => {
   let { data, error, loading } = useMe();
   let [logout, { loading: loginLogout, client }] = useMutation(LOGOUT);
   const router = useRouter();
-  // if (loading || loginLogout) nProgress.start()
-  // else nProgress.done()
 
   const handleLogout = (e) => {
     swal({
