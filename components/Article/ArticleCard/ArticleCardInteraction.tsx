@@ -98,45 +98,43 @@ const ArticleCardInteraction = ({ articleId }) => {
   }, [bookmarksData, me.loading]);
 
   const handleLike = async () => {
-    // Update like count
-    if (!isLiked) setLikeCount(likeCount + 1);
-    else setLikeCount(likeCount - 1);
-
-    toggleLike(!isLiked);
-
-    try {
-      await toggleLikeMutation({
-        variables: {
-          articleId,
-          isLiked: !isLiked,
-        },
-      });
-    } catch (error) {
-      toggleLike(false);
-      swal({
+    if (!me.data)
+      return swal({
         title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
         icon: "error",
       });
-    }
+
+    // Update like count
+    if (!isLiked) setLikeCount(likeCount + 1);
+    else setLikeCount(likeCount - 1);
+    toggleLike(!isLiked);
+
+    await toggleLikeMutation({
+      variables: {
+        articleId,
+        isLiked: !isLiked,
+      },
+    });
   };
 
   const handleBookmark = async () => {
-    // Update like count
-    if (!isBookmarked) setBookmarkCount(bookmarkCount + 1);
-    else setBookmarkCount(bookmarkCount - 1);
+    if (!me.data)
+      return swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
 
+    if (!isBookmarked)
+      // Update like count
+      setBookmarkCount(bookmarkCount + 1);
+    else setBookmarkCount(bookmarkCount - 1);
     toggleBookmark(!isBookmarked);
+
     await toggleBookmarkMutation({
       variables: {
         articleId,
         isBookmarked: !isBookmarked,
       },
-    }).catch(() => {
-      toggleBookmark(false);
-      swal({
-        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-        icon: "error",
-      });
     });
   };
   return (

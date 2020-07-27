@@ -6,6 +6,7 @@ import {
   FiPlus,
   FiLogOut,
   FiUser,
+  FiHeart,
 } from "react-icons/fi";
 import "twin.macro";
 
@@ -80,6 +81,14 @@ const UserDropdownActionMenu = ({
               <a className="dropdown-menu__item">
                 <FiBookmark className="dropdown-menu__icon" />
                 <span className="label">বুকমার্ক সমূহ</span>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/dashboard/liked">
+              <a className="dropdown-menu__item">
+                <FiHeart className="dropdown-menu__icon" />
+                <span className="label">পছন্দকৃত ডায়েরি</span>
               </a>
             </Link>
           </li>

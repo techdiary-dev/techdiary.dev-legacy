@@ -25,9 +25,9 @@ const index: NextPage<Props> = (props) => {
   return (
     <>
       <HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
-      {/* <div tw="py-12 mt-12 -mb-24">
+      <div tw="py-12 mt-12 -mb-24">
         <FeaturedCarousel />
-      </div> */}
+      </div>
       <MainLayout>
         <Row>
           <Col md={3} sidebar>
@@ -57,19 +57,19 @@ const index: NextPage<Props> = (props) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const apolloClient = initializeApollo(null, ctx);
+// export const getServerSideProps: GetServerSideProps = async (ctx) => {
+//   const apolloClient = initializeApollo(null, ctx);
 
-  await apolloClient.query({
-    query: ARTICLE_LIST,
-    variables: { page: 1 },
-  });
+//   await apolloClient.query({
+//     query: ARTICLE_LIST,
+//     variables: { page: 1 },
+//   });
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
-};
+//   return {
+//     props: {
+//       initialApolloState: apolloClient.cache.extract(),
+//     },
+//   };
+// };
 
 export default index;

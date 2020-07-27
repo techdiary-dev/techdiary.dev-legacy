@@ -3,6 +3,8 @@ import DashboardLayout from "components/Layout/DashboardLayout";
 import HeadTag from "components/HeadTag";
 import LoadingOverlay from "react-loading-overlay";
 import { SyncLoader } from "react-spinners";
+import { BsBookmarkFill } from "react-icons/bs";
+import moment from "moment";
 import "twin.macro";
 import { useQuery, useMutation } from "@apollo/client";
 import { MY_BOOKMARKS, TOGGLE_BOOKMARK } from "quries/INTERACTION";
@@ -14,30 +16,45 @@ const Article = ({ title, url, author, _id }) => {
   });
 
   const handleRemoveBookmark = async () => {
-    await removeBookmark({
-      variables: { articleId: _id, isBookmarked: false },
+    swal({
+      title: "বুকমার্ক সরিয়ে ফেলতে চান?",
+      icon: "warning",
+      buttons: ["না", "হ্যাঁ চাই"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        removeBookmark({
+          variables: { articleId: _id, isBookmarked: false },
+        }).then(() => {
+          swal("বুকমার্ক সরিয়ে ফেলা হয়েছে", {
+            icon: "success",
+          });
+        });
+      }
     });
   };
 
   return (
     <LoadingOverlay active={loading} spinner>
-      <article tw="mb-5 bg-gray-100 hover:bg-gray-200 transition duration-300 p-2 rounded shadow">
-        <Link as={url} href="/[username]/[articleSlug]" passHref>
-          <a>
-            <span tw="text-lg">{title}</span>
-          </a>
-        </Link>
-        <div tw="text-gray-600">
-          <span tw="mr-2">
-            <Link href="/[username]" as={`/${author.username}`}>
-              <a>{author.username}</a>
-            </Link>
-          </span>
-          <span>রবিবার, ৭ জুন ২০২০, রাত ৮:২৭ সময়</span>
-
-          <button onClick={handleRemoveBookmark} tw="text-red-500 ml-4">
-            মুছে ফেলুন
+      <article tw="flex items-center mb-5 bg-gray-100 hover:bg-gray-200 transition duration-300 p-2 rounded shadow">
+        <div tw="mr-4">
+          <button tw="focus:outline-none" onClick={handleRemoveBookmark}>
+            <BsBookmarkFill tw="text-red-500" />
           </button>
+        </div>
+        <div>
+          <Link as={url} href="/[username]/[articleSlug]" passHref>
+            <a>
+              <span tw="text-lg">{title}</span>
+            </a>
+          </Link>
+          <div tw="text-gray-600">
+            <span tw="mr-2">
+              <Link href="/[username]" as={`/${author.username}`}>
+                <a>{author.username}</a>
+              </Link>
+            </span>
+          </div>
         </div>
       </article>
     </LoadingOverlay>
@@ -70,8 +87,8 @@ const BookMarks = () => {
           )}
 
           {!loading &&
-            data?.myBookmarks?.map(({ article, _id }) => (
-              <Article {...article} key={_id} />
+            data?.myBookmarks?.map(({ article, _id, createdAt }) => (
+              <Article createdAt={createdAt} {...article} key={_id} />
             ))}
         </div>
       </DashboardLayout>

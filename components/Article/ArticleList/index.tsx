@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { SyncLoader } from "react-spinners";
 import "twin.macro";
+import Skeleton from "react-loading-skeleton";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Container } from "./styles";
@@ -9,15 +10,13 @@ import { ARTICLE_LIST } from "quries/ARTICLE";
 import ArticleCard from "../ArticleCard";
 
 const ArticleList: React.FC = () => {
-  let { data, fetchMore, refetch } = useQuery(ARTICLE_LIST, {
+  let { data, fetchMore, refetch, loading } = useQuery(ARTICLE_LIST, {
     variables: { page: 1 },
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "cache-and-network",
   });
 
-  useEffect(() => {
-    refetch({ page: 1 });
-  }, []);
+  // useEffect(() => {
+  //   refetch({ page: 1 });
+  // }, []);
 
   const handleFetch = () => {
     fetchMore({
@@ -37,6 +36,15 @@ const ArticleList: React.FC = () => {
       },
     });
   };
+
+  if (loading)
+    return (
+      <Container>
+        <Skeleton width="100%" height={350} tw="mb-4" />
+        <Skeleton width="100%" height={350} tw="mb-4" />
+        <Skeleton width="100%" height={350} />
+      </Container>
+    );
 
   return (
     <Container>

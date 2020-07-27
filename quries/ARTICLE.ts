@@ -93,13 +93,16 @@ export const ARTICLE_LIST = gql`
 export const FEATURED_ARTICLES = gql`
   query FEATURED_ARTICLES {
     featuredArticles {
+      resourceCount
       data {
         _id
         title
         thumbnail
         url
         author {
+          name
           username
+          profilePhoto
         }
       }
     }
