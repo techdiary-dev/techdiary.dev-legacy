@@ -79,6 +79,7 @@ const ArticleActions = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     refetchQueries: [{ query: LIKERS, variables: { articleId } }],
   });
@@ -92,12 +93,14 @@ const ArticleActions = ({ articleId }) => {
       users?.findIndex((user) => user._id === myId) !== -1 && !likersLoading
     );
   };
-  const likersCount: number = likersData?.articleLikers?.resourceCount;
+  const likersCountFromServer: number =
+    likersData?.articleLikers?.resourceCount;
 
   /**
    * Bookmark
    */
   const [isBookmarked, toggleBookmark] = useState(false);
+  const [bookmarkCount, setBookmarkCount] = useState(0);
   const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
     refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
   });
@@ -114,9 +117,12 @@ const ArticleActions = ({ articleId }) => {
       users?.findIndex((user) => user._id === myId) !== -1 && !bookmarksLoading
     );
   };
-  const bookmarkCount: number = bookmarksData?.articleBookMarks?.resourceCount;
+  const bookmarkCountFromServer: number =
+    bookmarksData?.articleBookMarks?.resourceCount;
 
   useEffect(() => {
+    setLikeCount(likersCountFromServer);
+
     if (amiILiked()) {
       toggleLike(true);
     } else {
@@ -125,6 +131,7 @@ const ArticleActions = ({ articleId }) => {
   }, [likersLoading, me.loading]);
 
   useEffect(() => {
+    setBookmarkCount(bookmarkCountFromServer);
     if (amIBookmarked()) {
       toggleBookmark(true);
     } else {
@@ -133,24 +140,37 @@ const ArticleActions = ({ articleId }) => {
   }, [bookmarksData, me.loading]);
 
   const handleLike = async () => {
-    toggleLike(!isLiked);
-    try {
-      await toggleLikeMutation({
-        variables: {
-          articleId,
-          isLiked: !isLiked,
-        },
-      });
-    } catch (error) {
-      toggleLike(false);
-      swal({
+    if (!me.data)
+      return swal({
         title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
         icon: "error",
       });
-    }
+
+    if (!isLiked) setLikeCount(likeCount + 1);
+    else setLikeCount(likeCount - 1);
+
+    toggleLike(!isLiked);
+
+    await toggleLikeMutation({
+      variables: {
+        articleId,
+        isLiked: !isLiked,
+      },
+    });
   };
 
   const handleBookmark = async () => {
+    if (!me.data)
+      return swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
+
+    if (!isBookmarked)
+      // Update like count
+      setBookmarkCount(bookmarkCount + 1);
+    else setBookmarkCount(bookmarkCount - 1);
+
     toggleBookmark(!isBookmarked);
     await toggleBookmarkMutation({
       variables: {
@@ -176,7 +196,7 @@ const ArticleActions = ({ articleId }) => {
         >
           {isLiked ? <BsHeartFill tw="h-6 w-6" /> : <HeartIcon tw="h-6 w-6" />}
         </span>
-        <span>{bnnum(likersCount || 0)}</span>
+        <span>{bnnum(likeCount || 0)}</span>
       </div>
 
       <div className={ClassNames("action", { isBookmarked })}>

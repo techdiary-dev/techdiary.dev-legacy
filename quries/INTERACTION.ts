@@ -26,6 +26,7 @@ export const MY_LIKES = gql`
     myLikes {
       _id
       type
+      createdAt
       article {
         _id
         title
@@ -58,6 +59,7 @@ export const MY_BOOKMARKS = gql`
     myBookmarks {
       _id
       type
+      createdAt
       article {
         _id
         title

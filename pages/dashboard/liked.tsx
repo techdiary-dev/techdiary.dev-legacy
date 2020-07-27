@@ -54,7 +54,6 @@ const Article = ({ title, url, author, _id }) => {
                 <a>{author.username}</a>
               </Link>
             </span>
-            <span>রবিবার, ৭ জুন ২০২০, রাত ৮:২৭ সময়</span>
           </div>
         </div>
       </article>
