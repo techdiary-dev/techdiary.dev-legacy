@@ -37,7 +37,9 @@ const FeaturedCarousel = () => {
     },
   };
 
-  const { data, loading } = useQuery(FEATURED_ARTICLES);
+  const { data, loading } = useQuery(FEATURED_ARTICLES, {
+    fetchPolicy: "network-only",
+  });
 
   return (
     !loading && (

@@ -25,9 +25,9 @@ const index: NextPage<Props> = (props) => {
   return (
     <>
       <HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
-      {/* <div tw="py-12 mt-12 -mb-24">
+      <div tw="py-12 mt-12 -mb-24">
         <FeaturedCarousel />
-      </div> */}
+      </div>
       <MainLayout>
         <Row>
           <Col md={3} sidebar>

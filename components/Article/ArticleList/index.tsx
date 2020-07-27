@@ -12,12 +12,11 @@ const ArticleList: React.FC = () => {
   let { data, fetchMore, refetch } = useQuery(ARTICLE_LIST, {
     variables: { page: 1 },
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: "cache-and-network",
   });
 
-  useEffect(() => {
-    refetch({ page: 1 });
-  }, []);
+  // useEffect(() => {
+  //   refetch({ page: 1 });
+  // }, []);
 
   const handleFetch = () => {
     fetchMore({
@@ -37,6 +36,8 @@ const ArticleList: React.FC = () => {
       },
     });
   };
+
+  console.log(data.articles);
 
   return (
     <Container>
