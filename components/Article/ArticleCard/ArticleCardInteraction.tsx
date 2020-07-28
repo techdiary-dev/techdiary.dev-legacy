@@ -17,11 +17,7 @@ import {
   ARTICLE_BOOKMARKS,
 } from "quries/INTERACTION";
 import { useMutation, useQuery } from "@apollo/client";
-import styled from "styled-components";
-import { motion } from "framer-motion";
 import { useDebounce } from "use-debounce";
-
-const StyledArticleCardInterAction = styled.div``;
 
 const ArticleCardInteraction = ({ articleId }) => {
   /**
@@ -145,39 +141,29 @@ const ArticleCardInteraction = ({ articleId }) => {
     toggleBookmark(!isBookmarked);
   };
   return (
-    <StyledArticleCardInterAction>
-      <div tw="flex items-center">
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-          tw="flex items-center mr-2"
-        >
-          <span onClick={handleBookmark} tw="mr-1 cursor-pointer">
-            {isBookmarked ? (
-              <BsBookmarkFill tw="h-5 w-5 text-green-500" />
-            ) : (
-              <BsBookmarkPlus tw="h-5 w-5" />
-            )}
-          </span>
-          <span>{bnnum(bookmarkCount || 0)}</span>
-        </motion.div>
-
-        <motion.div
-          whileHover={{ scale: 1.2 }}
-          whileTap={{ scale: 0.9 }}
-          tw="flex items-center mr-2"
-        >
-          <span onClick={handleLike} tw="mr-1 cursor-pointer">
-            {isLiked ? (
-              <BsHeartFill tw="h-4 w-4 text-red-500" />
-            ) : (
-              <BsHeart tw="h-4 w-4" />
-            )}
-          </span>
-          <span>{bnnum(likeCount || 0)}</span>
-        </motion.div>
+    <div tw="flex items-center">
+      <div tw="flex items-center mr-2">
+        <span onClick={handleBookmark} tw="mr-1 cursor-pointer">
+          {isBookmarked ? (
+            <BsBookmarkFill tw="h-5 w-5 text-green-500" />
+          ) : (
+            <BsBookmarkPlus tw="h-5 w-5" />
+          )}
+        </span>
+        <span>{bnnum(bookmarkCount || 0)}</span>
       </div>
-    </StyledArticleCardInterAction>
+
+      <div tw="flex items-center mr-2">
+        <span onClick={handleLike} tw="mr-1 cursor-pointer">
+          {isLiked ? (
+            <BsHeartFill tw="h-4 w-4 text-red-500" />
+          ) : (
+            <BsHeart tw="h-4 w-4" />
+          )}
+        </span>
+        <span>{bnnum(likeCount || 0)}</span>
+      </div>
+    </div>
   );
 };
 
