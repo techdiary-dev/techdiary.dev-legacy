@@ -8,7 +8,7 @@ import useMe from "components/useMe";
 import UserCardWithArticles from "components/UserCardWithArticles";
 import HeadTag from "components/HeadTag";
 import { NextPage, GetServerSideProps } from "next";
-import FooterLinks from "components/FooterLinks";
+import FooterLinks from "components/Footer";
 import { initializeApollo } from "lib/apolloClient";
 import { ARTICLE_LIST, FEATURED_ARTICLES } from "quries/ARTICLE";
 import FeaturedTag from "components/FeaturedTag";

@@ -3,7 +3,7 @@ import Link from "next/link";
 import HerokuLogo from "../public/logos/heroku.svg";
 import "twin.macro";
 
-const FooterLinks = () => {
+const Footer = () => {
   return (
     <div>
       <div>
@@ -32,9 +32,8 @@ const FooterLinks = () => {
         </h3>
       </div>
 
-  <p tw="text-gray-500 mt-2">{process.env.NEXT_PUBLIC_VERSION}</p>
+      <p tw="text-gray-500 mt-2">ভার্সন: 0.8.0</p>
     </div>
   );
 };
-// d
-export default FooterLinks;
+export default Footer;

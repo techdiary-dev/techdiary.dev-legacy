@@ -20,6 +20,7 @@ export const GET_ARTICLE_COMMENTS = gql`
         body
         createdAt
         author {
+          _id
           username
         }
         comments {
@@ -28,6 +29,7 @@ export const GET_ARTICLE_COMMENTS = gql`
           createdAt
           parent
           author {
+            _id
             username
           }
         }
