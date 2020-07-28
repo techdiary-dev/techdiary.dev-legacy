@@ -20,6 +20,8 @@ import {
   ARTICLE_BOOKMARKS,
 } from "quries/INTERACTION";
 import swal from "sweetalert";
+import { motion } from "framer-motion";
+import { useDebounce } from "use-debounce/lib";
 
 const StyledArticleActions = styled.div`
   ${tw`flex flex-col justify-center fixed -ml-12`}
@@ -79,6 +81,7 @@ const ArticleActions = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
+  const [lateLiked] = useDebounce(isLiked, 500);
   const [likeCount, setLikeCount] = useState(0);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     refetchQueries: [{ query: LIKERS, variables: { articleId } }],
@@ -95,11 +98,45 @@ const ArticleActions = ({ articleId }) => {
   };
   const likersCountFromServer: number =
     likersData?.articleLikers?.resourceCount;
+  useEffect(() => {
+    setLikeCount(likersCountFromServer);
+
+    if (amiILiked()) {
+      toggleLike(true);
+    } else {
+      toggleLike(false);
+    }
+  }, [likersLoading, me.loading]);
+
+  useEffect(() => {
+    async function df() {
+      await toggleLikeMutation({
+        variables: {
+          articleId,
+          isLiked: lateLiked,
+        },
+      });
+    }
+    df();
+  }, [lateLiked]);
+  const handleLike = async () => {
+    if (!me.data)
+      return swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
+
+    if (!isLiked) setLikeCount(likeCount + 1);
+    else setLikeCount(likeCount - 1);
+
+    toggleLike(!isLiked);
+  };
 
   /**
    * Bookmark
    */
   const [isBookmarked, toggleBookmark] = useState(false);
+  const [lateBookMark] = useDebounce(isBookmarked, 500);
   const [bookmarkCount, setBookmarkCount] = useState(0);
   const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
     refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
@@ -121,43 +158,25 @@ const ArticleActions = ({ articleId }) => {
     bookmarksData?.articleBookMarks?.resourceCount;
 
   useEffect(() => {
-    setLikeCount(likersCountFromServer);
-
-    if (amiILiked()) {
-      toggleLike(true);
-    } else {
-      toggleLike(false);
-    }
-  }, [likersLoading, me.loading]);
-
-  useEffect(() => {
     setBookmarkCount(bookmarkCountFromServer);
     if (amIBookmarked()) {
       toggleBookmark(true);
     } else {
       toggleBookmark(false);
     }
-  }, [bookmarksData, me.loading]);
+  }, [bookmarksLoading, me.loading]);
 
-  const handleLike = async () => {
-    if (!me.data)
-      return swal({
-        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-        icon: "error",
+  useEffect(() => {
+    async function df() {
+      await toggleBookmarkMutation({
+        variables: {
+          articleId,
+          isBookmarked: lateBookMark,
+        },
       });
-
-    if (!isLiked) setLikeCount(likeCount + 1);
-    else setLikeCount(likeCount - 1);
-
-    toggleLike(!isLiked);
-
-    await toggleLikeMutation({
-      variables: {
-        articleId,
-        isLiked: !isLiked,
-      },
-    });
-  };
+    }
+    df();
+  }, [lateBookMark]);
 
   const handleBookmark = async () => {
     if (!me.data)
@@ -172,23 +191,15 @@ const ArticleActions = ({ articleId }) => {
     else setBookmarkCount(bookmarkCount - 1);
 
     toggleBookmark(!isBookmarked);
-    await toggleBookmarkMutation({
-      variables: {
-        articleId,
-        isBookmarked: !isBookmarked,
-      },
-    }).catch(() => {
-      toggleBookmark(false);
-      swal({
-        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-        icon: "error",
-      });
-    });
   };
 
   return (
     <StyledArticleActions>
-      <div className={ClassNames("action", { isLiked })}>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className={ClassNames("action", { isLiked })}
+      >
         <span
           className="action__icon"
           tw="hover:bg-red-500"
@@ -197,9 +208,13 @@ const ArticleActions = ({ articleId }) => {
           {isLiked ? <BsHeartFill tw="h-6 w-6" /> : <HeartIcon tw="h-6 w-6" />}
         </span>
         <span>{bnnum(likeCount || 0)}</span>
-      </div>
+      </motion.div>
 
-      <div className={ClassNames("action", { isBookmarked })}>
+      <motion.div
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className={ClassNames("action", { isBookmarked })}
+      >
         <span
           className="action__icon"
           tw="hover:bg-green-500"
@@ -212,7 +227,7 @@ const ArticleActions = ({ articleId }) => {
           )}
         </span>
         <span>{bnnum(bookmarkCount || 0)}</span>
-      </div>
+      </motion.div>
 
       <div className="action">
         <Link href="#comments" passHref>

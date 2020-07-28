@@ -32,7 +32,7 @@ const FooterLinks = () => {
         </h3>
       </div>
 
-      <p tw="text-gray-500 mt-2">version: 0.7.1</p>
+  <p tw="text-gray-500 mt-2">{process.env.NEXT_PUBLIC_VERSION}</p>
     </div>
   );
 };
