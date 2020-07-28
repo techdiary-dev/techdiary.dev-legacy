@@ -91,10 +91,7 @@ const Replay = ({ author, body, createdAt, _id, articleId }) => {
         {author._id === me?.data?._id && (
           <>
             <button tw="text-sm p-0 font-bold text-gray-700">সংস্কার</button>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
+            <span tw="w-3 flex justify-center"> · </span>
             <button
               tw="text-sm p-0 font-bold text-red-500"
               onClick={handleDeleteComment}
@@ -136,10 +133,10 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
   };
 
   return (
-    <div tw="mb-5 border p-2 rounded last:border-b-0">
+    <div tw="mb-5 p-2">
       <h2 tw="text-base">
         <Link href="/[username]" as={`/${author.username}`} passHref>
-          <a tw="text-black">{author.username}</a>
+          <a tw="text-black">@{author.username}</a>
         </Link>
         ,<span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
       </h2>
@@ -168,20 +165,14 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
 
         {author._id === me?.data?._id && (
           <>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
+            <span tw="w-3 flex justify-center"> · </span>
             <button
               tw="text-sm p-0 font-bold text-gray-700"
               onClick={() => openReply(true)}
             >
               সংস্কার
             </button>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
+            <span tw="w-3 flex justify-center"> · </span>
             <button
               tw="text-sm p-0 font-bold text-red-500"
               onClick={handleDeleteComment}
