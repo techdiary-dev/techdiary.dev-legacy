@@ -3,12 +3,10 @@ import { Row, Column } from "styled-grid-system-component";
 import "twin.macro";
 import ReactMarkdown from "react-markdown";
 import moment from "moment";
-import Disqus from "disqus-react";
 import { StyledArticleContent } from "./styles";
 import { Card } from "components/Card";
 import UserCardWithArticles from "components/UserCardWithArticles";
 
-import { useRouter } from "next/router";
 import { Highlighter } from "lib/prismhiglight";
 import SeriesArticle from "./SeriesArticle";
 import ArticleActions from "./ArticleActions";
@@ -16,6 +14,7 @@ import Comments from "./Comments";
 import Link from "next/link";
 import useMe from "components/useMe";
 import Button from "components/Button";
+import Footer from "components/Footer";
 
 interface Props {
   article: any;
@@ -23,7 +22,6 @@ interface Props {
 }
 
 const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
-  // let router = useRouter();
   const me = useMe();
 
   return (
@@ -121,7 +119,10 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
           </div>
         </Column>
         <Column md={3}>
-          <UserCardWithArticles user={article?.author} />
+          <div tw="mb-8">
+            <UserCardWithArticles user={article?.author} />
+          </div>
+          <Footer />
         </Column>
       </Row>
     </>

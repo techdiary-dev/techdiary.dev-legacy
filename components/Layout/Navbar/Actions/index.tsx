@@ -15,7 +15,7 @@ import { GrLogin } from "react-icons/gr";
 import Link from "next/link";
 import useMe from "components/useMe";
 import { BounceLoader } from "react-spinners";
-import { LOGOUT } from "quries/AUTH";
+import { LOGOUT, ME } from "quries/AUTH";
 import { useMutation } from "@apollo/client";
 import { motion } from "framer-motion";
 import { StyledActions, StyledUserActionMenu } from "./styles";
@@ -130,8 +130,9 @@ const UserDropdownActionMenu = ({
 
 const Actions: React.FC = () => {
   let { data, error, loading } = useMe();
-  let [logout, { loading: loginLogout, client }] = useMutation(LOGOUT);
-  const router = useRouter();
+  let [logout, { client }] = useMutation(LOGOUT, {
+    refetchQueries: [{ query: ME }],
+  });
 
   const handleLogout = (e) => {
     swal({
@@ -139,13 +140,10 @@ const Actions: React.FC = () => {
       icon: "warning",
       buttons: ["না", "হ্যাঁ অবশ্যই"],
       dangerMode: true,
-    }).then((willDelete) => {
+    }).then(async (willDelete) => {
       if (willDelete) {
-        logout().then(() => {
-          // refetch();
-          router.push("/");
-          client.clearStore();
-        });
+        await logout();
+        // client.clearStore();
       }
     });
   };

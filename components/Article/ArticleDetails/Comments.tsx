@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "components/Card";
 import "twin.macro";
 import moment from "moment";
@@ -6,6 +6,8 @@ import Button from "components/Button";
 import { CREATE_COMMENT, GET_ARTICLE_COMMENTS } from "quries/COMMENT";
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
+import useMe from "components/useMe";
+import { FaGithub, FaUserLock, FaTimes } from "react-icons/fa";
 
 const CommentBox = ({ articleId, parent = null }) => {
   const [createComment] = useMutation(CREATE_COMMENT, {
@@ -35,16 +37,12 @@ const CommentBox = ({ articleId, parent = null }) => {
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       ></textarea>
-      <div>
-        <Button
-          color="dark"
-          size="small"
-          tw="px-3 float-right"
-          onClick={handleCreateComment}
-        >
-          মন্তব্য করুন
-        </Button>
-      </div>
+      <button
+        tw="px-3 bg-gray-400 rounded-sm text-sm focus:outline-none text-semiDark"
+        onClick={handleCreateComment}
+      >
+        মন্তব্য করুন
+      </button>
     </div>
   );
 };
@@ -55,10 +53,9 @@ const Replay = ({ author, body, createdAt }) => {
       <h2 tw="text-base">
         <Link href="/[username]" as={`/${author?.username}`} passHref>
           <a tw="text-black">@{author.username}</a>
-        </Link>
-        , <span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
+        </Link>{" "}
+        <span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
       </h2>
-
       <p tw="text-gray-700">{body}</p>
     </div>
   );
@@ -66,6 +63,7 @@ const Replay = ({ author, body, createdAt }) => {
 
 const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
   const [isReplyOpen, openReply] = useState(false);
+  const me = useMe();
 
   return (
     <div tw="mb-5 border p-2 rounded last:border-b-0">
@@ -78,23 +76,57 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
 
       <p tw="text-gray-700">{body}</p>
 
-      <div>
-        {!isReplyOpen && (
-          <Button
-            tw="text-sm p-0 text-green-500 font-bold"
-            color="link"
-            onClick={() => openReply(true)}
+      <div tw="mt-2 flex">
+        {!isReplyOpen && me.data && (
+          <>
+            <button
+              tw="text-sm p-0 font-bold text-gray-700"
+              onClick={() => openReply(true)}
+            >
+              উত্তর দিন
+            </button>
+          </>
+        )}
+        {isReplyOpen && (
+          <button
+            onClick={() => openReply(false)}
+            tw="focus:outline-none text-red-600"
           >
-            উত্তর দিন
-          </Button>
+            <FaTimes />
+          </button>
         )}
 
-        {isReplyOpen && (
+        {author._id === me?.data?._id && (
           <>
-            <CommentBox parent={_id} articleId={articleId} />
+            <span className="seperator" tw="w-3 flex justify-center">
+              {" "}
+              ·{" "}
+            </span>
+            <button
+              tw="text-sm p-0 font-bold text-gray-700"
+              onClick={() => openReply(true)}
+            >
+              সংস্কার
+            </button>
+            <span className="seperator" tw="w-3 flex justify-center">
+              {" "}
+              ·{" "}
+            </span>
+            <button
+              tw="text-sm p-0 font-bold text-red-500"
+              onClick={() => openReply(true)}
+            >
+              মুছুন
+            </button>
           </>
         )}
       </div>
+
+      {isReplyOpen && (
+        <>
+          <CommentBox parent={_id} articleId={articleId} />
+        </>
+      )}
 
       <div tw="ml-12">
         {comments?.map((comment) => (
@@ -112,6 +144,7 @@ const Comments = ({ articleId }) => {
       articleId,
     },
   });
+  const me = useMe();
 
   const handleFetch = () => {
     fetchMore({
@@ -138,9 +171,22 @@ const Comments = ({ articleId }) => {
 
   return (
     <div id="comments">
-      <Card tw="mb-3">
-        <CommentBox articleId={articleId} />
-      </Card>
+      {me.data ? (
+        <Card tw="mb-3">
+          <CommentBox articleId={articleId} />
+        </Card>
+      ) : (
+        <div tw="bg-gray-300 p-4 flex flex-col items-center rounded">
+          <FaUserLock tw="h-16 w-16 text-gray-500" />
+          <h3 tw="my-4 text-gray-600">মন্তব্য করতে লগইন করুন</h3>
+          <a
+            tw="flex items-center bg-gray-400 px-2 py-1 rounded hover:shadow-sm transition duration-300"
+            href={`https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GITHUB_OAUTH_REDIRECT_URI}`}
+          >
+            <FaGithub /> <span tw="ml-2">লগইন করুন</span>
+          </a>
+        </div>
+      )}
 
       <Card>
         {data?.getCommentsByArticle?.data.map((comment) => (

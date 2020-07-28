@@ -16,7 +16,6 @@
     "class-validator": "^0.12.2",
     "classnames": "^2.2.6",
     "codemirror": "^5.54.0",
-    "disqus-react": "^1.0.8",
     "framer-motion": "^1.11.1",
     "graphql": "^14.0.2",
     "graphql-tag": "2.10.3",
