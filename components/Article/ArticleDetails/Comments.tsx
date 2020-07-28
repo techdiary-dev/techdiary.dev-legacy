@@ -3,9 +3,14 @@ import { Card } from "components/Card";
 import "twin.macro";
 import moment from "moment";
 import Button from "components/Button";
-import { CREATE_COMMENT, GET_ARTICLE_COMMENTS } from "quries/COMMENT";
+import {
+  CREATE_COMMENT,
+  GET_ARTICLE_COMMENTS,
+  DELETE_COMMENT,
+} from "quries/COMMENT";
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
+import swal from "sweetalert";
 import useMe from "components/useMe";
 import { FaGithub, FaUserLock, FaTimes } from "react-icons/fa";
 
@@ -47,7 +52,32 @@ const CommentBox = ({ articleId, parent = null }) => {
   );
 };
 
-const Replay = ({ author, body, createdAt }) => {
+const Replay = ({ author, body, createdAt, _id, articleId }) => {
+  const me = useMe();
+
+  const [deleteComment] = useMutation(DELETE_COMMENT, {
+    refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
+  });
+
+  const handleDeleteComment = () => {
+    swal({
+      title: "মন্তব্য মুছে ফেলতে চান?",
+      icon: "warning",
+      buttons: ["না", "হ্যাঁ চাই"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        deleteComment({
+          variables: { _id },
+        }).then(() => {
+          swal("মন্তব্য মুছে ফেলা হয়েছে", {
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
+
   return (
     <div tw="mb-4">
       <h2 tw="text-base">
@@ -57,6 +87,23 @@ const Replay = ({ author, body, createdAt }) => {
         <span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
       </h2>
       <p tw="text-gray-700">{body}</p>
+      <div tw="mt-2 flex">
+        {author._id === me?.data?._id && (
+          <>
+            <button tw="text-sm p-0 font-bold text-gray-700">সংস্কার</button>
+            <span className="seperator" tw="w-3 flex justify-center">
+              {" "}
+              ·{" "}
+            </span>
+            <button
+              tw="text-sm p-0 font-bold text-red-500"
+              onClick={handleDeleteComment}
+            >
+              মুছুন
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 };
@@ -64,6 +111,29 @@ const Replay = ({ author, body, createdAt }) => {
 const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
   const [isReplyOpen, openReply] = useState(false);
   const me = useMe();
+
+  const [deleteComment] = useMutation(DELETE_COMMENT, {
+    refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
+  });
+
+  const handleDeleteComment = () => {
+    swal({
+      title: "মন্তব্য মুছে ফেলতে চান?",
+      icon: "warning",
+      buttons: ["না", "হ্যাঁ চাই"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        deleteComment({
+          variables: { _id },
+        }).then(() => {
+          swal("মন্তব্য মুছে ফেলা হয়েছে", {
+            icon: "success",
+          });
+        });
+      }
+    });
+  };
 
   return (
     <div tw="mb-5 border p-2 rounded last:border-b-0">
@@ -114,7 +184,7 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
             </span>
             <button
               tw="text-sm p-0 font-bold text-red-500"
-              onClick={() => openReply(true)}
+              onClick={handleDeleteComment}
             >
               মুছুন
             </button>
@@ -130,7 +200,7 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
 
       <div tw="ml-12">
         {comments?.map((comment) => (
-          <Replay key={comment._id} {...comment} />
+          <Replay key={comment._id} {...comment} articleId={articleId} />
         ))}
       </div>
     </div>

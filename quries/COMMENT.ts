@@ -8,6 +8,14 @@ export const CREATE_COMMENT = gql`
   }
 `;
 
+export const DELETE_COMMENT = gql`
+  mutation DELETE_COMMENT($_id: ID!) {
+    deleteComment(_id: $_id) {
+      _id
+    }
+  }
+`;
+
 export const GET_ARTICLE_COMMENTS = gql`
   query GET_ARTICLE_COMMENTS($articleId: ID!, $page: Int) {
     getCommentsByArticle(
