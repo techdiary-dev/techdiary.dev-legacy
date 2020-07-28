@@ -19,7 +19,15 @@ import { FaGithub, FaUserLock, FaTimes } from "react-icons/fa";
 import { StyledArticleContent } from "./styles";
 import { Highlighter } from "lib/prismhiglight";
 
-const CommentBox = ({ articleId, parent = null, setReplyOpen }) => {
+const CommentBox = ({
+  articleId,
+  parent = null,
+  setReplyOpen,
+}: {
+  articleId: string;
+  parent?: string;
+  setReplyOpen?: Function;
+}) => {
   const [createComment] = useMutation(CREATE_COMMENT, {
     refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
   });
