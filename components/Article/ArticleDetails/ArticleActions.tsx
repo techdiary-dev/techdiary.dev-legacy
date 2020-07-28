@@ -69,7 +69,7 @@ const StyledArticleActions = styled.div`
   }
 `;
 
-const ArticleActions = ({ articleId }) => {
+const ArticleActions = ({ articleId, commentCount }) => {
   /**
    * Autrhorization data
    */
@@ -255,7 +255,7 @@ const ArticleActions = ({ articleId }) => {
             <GoComment tw="h-6 w-6" />
           </span>
         </Link>
-        <span>{bnnum(147)}</span>
+        <span>{bnnum(commentCount || 0)}</span>
       </div>
     </StyledArticleActions>
   );

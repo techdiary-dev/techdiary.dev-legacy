@@ -13,3 +13,12 @@ const LeftSidebar = () => {
 };
 
 export default LeftSidebar;
+
+const x = {
+  logo: "",
+  featuredTags: [
+    { primaryTag: "babeljs", tags: ["babeljs", "php", "django"], and: true },
+    { primaryTag: "babeljs", tags: ["babeljs", "php", "django"] },
+    { primaryTag: "babeljs", tags: ["babeljs", "php", "django"] },
+  ],
+};

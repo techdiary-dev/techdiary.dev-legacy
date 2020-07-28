@@ -35,6 +35,14 @@ const FeaturedCarousel = () => {
       breakpoint: { max: 3000, min: 1024 },
       items: 6,
     },
+    tablet: {
+      breakpoint: { max: 1024, min: 750 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 749, min: 0 },
+      items: 1,
+    },
   };
 
   const { data, loading } = useQuery(FEATURED_ARTICLES, {
@@ -43,7 +51,13 @@ const FeaturedCarousel = () => {
 
   return (
     !loading && (
-      <Carousel responsive={responsive}>
+      <Carousel
+        responsive={responsive}
+        infinite={true}
+        autoPlay={true}
+        autoPlaySpeed={3000}
+        removeArrowOnDeviceType={["mobile"]}
+      >
         {data?.featuredArticles?.data.map((article) => (
           <CarouselItem key={article._id} {...article} />
         ))}

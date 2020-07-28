@@ -18,8 +18,10 @@ import {
 } from "quries/INTERACTION";
 import { useMutation, useQuery } from "@apollo/client";
 import { useDebounce } from "use-debounce";
+import { GoComment } from "react-icons/go";
+import Link from "next/link";
 
-const ArticleCardInteraction = ({ articleId }) => {
+const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
   /**
    * Autrhorization data
    */
@@ -149,6 +151,20 @@ const ArticleCardInteraction = ({ articleId }) => {
   };
   return (
     <div tw="flex items-center">
+      <div tw="flex items-center mr-2">
+        <Link
+          href={`/[username]/[articleSlug]`}
+          as={`${url}#comments`}
+          passHref
+        >
+          <a>
+            <GoComment tw="h-5 w-5 text-semiDark" />
+          </a>
+        </Link>
+        <span tw="mr-1"></span>
+        <span>{bnnum(commentCount || 0)}</span>
+      </div>
+
       <div tw="flex items-center mr-2">
         <span onClick={handleBookmark} tw="mr-1 cursor-pointer">
           {isBookmarked ? (

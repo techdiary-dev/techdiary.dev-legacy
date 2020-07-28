@@ -2,19 +2,24 @@ import React, { useState, useEffect } from "react";
 import { Card } from "components/Card";
 import "twin.macro";
 import moment from "moment";
-import Button from "components/Button";
+import ReactMarkdown from "react-markdown";
+import TextareaAutosize from "react-textarea-autosize";
+
 import {
   CREATE_COMMENT,
   GET_ARTICLE_COMMENTS,
   DELETE_COMMENT,
+  UPDATE_COMMENT,
 } from "quries/COMMENT";
 import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import swal from "sweetalert";
 import useMe from "components/useMe";
 import { FaGithub, FaUserLock, FaTimes } from "react-icons/fa";
+import { StyledArticleContent } from "./styles";
+import { Highlighter } from "lib/prismhiglight";
 
-const CommentBox = ({ articleId, parent = null }) => {
+const CommentBox = ({ articleId, parent = null, setReplyOpen }) => {
   const [createComment] = useMutation(CREATE_COMMENT, {
     refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
   });
@@ -29,19 +34,20 @@ const CommentBox = ({ articleId, parent = null }) => {
         parent,
       },
     });
+    if (setReplyOpen) setReplyOpen(false);
 
     setComment("");
   };
 
   return (
     <div>
-      <textarea
-        tw="w-full border p-2 focus:outline-none rounded"
+      <TextareaAutosize
+        tw="w-full border p-2 focus:outline-none rounded resize-none"
         placeholder="আপনার মন্তব্য লিখুন"
-        rows={2}
         value={comment}
+        minRows={2}
         onChange={(e) => setComment(e.target.value)}
-      ></textarea>
+      ></TextareaAutosize>
       <button
         tw="px-3 bg-gray-400 rounded-sm text-sm focus:outline-none text-semiDark"
         onClick={handleCreateComment}
@@ -52,9 +58,50 @@ const CommentBox = ({ articleId, parent = null }) => {
   );
 };
 
+const EditComment = ({ _id, body, articleId, setEditMode }) => {
+  const [createComment] = useMutation(UPDATE_COMMENT, {
+    refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
+  });
+
+  const [comment, setComment] = useState(body);
+
+  const handleUpdateComment = async () => {
+    try {
+      await createComment({
+        variables: {
+          _id,
+          body: comment,
+        },
+      });
+      setComment("");
+      setEditMode(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div>
+      <TextareaAutosize
+        tw="w-full border p-2 focus:outline-none rounded resize-none"
+        value={comment}
+        minRows={2}
+        onChange={(e) => setComment(e.target.value)}
+      ></TextareaAutosize>
+      <button
+        tw="px-3 bg-gray-400 rounded-sm text-sm focus:outline-none text-semiDark"
+        onClick={handleUpdateComment}
+      >
+        সংস্কার করুন
+      </button>
+    </div>
+  );
+};
+
 const Replay = ({ author, body, createdAt, _id, articleId }) => {
   const me = useMe();
 
+  const [isEditMode, setEditMode] = useState(false);
   const [deleteComment] = useMutation(DELETE_COMMENT, {
     refetchQueries: [{ query: GET_ARTICLE_COMMENTS, variables: { articleId } }],
   });
@@ -69,10 +116,6 @@ const Replay = ({ author, body, createdAt, _id, articleId }) => {
       if (willDelete) {
         deleteComment({
           variables: { _id },
-        }).then(() => {
-          swal("মন্তব্য মুছে ফেলা হয়েছে", {
-            icon: "success",
-          });
         });
       }
     });
@@ -86,15 +129,50 @@ const Replay = ({ author, body, createdAt, _id, articleId }) => {
         </Link>{" "}
         <span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
       </h2>
-      <p tw="text-gray-700">{body}</p>
+
+      {isEditMode ? (
+        <EditComment
+          _id={_id}
+          body={body}
+          articleId={articleId}
+          setEditMode={setEditMode}
+        />
+      ) : (
+        <StyledArticleContent>
+          <ReactMarkdown
+            tw="text-gray-700"
+            renderers={{
+              heading: ({ children }) => <h4>{children}</h4>,
+              code: Highlighter,
+              inlineCode: ({ value }) => (
+                <code className="language-text">{value}</code>
+              ),
+            }}
+            source={body}
+            className="markdown"
+          />
+        </StyledArticleContent>
+      )}
+
       <div tw="mt-2 flex">
         {author._id === me?.data?._id && (
           <>
-            <button tw="text-sm p-0 font-bold text-gray-700">সংস্কার</button>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
+            {isEditMode ? (
+              <button
+                onClick={() => setEditMode(false)}
+                tw="focus:outline-none text-red-600"
+              >
+                <FaTimes />
+              </button>
+            ) : (
+              <button
+                tw="text-sm p-0 font-bold text-gray-700"
+                onClick={() => setEditMode(true)}
+              >
+                সংস্কার
+              </button>
+            )}
+            <span tw="w-3 flex justify-center"> · </span>
             <button
               tw="text-sm p-0 font-bold text-red-500"
               onClick={handleDeleteComment}
@@ -109,7 +187,8 @@ const Replay = ({ author, body, createdAt, _id, articleId }) => {
 };
 
 const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
-  const [isReplyOpen, openReply] = useState(false);
+  const [isReplyOpen, setReplyOpen] = useState(false);
+  const [isEditMode, setEditMode] = useState(false);
   const me = useMe();
 
   const [deleteComment] = useMutation(DELETE_COMMENT, {
@@ -126,32 +205,50 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
       if (willDelete) {
         deleteComment({
           variables: { _id },
-        }).then(() => {
-          swal("মন্তব্য মুছে ফেলা হয়েছে", {
-            icon: "success",
-          });
         });
       }
     });
   };
 
   return (
-    <div tw="mb-5 border p-2 rounded last:border-b-0">
+    <div tw="mb-5 p-2">
       <h2 tw="text-base">
         <Link href="/[username]" as={`/${author.username}`} passHref>
-          <a tw="text-black">{author.username}</a>
+          <a tw="text-black">@{author.username}</a>
         </Link>
         ,<span tw="text-gray-600">{moment(+createdAt).format("LLLL")}</span>
       </h2>
 
-      <p tw="text-gray-700">{body}</p>
+      {isEditMode ? (
+        <EditComment
+          _id={_id}
+          body={body}
+          articleId={articleId}
+          setEditMode={setEditMode}
+        />
+      ) : (
+        <StyledArticleContent>
+          <ReactMarkdown
+            tw="text-gray-700"
+            renderers={{
+              heading: ({ children }) => <h4>{children}</h4>,
+              code: Highlighter,
+              inlineCode: ({ value }) => (
+                <code className="language-text">{value}</code>
+              ),
+            }}
+            source={body}
+            className="markdown"
+          />
+        </StyledArticleContent>
+      )}
 
       <div tw="mt-2 flex">
         {!isReplyOpen && me.data && (
           <>
             <button
               tw="text-sm p-0 font-bold text-gray-700"
-              onClick={() => openReply(true)}
+              onClick={() => setReplyOpen(true)}
             >
               উত্তর দিন
             </button>
@@ -159,7 +256,7 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
         )}
         {isReplyOpen && (
           <button
-            onClick={() => openReply(false)}
+            onClick={() => setReplyOpen(false)}
             tw="focus:outline-none text-red-600"
           >
             <FaTimes />
@@ -168,20 +265,23 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
 
         {author._id === me?.data?._id && (
           <>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
-            <button
-              tw="text-sm p-0 font-bold text-gray-700"
-              onClick={() => openReply(true)}
-            >
-              সংস্কার
-            </button>
-            <span className="seperator" tw="w-3 flex justify-center">
-              {" "}
-              ·{" "}
-            </span>
+            <span tw="w-3 flex justify-center"> · </span>
+            {isEditMode ? (
+              <button
+                onClick={() => setEditMode(false)}
+                tw="focus:outline-none text-red-600"
+              >
+                <FaTimes />
+              </button>
+            ) : (
+              <button
+                tw="text-sm p-0 font-bold text-gray-700"
+                onClick={() => setEditMode(true)}
+              >
+                সংস্কার
+              </button>
+            )}
+            <span tw="w-3 flex justify-center"> · </span>
             <button
               tw="text-sm p-0 font-bold text-red-500"
               onClick={handleDeleteComment}
@@ -191,13 +291,13 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
           </>
         )}
       </div>
-
       {isReplyOpen && (
-        <>
-          <CommentBox parent={_id} articleId={articleId} />
-        </>
+        <CommentBox
+          parent={_id}
+          articleId={articleId}
+          setReplyOpen={setReplyOpen}
+        />
       )}
-
       <div tw="ml-12">
         {comments?.map((comment) => (
           <Replay key={comment._id} {...comment} articleId={articleId} />
@@ -208,36 +308,37 @@ const Comment = ({ body, createdAt, author, _id, articleId, comments }) => {
 };
 
 const Comments = ({ articleId }) => {
-  const { data, fetchMore } = useQuery(GET_ARTICLE_COMMENTS, {
+  const { data } = useQuery(GET_ARTICLE_COMMENTS, {
     fetchPolicy: "network-only",
     variables: {
       articleId,
     },
   });
+
   const me = useMe();
 
-  const handleFetch = () => {
-    fetchMore({
-      variables: {
-        page: data?.getCommentsByArticle?.currentPage + 1,
-      },
-      updateQuery: (prev, { fetchMoreResult }) => {
-        // @ts-ignore
-        return {
-          getCommentsByArticle: {
-            // @ts-ignore
-            ...fetchMoreResult.getCommentsByArticle,
-            data: [
-              // @ts-ignore
-              ...prev.getCommentsByArticle.data,
-              // @ts-ignore
-              ...fetchMoreResult.getCommentsByArticle.data,
-            ],
-          },
-        };
-      },
-    });
-  };
+  // const handleFetch = () => {
+  //   fetchMore({
+  //     variables: {
+  //       page: data?.getCommentsByArticle?.currentPage + 1,
+  //     },
+  //     updateQuery: (prev, { fetchMoreResult }) => {
+  //       // @ts-ignore
+  //       return {
+  //         getCommentsByArticle: {
+  //           // @ts-ignore
+  //           ...fetchMoreResult.getCommentsByArticle,
+  //           data: [
+  //             // @ts-ignore
+  //             ...prev.getCommentsByArticle.data,
+  //             // @ts-ignore
+  //             ...fetchMoreResult.getCommentsByArticle.data,
+  //           ],
+  //         },
+  //       };
+  //     },
+  //   });
+  // };
 
   return (
     <div id="comments">
@@ -264,11 +365,11 @@ const Comments = ({ articleId }) => {
         ))}
       </Card>
 
-      <div tw="text-center my-4">
+      {/* <div tw="text-center my-4">
         <button tw="bg-gray-300 px-2 py-1 rounded" onClick={handleFetch}>
           আরও মন্তব্য দেখুন
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -16,11 +16,19 @@ export const DELETE_COMMENT = gql`
   }
 `;
 
+export const UPDATE_COMMENT = gql`
+  mutation UPDATE_COMMENT($body: String, $_id: ID!) {
+    updateComment(data: { body: $body }, _id: $_id) {
+      _id
+    }
+  }
+`;
+
 export const GET_ARTICLE_COMMENTS = gql`
   query GET_ARTICLE_COMMENTS($articleId: ID!, $page: Int) {
     getCommentsByArticle(
       articleId: $articleId
-      pagination: { limit: 5, page: $page }
+      pagination: { limit: 5000, page: $page }
     ) {
       currentPage
       data {
