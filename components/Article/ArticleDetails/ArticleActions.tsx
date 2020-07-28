@@ -81,6 +81,7 @@ const ArticleActions = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
+  const [likeExecuted, toggleLikeExecution] = useState(false);
   const [lateLiked] = useDebounce(isLiked, 500);
   const [likeCount, setLikeCount] = useState(0);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
@@ -106,18 +107,26 @@ const ArticleActions = ({ articleId }) => {
     } else {
       toggleLike(false);
     }
+    toggleLikeExecution(false);
   }, [likersLoading, me.loading]);
 
   useEffect(() => {
     async function df() {
-      await toggleLikeMutation({
-        variables: {
-          articleId,
-          isLiked: lateLiked,
-        },
-      });
+      try {
+        await toggleLikeMutation({
+          variables: {
+            articleId,
+            isLiked: lateLiked,
+          },
+        });
+      } catch {
+        swal({
+          title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+          icon: "error",
+        });
+      }
     }
-    df();
+    if (likeExecuted) df();
   }, [lateLiked]);
   const handleLike = async () => {
     if (!me.data)
@@ -130,12 +139,14 @@ const ArticleActions = ({ articleId }) => {
     else setLikeCount(likeCount - 1);
 
     toggleLike(!isLiked);
+    toggleLikeExecution(true);
   };
 
   /**
    * Bookmark
    */
   const [isBookmarked, toggleBookmark] = useState(false);
+  const [bookMarkExecuted, toggleBookmarkExecution] = useState(false);
   const [lateBookMark] = useDebounce(isBookmarked, 500);
   const [bookmarkCount, setBookmarkCount] = useState(0);
   const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
@@ -164,18 +175,26 @@ const ArticleActions = ({ articleId }) => {
     } else {
       toggleBookmark(false);
     }
+    toggleBookmarkExecution(false);
   }, [bookmarksLoading, me.loading]);
 
   useEffect(() => {
     async function df() {
-      await toggleBookmarkMutation({
-        variables: {
-          articleId,
-          isBookmarked: lateBookMark,
-        },
-      });
+      try {
+        await toggleBookmarkMutation({
+          variables: {
+            articleId,
+            isBookmarked: lateBookMark,
+          },
+        });
+      } catch {
+        swal({
+          title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+          icon: "error",
+        });
+      }
     }
-    df();
+    if (bookMarkExecuted) df();
   }, [lateBookMark]);
 
   const handleBookmark = async () => {
@@ -191,6 +210,7 @@ const ArticleActions = ({ articleId }) => {
     else setBookmarkCount(bookmarkCount - 1);
 
     toggleBookmark(!isBookmarked);
+    toggleBookmarkExecution(true);
   };
 
   return (

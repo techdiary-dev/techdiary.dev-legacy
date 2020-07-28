@@ -31,6 +31,7 @@ const ArticleCardInteraction = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
+  const [likeExecuted, toggleLikeExecution] = useState(false);
   const [lateLiked] = useDebounce(isLiked, 500);
   const [likeCount, setLikeCount] = useState(0);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
@@ -58,7 +59,9 @@ const ArticleCardInteraction = ({ articleId }) => {
     setLikeCount(likersCountFromServer);
     if (amiILiked()) toggleLike(true);
     else toggleLike(false);
+    toggleLikeExecution(false);
   }, [likersLoading, me.loading]);
+
   useEffect(() => {
     async function df() {
       await toggleLikeMutation({
@@ -68,7 +71,7 @@ const ArticleCardInteraction = ({ articleId }) => {
         },
       });
     }
-    df();
+    if (likeExecuted) df();
   }, [lateLiked]);
 
   const handleLike = async () => {
@@ -82,6 +85,7 @@ const ArticleCardInteraction = ({ articleId }) => {
     if (!isLiked) setLikeCount(likeCount + 1);
     else setLikeCount(likeCount - 1);
     toggleLike(!isLiked);
+    toggleLikeExecution(true);
   };
 
   /**
@@ -89,6 +93,7 @@ const ArticleCardInteraction = ({ articleId }) => {
    */
   const [isBookmarked, toggleBookmark] = useState(false);
   const [lateBookMark] = useDebounce(isBookmarked, 500);
+  const [bookMarkExecuted, toggleBookmarkExecution] = useState(false);
   const [bookmarkCount, setBookmarkCount] = useState(0);
   const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
     refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
@@ -114,6 +119,7 @@ const ArticleCardInteraction = ({ articleId }) => {
     setBookmarkCount(bookmarkCountFromServer);
     if (amIBookmarked()) toggleBookmark(true);
     else toggleBookmark(false);
+    toggleBookmarkExecution(false);
   }, [bookmarksLoading, me.loading]);
   useEffect(() => {
     async function df() {
@@ -124,7 +130,7 @@ const ArticleCardInteraction = ({ articleId }) => {
         },
       });
     }
-    df();
+    if (bookMarkExecuted) df();
   }, [lateBookMark]);
 
   const handleBookmark = async () => {
@@ -139,6 +145,7 @@ const ArticleCardInteraction = ({ articleId }) => {
       setBookmarkCount(bookmarkCount + 1);
     else setBookmarkCount(bookmarkCount - 1);
     toggleBookmark(!isBookmarked);
+    toggleBookmarkExecution(true);
   };
   return (
     <div tw="flex items-center">

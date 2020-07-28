@@ -129,7 +129,7 @@ const UserDropdownActionMenu = ({
 };
 
 const Actions: React.FC = () => {
-  let { data, error, loading } = useMe();
+  let { data, error, loading, refetch } = useMe();
   let [logout, { loading: loginLogout, client }] = useMutation(LOGOUT);
   const router = useRouter();
 
@@ -141,11 +141,8 @@ const Actions: React.FC = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        logout().then(() => {
-          // refetch();
-          router.push("/");
-          client.clearStore();
-        });
+        logout().then(() => refetch());
+        client.clearStore();
       }
     });
   };
