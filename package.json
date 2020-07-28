@@ -1,6 +1,6 @@
 {
   "name": "techdiary.dev-website",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
@@ -50,6 +50,7 @@
     "sweetalert": "^2.1.2",
     "tailwindcss": "^1.5.1",
     "twin.macro": "^1.5.0",
+    "use-debounce": "^3.4.3",
     "yup": "^0.28.5"
   },
   "license": "ISC",
