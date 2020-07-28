@@ -18,6 +18,8 @@ import {
 } from "quries/INTERACTION";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "styled-components";
+import { motion } from "framer-motion";
+import { useDebounce } from "use-debounce";
 
 const StyledArticleCardInterAction = styled.div``;
 
@@ -33,6 +35,7 @@ const ArticleCardInteraction = ({ articleId }) => {
    * Likes
    */
   const [isLiked, toggleLike] = useState(false);
+  const [lateLiked] = useDebounce(isLiked, 500);
   const [likeCount, setLikeCount] = useState(0);
   const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
     refetchQueries: [
@@ -60,19 +63,39 @@ const ArticleCardInteraction = ({ articleId }) => {
     if (amiILiked()) toggleLike(true);
     else toggleLike(false);
   }, [likersLoading, me.loading]);
+  useEffect(() => {
+    async function df() {
+      await toggleLikeMutation({
+        variables: {
+          articleId,
+          isLiked: lateLiked,
+        },
+      });
+    }
+    df();
+  }, [lateLiked]);
+
+  const handleLike = async () => {
+    if (!me.data)
+      return swal({
+        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
+        icon: "error",
+      });
+
+    // Update like count
+    if (!isLiked) setLikeCount(likeCount + 1);
+    else setLikeCount(likeCount - 1);
+    toggleLike(!isLiked);
+  };
 
   /**
    * Bookmark
    */
   const [isBookmarked, toggleBookmark] = useState(false);
+  const [lateBookMark] = useDebounce(isBookmarked, 500);
   const [bookmarkCount, setBookmarkCount] = useState(0);
   const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
-    refetchQueries: [
-      {
-        query: ARTICLE_BOOKMARKS,
-        variables: { articleId },
-      },
-    ],
+    refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
   });
 
   const { data: bookmarksData, loading: bookmarksLoading } = useQuery(
@@ -95,27 +118,18 @@ const ArticleCardInteraction = ({ articleId }) => {
     setBookmarkCount(bookmarkCountFromServer);
     if (amIBookmarked()) toggleBookmark(true);
     else toggleBookmark(false);
-  }, [bookmarksData, me.loading]);
-
-  const handleLike = async () => {
-    if (!me.data)
-      return swal({
-        title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-        icon: "error",
+  }, [bookmarksLoading, me.loading]);
+  useEffect(() => {
+    async function df() {
+      await toggleBookmarkMutation({
+        variables: {
+          articleId,
+          isBookmarked: lateBookMark,
+        },
       });
-
-    // Update like count
-    if (!isLiked) setLikeCount(likeCount + 1);
-    else setLikeCount(likeCount - 1);
-    toggleLike(!isLiked);
-
-    await toggleLikeMutation({
-      variables: {
-        articleId,
-        isLiked: !isLiked,
-      },
-    });
-  };
+    }
+    df();
+  }, [lateBookMark]);
 
   const handleBookmark = async () => {
     if (!me.data)
@@ -129,38 +143,39 @@ const ArticleCardInteraction = ({ articleId }) => {
       setBookmarkCount(bookmarkCount + 1);
     else setBookmarkCount(bookmarkCount - 1);
     toggleBookmark(!isBookmarked);
-
-    await toggleBookmarkMutation({
-      variables: {
-        articleId,
-        isBookmarked: !isBookmarked,
-      },
-    });
   };
   return (
     <StyledArticleCardInterAction>
       <div tw="flex items-center">
-        <div tw="flex items-center mr-2">
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          tw="flex items-center mr-2"
+        >
           <span onClick={handleBookmark} tw="mr-1 cursor-pointer">
             {isBookmarked ? (
               <BsBookmarkFill tw="h-5 w-5 text-green-500" />
             ) : (
-              <BsBookmarkPlus tw="h-5 w-5 transition" />
+              <BsBookmarkPlus tw="h-5 w-5" />
             )}
           </span>
           <span>{bnnum(bookmarkCount || 0)}</span>
-        </div>
+        </motion.div>
 
-        <div tw="flex items-center mr-2">
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+          tw="flex items-center mr-2"
+        >
           <span onClick={handleLike} tw="mr-1 cursor-pointer">
             {isLiked ? (
               <BsHeartFill tw="h-4 w-4 text-red-500" />
             ) : (
-              <BsHeart tw="h-4 w-4 transition" />
+              <BsHeart tw="h-4 w-4" />
             )}
           </span>
           <span>{bnnum(likeCount || 0)}</span>
-        </div>
+        </motion.div>
       </div>
     </StyledArticleCardInterAction>
   );
