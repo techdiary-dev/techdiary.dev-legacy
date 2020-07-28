@@ -13,7 +13,6 @@ import ArticleActions from "./ArticleActions";
 import Comments from "./Comments";
 import Link from "next/link";
 import useMe from "components/useMe";
-import Button from "components/Button";
 import Footer from "components/Footer";
 
 interface Props {
@@ -26,7 +25,10 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
 
   return (
     <>
-      <ArticleActions articleId={article._id} />
+      <ArticleActions
+        articleId={article._id}
+        commentCount={article.commentCount}
+      />
 
       <Row>
         <Column md={9} tw="p-0 sm:px-4">

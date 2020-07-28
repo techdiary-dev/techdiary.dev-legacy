@@ -72,7 +72,7 @@ const UserDropdownActionMenu = ({
             <Link href="/[username]" as={`/${username}`}>
               <a className="dropdown-menu__item">
                 <FiUser className="dropdown-menu__icon" />
-                <span className="label">আমার প্রোফাইল</span>
+                <span className="label">প্রোফাইল</span>
               </a>
             </Link>
           </li>
@@ -96,7 +96,7 @@ const UserDropdownActionMenu = ({
             <Link href="/dashboard">
               <a className="dropdown-menu__item">
                 <FiBookOpen className="dropdown-menu__icon" />
-                <span className="label">আমার ড্যাসবোর্ড</span>
+                <span className="label">ড্যাসবোর্ড</span>
               </a>
             </Link>
           </li>

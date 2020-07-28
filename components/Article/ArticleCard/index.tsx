@@ -27,6 +27,7 @@ interface Props {
   isPinned: boolean;
   createdAt: string;
   updatedAt: string;
+  commentCount: number;
   author: {
     name: string;
     username: string;
@@ -49,6 +50,7 @@ const ArticleCard: React.FC<Props> = ({
   author,
   createdAt,
   tags,
+  commentCount,
 }: Props) => {
   return (
     <ArticleCardStyle tw="mb-4">
@@ -98,7 +100,11 @@ const ArticleCard: React.FC<Props> = ({
             <ClockIcon tw="mr-1" />
             {bnnum(timeToRead ?? 0)} মিনিট
           </div>
-          <ArticleCardInteraction articleId={_id} />
+          <ArticleCardInteraction
+            articleId={_id}
+            commentCount={commentCount}
+            url={url}
+          />
         </div>
       </Card>
     </ArticleCardStyle>

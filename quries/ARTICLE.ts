@@ -80,6 +80,7 @@ export const ARTICLE_LIST = gql`
         updatedAt
         isPublished
         isPinned
+        commentCount
         author {
           name
           username
@@ -130,6 +131,7 @@ export const ARTICLE_LIST_BY_TAG = gql`
         createdAt
         updatedAt
         isPublished
+        commentCount
         isPinned
         author {
           name
@@ -170,6 +172,7 @@ export const ARTICLE_DETAILS = gql`
       url
       seriesName
       excerpt
+      commentCount
       series {
         _id
         title

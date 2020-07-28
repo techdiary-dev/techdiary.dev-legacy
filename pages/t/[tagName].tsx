@@ -28,7 +28,7 @@ const index: NextPage<Props> = (props) => {
       <HeadTag title="Tech Diary" description="বাংলার প্রোগ্রামিং নেটওয়ার্ক" />
 
       <div tw="pt-20 pb-4 text-center bg-gray-300">
-        <h1 tw="text-5xl">#{router.query.tagName}</h1>
+        <h1 tw="md:text-5xl sm:text-2xl">#{router.query.tagName}</h1>
       </div>
 
       <MainLayout>

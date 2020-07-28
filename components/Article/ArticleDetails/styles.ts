@@ -21,8 +21,14 @@ export const StyledArticleContent = styled.article`
   h4,
   h5,
   h6 {
-    ${tw`text-semiDark inline-block border-b-2`}
+    ${tw`text-semiDark`}
     ${tw`mt-8 mb-0 first:mt-0`}
+  }
+
+  h1,
+  h2,
+  h3 {
+    ${tw`border-b-2`}
   }
 
   img {
@@ -51,6 +57,10 @@ export const StyledArticleContent = styled.article`
     pre,
     code {
       font-family: "Fira Mono";
+      ${tw`text-base`}
+      @media all and (max-width: 650px) {
+        ${tw`text-sm`}
+      }
     }
 
     code.language-text {
