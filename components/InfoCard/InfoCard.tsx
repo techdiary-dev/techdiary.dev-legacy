@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import styled, { css } from "styled-components";
-import "twin.macro";
+import tw from "twin.macro";
 
 const StyledInfoCard = styled.div`
   background-color: ${({ theme }) => theme.secondary};
   padding: 1.2rem;
-  box-shadow: 0 0 5px rgba(47, 52, 50, 0.2);
   margin-bottom: 2rem;
+  ${tw`shadow`}
 `;
 
 interface Props {

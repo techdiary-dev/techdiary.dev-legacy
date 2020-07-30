@@ -106,6 +106,7 @@ export const USER_PROFILE = gql`
           createdAt
           updatedAt
           isPublished
+          timeToRead
           author {
             name
             username

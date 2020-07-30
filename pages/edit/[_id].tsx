@@ -18,7 +18,7 @@ const EditArticle = () => {
   });
 
   return (
-    <MainLayout>
+    <>
       <HeadTag title="ডায়েরি হালনাগাদ করুন" />
       <PleaseLogin>
         <MarkdownEditor
@@ -27,7 +27,7 @@ const EditArticle = () => {
           loading={loading}
         />
       </PleaseLogin>
-    </MainLayout>
+    </>
   );
 };
 

@@ -1,20 +1,21 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const StyledForbiddenPage = styled.div`
-	text-align: center;
+  text-align: center;
 
-	.icon {
-		svg {
-			width: 100px;
-			height: 100px;
-			stroke-width: 1px;
-			border-color: ${({ theme }) => theme.darkGrey};
-		}
+  .icon {
+    svg {
+      width: 100px;
+      height: 100px;
+      stroke-width: 1px;
+      border-color: ${({ theme }) => theme.darkGrey};
+      margin: auto;
+    }
 
-		margin-bottom: 2.5rem;
-	}
+    margin-bottom: 2.5rem;
+  }
 
-	.title {
-		color: ${({ theme }) => theme.dark};
-	}
-`
+  .title {
+    color: ${({ theme }) => theme.dark};
+  }
+`;

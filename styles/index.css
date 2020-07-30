@@ -64,6 +64,21 @@ h6 {
   @apply text-base;
 }
 
+.external-link {
+  @apply border-b border-primary border-dashed transition duration-300;
+  position: relative;
+}
+.external-link:hover {
+  @apply bg-primary bg-opacity-25;
+}
+
+.external-link::after {
+  content: url("/icons/external-link-sm.svg");
+  height: 15px;
+  width: 15px;
+  margin-left: 5px;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&display=swap");
 
 .custom-html-style pre code {

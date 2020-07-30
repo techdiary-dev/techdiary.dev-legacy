@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import bnnum from "bnnum";
 import HerokuLogo from "../public/logos/heroku.svg";
 import "twin.macro";
 
@@ -32,7 +33,9 @@ const Footer = () => {
         </h3>
       </div>
 
-      <p tw="text-gray-500 mt-2">ভার্সন: 0.8.0</p>
+      <p tw="text-gray-500 mt-2">
+        ভার্সন: {bnnum(process.env.NEXT_PUBLIC_VERSION)}
+      </p>
     </div>
   );
 };

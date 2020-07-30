@@ -12,6 +12,7 @@ import Button from "components/Button";
 import { UPDATE_PROFILE, ME } from "quries/AUTH";
 import sweetAlert from "sweetalert";
 import ProfilePhoto from "./ProfilePhoto";
+import "twin.macro";
 // import { Container } from './styles';
 
 interface Props {
@@ -165,8 +166,13 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
             hasError={errors?.bio}
             helperText={errors?.bio?.message}
           />
-          <Button type="submit">হালনাগাদ</Button>
+          <Button type="submit" color="primary" size="small">
+            হালনাগাদ
+          </Button>
         </Card>
+
+        <div tw="mb-8"></div>
+
         <Card>
           <CardHeader>আপনার ওয়েবসাইট সমূহ</CardHeader>
           {linkFields.map((field, index) => (
@@ -204,9 +210,18 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
               </Column>
             </Row>
           ))}
-          <Button onClick={() => appendLink({ text: "", link: "" })}>+</Button>
+          <Button
+            color="primary"
+            size="small"
+            onClick={() => appendLink({ text: "", link: "" })}
+          >
+            +
+          </Button>
           <Button type="submit">হালনাগাদ করুন</Button>
         </Card>
+
+        <div tw="mb-8"></div>
+
         <Card>
           <CardHeader>কর্মস্থল এর তথ্য</CardHeader>
           {workInfoFileds.map((field, index) => (
@@ -287,6 +302,9 @@ const ProfileSettings: React.FC<Props> = ({ user }: Props) => {
             </Column>
           </Row>
         </Card>
+
+        <div tw="mb-8"></div>
+
         <Card>
           <CardHeader>আপনার দক্ষতা সমূহ</CardHeader>
           {skillFields.map((field, index) => (
