@@ -2,9 +2,14 @@ import styled from "styled-components";
 import tw from "twin.macro";
 
 export const StyledMarkdownEditor = styled.div`
-  .actions {
-    margin: 12px 0;
+  position: relative;
+  .back-button {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    ${tw`bg-gray-400 px-4 rounded-full focus:outline-none`}
   }
+
   .CodeMirror {
     ${tw`p-4`};
     height: calc(100vh - 2.5rem);

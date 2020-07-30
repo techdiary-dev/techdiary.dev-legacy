@@ -14,11 +14,14 @@ import { validateCreateArticleInput } from "lib/Validator";
 import codeMirrorPersist from "lib/codeMirrorPersist";
 import { CatchServerErrors } from "lib/CatchServerErrors";
 
+import { TiArrowBack } from "react-icons/ti";
+
 import { handleFileUpload } from "lib/fileUpload";
 
 import EditorSidebar from "./EditorSidebar";
 import EditorRibbon from "./EditorRibbon";
 import Preview from "./plugins/Preview";
+import { Danger } from "components/Alert";
 
 // const styele = styled.button(() => [
 //   tw`button`
@@ -87,7 +90,6 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
 
   const [content, setContent] = useState("");
   const [errors, setErrors] = useState([]);
-  const [data, setData] = useState({});
 
   useEffect(() => {
     if (
@@ -180,11 +182,31 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     return url;
   };
 
+  const handlebackbutton = () => {
+    router.push("/dashboard");
+  };
+
   return (
     <Row>
       <Col md={8}>
-        <StyledMarkdownEditor>
+        <StyledMarkdownEditor tw="relative">
+          <button className="back-button" tw="z-20" onClick={handlebackbutton}>
+            <TiArrowBack tw="h-8 w-8 text-gray-600" />
+          </button>
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
+            {Array.isArray(errors) && errors.length > 0 && (
+              <div tw="absolute top-0 left-0 bg-red-500 z-30 w-full p-3 text-white leading-relaxed">
+                {errors?.map((err, index) => (
+                  <p>{err}</p>
+                ))}
+                <button
+                  tw="absolute top-0 right-0 mr-4 text-3xl focus:outline-none"
+                  onClick={() => setErrors([])}
+                >
+                  &times;
+                </button>
+              </div>
+            )}
             {!preview && CodeMirrorEditor && (
               <CodeMirrorEditor
                 value={content}

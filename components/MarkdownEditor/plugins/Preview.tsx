@@ -7,7 +7,7 @@ import tw from "twin.macro";
 import { StyledArticleContent } from "components/Article/ArticleDetails/styles";
 
 const StyledPreview = styled.div`
-  ${tw`p-4`};
+  ${tw`p-4 bg-white`};
   height: calc(100vh - 2.5rem);
   overflow-y: scroll;
 `;

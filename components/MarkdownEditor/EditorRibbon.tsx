@@ -1,10 +1,6 @@
 import React from "react";
 import "twin.macro";
-import {
-  AiOutlineSave,
-  AiOutlineEyeInvisible,
-  AiOutlineEye,
-} from "react-icons/ai";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 const EditorRibbon = ({
   handleSave,
@@ -18,7 +14,7 @@ const EditorRibbon = ({
       <button
         tw="flex items-center bg-dark text-white focus:outline-none transition duration-300 px-3 text-base"
         onClick={handleSave}
-        disabled
+        disabled={loading}
       >
         {loading ? "অপেক্ষা করুন ..." : "সংরক্ষণ"}
       </button>

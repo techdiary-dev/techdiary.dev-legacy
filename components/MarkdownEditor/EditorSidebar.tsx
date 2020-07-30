@@ -5,6 +5,8 @@ import "twin.macro";
 const EditorSidebar = () => {
   return (
     <>
+      <button></button>
+
       <InfoCard>
         <p>
           ইডিটর এর লিখা <b>সেভ</b> করার আগ পর্যন্ত ব্রাউজারে সংরক্ষিত অবস্থায়
