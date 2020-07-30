@@ -3,22 +3,18 @@ import dynamic from "next/dynamic";
 import LoadingOverlay from "react-loading-overlay";
 import { StyledMarkdownEditor } from "./styles";
 import matter from "gray-matter";
-import Button from "components/Button";
-import { Row } from "styled-grid-system-component";
-import { StyledCol, Col } from "styles/StyledGrid";
+
+import { Col, Row } from "styles/StyledGrid";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-
+import "twin.macro";
 import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
-import { Danger } from "components/Alert";
+
 import { validateCreateArticleInput } from "lib/Validator";
 import codeMirrorPersist from "lib/codeMirrorPersist";
 import { CatchServerErrors } from "lib/CatchServerErrors";
-import { InfoCard } from "components/InfoCard";
-import FileUploader from "components/Form/FileUploader";
-import { handleFileUpload } from "lib/fileUpload";
 
-import classNames from "classnames";
+import { handleFileUpload } from "lib/fileUpload";
 
 import EditorSidebar from "./EditorSidebar";
 import EditorRibbon from "./EditorRibbon";
@@ -183,21 +179,23 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     const url: string = await handleFileUpload(file);
     return url;
   };
+
   return (
     <Row>
       <Col md={8}>
         <StyledMarkdownEditor>
-          {!preview && CodeMirrorEditor && (
-            <CodeMirrorEditor
-              value={content}
-              onChanged={setContent}
-              handleMedia={handleMedia}
-            />
-          )}
-
-          {preview && <Preview content={content} />}
-
+          <LoadingOverlay active={loading || cLoading || uLoading} spinner>
+            {!preview && CodeMirrorEditor && (
+              <CodeMirrorEditor
+                value={content}
+                onChanged={setContent}
+                handleMedia={handleMedia}
+              />
+            )}
+            {preview && <Preview content={content} />}
+          </LoadingOverlay>
           <EditorRibbon
+            loading={loading || cLoading || uLoading}
             handleSave={handleSave}
             handleReset={handleReset}
             togglePreview={togglePreview}
@@ -205,7 +203,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
           />
         </StyledMarkdownEditor>
       </Col>
-      <Col md={3}>
+      <Col md={3} tw="sm:block hidden">
         <EditorSidebar />
       </Col>
     </Row>

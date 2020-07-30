@@ -6,15 +6,21 @@ import {
   AiOutlineEye,
 } from "react-icons/ai";
 
-const EditorRibbon = ({ handleSave, handleReset, togglePreview, preview }) => {
+const EditorRibbon = ({
+  handleSave,
+  handleReset,
+  togglePreview,
+  preview,
+  loading,
+}) => {
   return (
     <div tw="bg-gray-200 h-10 flex">
       <button
-        tw="flex items-center bg-primary focus:outline-none transition duration-300 px-3 text-base"
+        tw="flex items-center bg-dark text-white focus:outline-none transition duration-300 px-3 text-base"
         onClick={handleSave}
+        disabled
       >
-        <AiOutlineSave tw="mr-2" />
-        সংরক্ষণ
+        {loading ? "অপেক্ষা করুন ..." : "সংরক্ষণ"}
       </button>
 
       <button

@@ -9,6 +9,11 @@ export const StyledMarkdownEditor = styled.div`
     ${tw`p-4`};
     height: calc(100vh - 2.5rem);
   }
+
+  .highlight-pre-tag {
+    ${tw`p-1`}
+  }
+
   .cm-s-solarized.cm-s-light {
     ${tw`bg-transparent`};
   }
