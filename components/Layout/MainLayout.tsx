@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import "twin.macro";
+import Container from "components/Container";
 
 const MainLayout: React.FC = ({ children }) => {
   return (
