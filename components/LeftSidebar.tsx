@@ -7,7 +7,6 @@ const LeftSidebar = () => {
       <FeaturedTag
         primaryTag="js-array-challenge"
         tags={["js-array-challenge", "challenge"]}
-        and
       />
       <FeaturedTag primaryTag="php" />
     </>
