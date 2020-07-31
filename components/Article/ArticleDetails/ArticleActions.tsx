@@ -250,11 +250,9 @@ const ArticleActions = ({ articleId, commentCount }) => {
       </motion.div>
 
       <div className="action">
-        <Link href="#comments" passHref>
-          <span className="action__icon">
-            <GoComment tw="h-6 w-6" />
-          </span>
-        </Link>
+        <a className="action__icon" href="#comments">
+          <GoComment tw="h-6 w-6" />
+        </a>
         <span>{bnnum(commentCount || 0)}</span>
       </div>
     </StyledArticleActions>

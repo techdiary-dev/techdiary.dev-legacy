@@ -35,7 +35,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   await apolloClient.query({
     query: ARTICLE_DETAILS,
-    variables: { slug: ctx.params.articleSlug },
+    variables: { slug: ctx?.params?.articleSlug },
   });
 
   return {
