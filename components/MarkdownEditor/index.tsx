@@ -19,9 +19,10 @@ import { TiArrowBack } from "react-icons/ti";
 import { handleFileUpload } from "lib/fileUpload";
 
 import EditorSidebar from "./EditorSidebar";
-import EditorRibbon from "./EditorRibbon";
-import Preview from "./plugins/Preview";
-import { Danger } from "components/Alert";
+import EditorBottomRibbon from "./EditorBottomRibbon";
+import Preview from "./Preview";
+import Errors from "./Errors";
+import EditorTopRibbon from "./EditorTopRibbon";
 
 // const styele = styled.button(() => [
 //   tw`button`
@@ -182,31 +183,13 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     return url;
   };
 
-  const handlebackbutton = () => {
-    router.push("/dashboard");
-  };
-
   return (
     <Row>
       <Col md={8}>
-        <StyledMarkdownEditor tw="relative">
-          <button className="back-button" tw="z-20" onClick={handlebackbutton}>
-            <TiArrowBack tw="h-8 w-8 text-gray-600" />
-          </button>
+        <StyledMarkdownEditor>
+          <EditorTopRibbon />
           <LoadingOverlay active={loading || cLoading || uLoading} spinner>
-            {Array.isArray(errors) && errors.length > 0 && (
-              <div tw="absolute top-0 left-0 bg-red-500 z-30 w-full p-3 text-white leading-relaxed">
-                {errors?.map((err, index) => (
-                  <p>{err}</p>
-                ))}
-                <button
-                  tw="absolute top-0 right-0 mr-4 text-3xl focus:outline-none"
-                  onClick={() => setErrors([])}
-                >
-                  &times;
-                </button>
-              </div>
-            )}
+            <Errors errors={errors} setErrors={setErrors} />
             {!preview && CodeMirrorEditor && (
               <CodeMirrorEditor
                 value={content}
@@ -216,7 +199,7 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
             )}
             {preview && <Preview content={content} />}
           </LoadingOverlay>
-          <EditorRibbon
+          <EditorBottomRibbon
             loading={loading || cLoading || uLoading}
             handleSave={handleSave}
             handleReset={handleReset}

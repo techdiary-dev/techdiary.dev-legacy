@@ -3,16 +3,10 @@ import tw from "twin.macro";
 
 export const StyledMarkdownEditor = styled.div`
   position: relative;
-  .back-button {
-    position: absolute;
-    top: 5px;
-    right: 20px;
-    ${tw`bg-gray-400 px-4 rounded-full focus:outline-none`}
-  }
 
   .CodeMirror {
     ${tw`p-4`};
-    height: calc(100vh - 2.5rem);
+    height: calc(100vh - (2.5rem * 2));
   }
 
   .highlight-pre-tag {
