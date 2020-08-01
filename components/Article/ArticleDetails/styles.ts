@@ -45,6 +45,15 @@ export const StyledArticleContent = styled.article`
     }
   }
 
+  ul,
+  ol {
+    ${tw`list-inside`}
+  }
+
+  ul {
+    ${tw`list-disc`}
+  }
+
   /* Blockquote */
   blockquote {
     ${tw`ml-0 my-8 bg-gray-100 py-4 border-l-2 border-primary rounded`}
@@ -53,6 +62,12 @@ export const StyledArticleContent = styled.article`
     }
   }
 
+  .react-syntax-highlighter-line-number {
+    ${tw`text-gray-700`}
+  }
+  .highlight-pre-tag {
+    ${tw`mb-8`}
+  }
   .markdown {
     pre,
     code {

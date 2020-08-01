@@ -83,7 +83,13 @@ const ArticleCard: React.FC<Props> = (props: Props) => {
           </div>
         )}
 
-        <p tw="text-base text-lightDark">{props.excerpt}</p>
+        <p>
+          <Link href={`/[username]/[articleSlug]`} as={props.url} passHref>
+            <a tw="text-base text-lightDark hover:text-lightDark">
+              {props.excerpt}
+            </a>
+          </Link>
+        </p>
 
         <div tw="my-4">
           {props.tags?.map((t, key) => (
