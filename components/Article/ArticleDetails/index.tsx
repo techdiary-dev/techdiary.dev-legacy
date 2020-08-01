@@ -28,6 +28,10 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
       <ArticleActions
         articleId={article._id}
         commentCount={article.commentCount}
+        bookmarkCount={article.bookmarkCount}
+        isBookmarked={article.isBookmarked}
+        likeCount={article.likeCount}
+        isLiked={article.isLiked}
       />
 
       <Row>

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import tw from "twin.macro";
 import bnnum from "bnnum";
@@ -68,66 +69,41 @@ const StyledArticleActions = styled.div`
     left: 0;
   }
 `;
-
-const ArticleActions = ({ articleId, commentCount }) => {
+interface ArticleActionsProps {
+  articleId: string;
+  bookmarkCount: number;
+  commentCount: number;
+  isBookmarked: boolean;
+  isLiked: boolean;
+  likeCount: number;
+}
+const ArticleActions = (props: ArticleActionsProps) => {
   /**
-   * Autrhorization data
+   * Cache data
    */
-
   const me = useMe();
-  const myId = me?.data?._id;
-
   /**
    * Likes
    */
-  const [isLiked, toggleLike] = useState(false);
+  const [isLiked, toggleLike] = useState(props.isLiked);
   const [likeExecuted, toggleLikeExecution] = useState(false);
   const [lateLiked] = useDebounce(isLiked, 500);
-  const [likeCount, setLikeCount] = useState(0);
-  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
-    refetchQueries: [{ query: LIKERS, variables: { articleId } }],
-  });
-  const { data: likersData, loading: likersLoading } = useQuery(LIKERS, {
-    variables: { articleId },
-  });
-
-  const amiILiked = (): boolean => {
-    const users = likersData?.articleLikers?.data.map((l) => l.user);
-    return (
-      users?.findIndex((user) => user._id === myId) !== -1 && !likersLoading
-    );
-  };
-  const likersCountFromServer: number =
-    likersData?.articleLikers?.resourceCount;
-  useEffect(() => {
-    setLikeCount(likersCountFromServer);
-
-    if (amiILiked()) {
-      toggleLike(true);
-    } else {
-      toggleLike(false);
-    }
-    toggleLikeExecution(false);
-  }, [likersLoading, me.loading]);
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE);
+  const [likeCount, setLikeCount] = useState(props.likeCount);
 
   useEffect(() => {
     async function df() {
-      try {
-        await toggleLikeMutation({
-          variables: {
-            articleId,
-            isLiked: lateLiked,
-          },
-        });
-      } catch {
-        swal({
-          title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-          icon: "error",
-        });
-      }
+      await toggleLikeMutation({
+        variables: {
+          articleId: props.articleId,
+          isLiked: lateLiked,
+        },
+      });
+      toggleLikeExecution(false);
     }
     if (likeExecuted) df();
   }, [lateLiked]);
+
   const handleLike = async () => {
     if (!me.data)
       return swal({
@@ -135,9 +111,8 @@ const ArticleActions = ({ articleId, commentCount }) => {
         icon: "error",
       });
 
-    if (!isLiked) setLikeCount(likeCount + 1);
-    else setLikeCount(likeCount - 1);
-
+    // Update like count
+    setLikeCount(!isLiked ? likeCount + 1 : likeCount - 1);
     toggleLike(!isLiked);
     toggleLikeExecution(true);
   };
@@ -145,54 +120,21 @@ const ArticleActions = ({ articleId, commentCount }) => {
   /**
    * Bookmark
    */
-  const [isBookmarked, toggleBookmark] = useState(false);
-  const [bookMarkExecuted, toggleBookmarkExecution] = useState(false);
+  const [isBookmarked, toggleBookmark] = useState(props.isBookmarked);
+  const [bookmarkCount, setBookmarkCount] = useState(props.bookmarkCount);
   const [lateBookMark] = useDebounce(isBookmarked, 500);
-  const [bookmarkCount, setBookmarkCount] = useState(0);
-  const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
-    refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
-  });
-  const { data: bookmarksData, loading: bookmarksLoading } = useQuery(
-    ARTICLE_BOOKMARKS,
-    {
-      variables: { articleId },
-    }
-  );
-
-  const amIBookmarked = (): boolean => {
-    const users = bookmarksData?.articleBookMarks?.data.map((l) => l.user);
-    return (
-      users?.findIndex((user) => user._id === myId) !== -1 && !bookmarksLoading
-    );
-  };
-  const bookmarkCountFromServer: number =
-    bookmarksData?.articleBookMarks?.resourceCount;
-
-  useEffect(() => {
-    setBookmarkCount(bookmarkCountFromServer);
-    if (amIBookmarked()) {
-      toggleBookmark(true);
-    } else {
-      toggleBookmark(false);
-    }
-    toggleBookmarkExecution(false);
-  }, [bookmarksLoading, me.loading]);
+  const [bookMarkExecuted, toggleBookmarkExecution] = useState(false);
+  const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK);
 
   useEffect(() => {
     async function df() {
-      try {
-        await toggleBookmarkMutation({
-          variables: {
-            articleId,
-            isBookmarked: lateBookMark,
-          },
-        });
-      } catch {
-        swal({
-          title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
-          icon: "error",
-        });
-      }
+      await toggleBookmarkMutation({
+        variables: {
+          articleId: props.articleId,
+          isBookmarked: lateBookMark,
+        },
+      });
+      toggleBookmarkExecution(false);
     }
     if (bookMarkExecuted) df();
   }, [lateBookMark]);
@@ -203,16 +145,10 @@ const ArticleActions = ({ articleId, commentCount }) => {
         title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
         icon: "error",
       });
-
-    if (!isBookmarked)
-      // Update like count
-      setBookmarkCount(bookmarkCount + 1);
-    else setBookmarkCount(bookmarkCount - 1);
-
+    setBookmarkCount(!isBookmarked ? bookmarkCount + 1 : bookmarkCount - 1);
     toggleBookmark(!isBookmarked);
     toggleBookmarkExecution(true);
   };
-
   return (
     <StyledArticleActions>
       <motion.div
@@ -253,10 +189,19 @@ const ArticleActions = ({ articleId, commentCount }) => {
         <a className="action__icon" href="#comments">
           <GoComment tw="h-6 w-6" />
         </a>
-        <span>{bnnum(commentCount || 0)}</span>
+        <span>{bnnum(props.commentCount || 0)}</span>
       </div>
     </StyledArticleActions>
   );
+};
+
+ArticleActions.propTypes = {
+  articleId: PropTypes.string,
+  bookmarkCount: PropTypes.number,
+  commentCount: PropTypes.number,
+  isBookmarked: PropTypes.bool,
+  isLiked: PropTypes.bool,
+  likeCount: PropTypes.number,
 };
 
 export default ArticleActions;

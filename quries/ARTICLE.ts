@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const CREATE_ARTICLE = gql`
   mutation CREATE_ARTICLE(
@@ -81,6 +81,10 @@ export const ARTICLE_LIST = gql`
         isPublished
         isPinned
         commentCount
+        isLiked
+        isBookmarked
+        likeCount
+        bookmarkCount
         author {
           name
           username
@@ -173,6 +177,10 @@ export const ARTICLE_DETAILS = gql`
       seriesName
       excerpt
       commentCount
+      isLiked
+      isBookmarked
+      likeCount
+      bookmarkCount
       series {
         _id
         title

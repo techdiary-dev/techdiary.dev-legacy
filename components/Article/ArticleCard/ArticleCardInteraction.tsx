@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import useMe from "components/useMe";
 import swal from "sweetalert";
@@ -21,57 +22,39 @@ import { useDebounce } from "use-debounce";
 import { GoComment } from "react-icons/go";
 import Link from "next/link";
 
-const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
+interface ArticleCardInteractionProps {
+  articleId: string;
+  url: string;
+  commentCount: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
+  likeCount: number;
+  bookmarkCount: number;
+}
+
+const ArticleCardInteraction = (props: ArticleCardInteractionProps) => {
   /**
-   * Autrhorization data
+   * Cache data
    */
-
   const me = useMe();
-  const myId = me?.data?._id;
-
   /**
    * Likes
    */
-  const [isLiked, toggleLike] = useState(false);
+  const [isLiked, toggleLike] = useState(props.isLiked);
   const [likeExecuted, toggleLikeExecution] = useState(false);
   const [lateLiked] = useDebounce(isLiked, 500);
-  const [likeCount, setLikeCount] = useState(0);
-  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE, {
-    refetchQueries: [
-      {
-        query: LIKERS,
-        variables: { articleId },
-      },
-    ],
-  });
-  const { data: likersData, loading: likersLoading } = useQuery(LIKERS, {
-    variables: { articleId },
-  });
-
-  const amiILiked = (): boolean => {
-    const users = likersData?.articleLikers?.data.map((l) => l.user);
-    const flag =
-      users?.findIndex((user) => user._id === myId) !== -1 && !likersLoading;
-    return flag;
-  };
-  const likersCountFromServer: number =
-    likersData?.articleLikers?.resourceCount;
-
-  useEffect(() => {
-    setLikeCount(likersCountFromServer);
-    if (amiILiked()) toggleLike(true);
-    else toggleLike(false);
-    toggleLikeExecution(false);
-  }, [likersLoading, me.loading]);
+  const [toggleLikeMutation] = useMutation(TOGGLE_LIKE);
+  const [likeCount, setLikeCount] = useState(props.likeCount);
 
   useEffect(() => {
     async function df() {
       await toggleLikeMutation({
         variables: {
-          articleId,
+          articleId: props.articleId,
           isLiked: lateLiked,
         },
       });
+      toggleLikeExecution(false);
     }
     if (likeExecuted) df();
   }, [lateLiked]);
@@ -84,8 +67,7 @@ const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
       });
 
     // Update like count
-    if (!isLiked) setLikeCount(likeCount + 1);
-    else setLikeCount(likeCount - 1);
+    setLikeCount(!isLiked ? likeCount + 1 : likeCount - 1);
     toggleLike(!isLiked);
     toggleLikeExecution(true);
   };
@@ -93,44 +75,21 @@ const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
   /**
    * Bookmark
    */
-  const [isBookmarked, toggleBookmark] = useState(false);
+  const [isBookmarked, toggleBookmark] = useState(props.isBookmarked);
+  const [bookmarkCount, setBookmarkCount] = useState(props.bookmarkCount);
   const [lateBookMark] = useDebounce(isBookmarked, 500);
   const [bookMarkExecuted, toggleBookmarkExecution] = useState(false);
-  const [bookmarkCount, setBookmarkCount] = useState(0);
-  const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK, {
-    refetchQueries: [{ query: ARTICLE_BOOKMARKS, variables: { articleId } }],
-  });
+  const [toggleBookmarkMutation] = useMutation(TOGGLE_BOOKMARK);
 
-  const { data: bookmarksData, loading: bookmarksLoading } = useQuery(
-    ARTICLE_BOOKMARKS,
-    {
-      variables: { articleId },
-    }
-  );
-
-  const amIBookmarked = (): boolean => {
-    const users = bookmarksData?.articleBookMarks?.data.map((l) => l.user);
-    return (
-      users?.findIndex((user) => user._id === myId) !== -1 && !bookmarksLoading
-    );
-  };
-  const bookmarkCountFromServer: number =
-    bookmarksData?.articleBookMarks?.resourceCount;
-
-  useEffect(() => {
-    setBookmarkCount(bookmarkCountFromServer);
-    if (amIBookmarked()) toggleBookmark(true);
-    else toggleBookmark(false);
-    toggleBookmarkExecution(false);
-  }, [bookmarksLoading, me.loading]);
   useEffect(() => {
     async function df() {
       await toggleBookmarkMutation({
         variables: {
-          articleId,
+          articleId: props.articleId,
           isBookmarked: lateBookMark,
         },
       });
+      toggleBookmarkExecution(false);
     }
     if (bookMarkExecuted) df();
   }, [lateBookMark]);
@@ -141,20 +100,17 @@ const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
         title: "ওহ! আপনাকে আগে লগইন করতে হবে!",
         icon: "error",
       });
-
-    if (!isBookmarked)
-      // Update like count
-      setBookmarkCount(bookmarkCount + 1);
-    else setBookmarkCount(bookmarkCount - 1);
+    setBookmarkCount(!isBookmarked ? bookmarkCount + 1 : bookmarkCount - 1);
     toggleBookmark(!isBookmarked);
     toggleBookmarkExecution(true);
   };
+
   return (
     <div tw="flex items-center">
       <div tw="flex items-center mr-2">
         <Link
           href={`/[username]/[articleSlug]`}
-          as={`${url}#comments`}
+          as={`${props.url}#comments`}
           passHref
         >
           <a>
@@ -162,7 +118,7 @@ const ArticleCardInteraction = ({ articleId, commentCount, url }) => {
           </a>
         </Link>
         <span tw="mr-1"></span>
-        <span>{bnnum(commentCount || 0)}</span>
+        <span>{bnnum(props.commentCount || 0)}</span>
       </div>
 
       <div tw="flex items-center mr-2">
