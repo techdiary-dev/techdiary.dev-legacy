@@ -26,7 +26,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
   return (
     <>
       <ArticleActions
-        articleId={article._id}
+        articleId={article?._id}
         commentCount={article.commentCount}
         bookmarkCount={article.bookmarkCount}
         isBookmarked={article.isBookmarked}

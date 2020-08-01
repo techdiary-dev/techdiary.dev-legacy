@@ -30,19 +30,19 @@ const ArticleDetailsPage = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const apolloClient = initializeApollo(null, ctx);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apolloClient = initializeApollo(null, ctx);
 
-//   await apolloClient.query({
-//     query: ARTICLE_DETAILS,
-//     variables: { slug: ctx?.params?.articleSlug },
-//   });
+  await apolloClient.query({
+    query: ARTICLE_DETAILS,
+    variables: { slug: ctx?.params?.articleSlug },
+  });
 
-//   return {
-//     props: {
-//       initialApolloState: apolloClient.cache.extract(),
-//     },
-//   };
-// };
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+};
 
 export default ArticleDetailsPage;
