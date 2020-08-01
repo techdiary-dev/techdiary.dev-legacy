@@ -63,7 +63,11 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
             <h2 tw="text-2xl">{article?.title}</h2>
 
             <p tw="text-base">
-              <Link href="/[username]" as={`/${article?.author.username}`}>
+              <Link
+                href="/[username]"
+                as={`/${article?.author.username}`}
+                passHref
+              >
                 <a tw="text-black font-bold">{article?.author.name}</a>
               </Link>
               {" · "}

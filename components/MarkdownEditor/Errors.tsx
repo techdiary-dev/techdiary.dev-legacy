@@ -1,4 +1,5 @@
 import React from "react";
+import "twin.macro";
 
 const Errors = ({ errors, setErrors }) => {
   return (

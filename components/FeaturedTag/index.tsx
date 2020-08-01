@@ -24,11 +24,12 @@ const StyledFeaturedTag = styled.div`
   }
 `;
 
-const FeaturedTag = ({ tags = [], primaryTag, and = false }) => {
+const FeaturedTag = ({ tags = [], primaryTag, and = false, limit = 5 }) => {
   const { data } = useQuery(SIDEBAR_FEATURED_TAG, {
     variables: {
       tags: [primaryTag, ...tags],
       and,
+      limit,
     },
   });
 
