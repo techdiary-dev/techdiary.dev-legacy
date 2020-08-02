@@ -11,21 +11,21 @@ import { initializeApollo } from "lib/apolloClient";
 const ArticleDetailsPage = ({ page }) => {
   let { query } = useRouter();
 
-  // let { data, loading } = useQuery(ARTICLE_DETAILS, {
-  //   variables: {
-  //     slug: query.articleSlug,
-  //   },
-  // });
+  let { data, loading } = useQuery(ARTICLE_DETAILS, {
+    variables: {
+      slug: query.articleSlug,
+    },
+  });
 
   return (
     <MainLayout>
       <HeadTag
-        title={page.data.article.title}
-        description={page.data.article.excerpt}
-        ogImage={page.data.article.thumbnail}
-        keyWords={page.data.article.tags}
+        title={page.data?.article?.title}
+        description={page.data?.article?.excerpt}
+        ogImage={page.data?.article?.thumbnail}
+        keyWords={page.data?.article?.tags}
       />
-      <ArticleDetails loading={false} article={page.data.article} />
+      <ArticleDetails loading={loading} article={data?.article} />
     </MainLayout>
   );
 };
