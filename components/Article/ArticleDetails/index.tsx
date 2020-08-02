@@ -14,14 +14,17 @@ import Comments from "./Comments";
 import Link from "next/link";
 import useMe from "components/useMe";
 import Footer from "components/Footer";
+import ArticleDetailsSkeleton from "./ArticleDetailsSkeleton";
 
 interface Props {
   article: any;
   loading: boolean;
 }
 
-const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
+const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
   const me = useMe();
+
+  if (loading) return <ArticleDetailsSkeleton />;
 
   return (
     <>
