@@ -8,7 +8,7 @@ import HeadTag from "components/HeadTag";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "lib/apolloClient";
 
-const ArticleDetailsPage = () => {
+const ArticleDetailsPage = ({ page }) => {
   let { query } = useRouter();
 
   let { data, loading } = useQuery(ARTICLE_DETAILS, {
@@ -20,29 +20,27 @@ const ArticleDetailsPage = () => {
   return (
     <MainLayout>
       <HeadTag
-        title={data?.article?.title}
-        description={data?.article?.excerpt}
-        ogImage={data?.article?.thumbnail}
-        keyWords={data?.article?.tags}
+        title={page.data?.article?.title}
+        description={page.data?.article?.excerpt}
+        ogImage={page.data?.article?.thumbnail}
+        keyWords={page.data?.article?.tags}
       />
       <ArticleDetails loading={loading} article={data?.article} />
     </MainLayout>
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async (ctx) => {
-//   const apolloClient = initializeApollo(null, ctx);
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const apolloClient = initializeApollo(null, ctx);
 
-//   await apolloClient.query({
-//     query: ARTICLE_DETAILS,
-//     variables: { slug: ctx?.params?.articleSlug },
-//   });
+  const page = await apolloClient.query({
+    query: ARTICLE_DETAILS,
+    variables: { slug: ctx?.params?.articleSlug },
+  });
 
-//   return {
-//     props: {
-//       initialApolloState: apolloClient.cache.extract(),
-//     },
-//   };
-// };
+  return {
+    props: { page },
+  };
+};
 
 export default ArticleDetailsPage;
