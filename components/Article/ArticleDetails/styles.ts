@@ -35,6 +35,10 @@ export const StyledArticleContent = styled.article`
     ${tw`max-w-full my-8`}
   }
 
+  p {
+    ${tw`mb-8`}
+  }
+
   /* Table */
   table {
     width: 100%;
