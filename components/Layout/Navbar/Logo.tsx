@@ -10,6 +10,7 @@ export const LogoStyle = styled.div`
   @media all and (max-width: 800px) {
     svg {
       width: 30px;
+      padding-left: 5px;
       text {
         display: none;
       }
