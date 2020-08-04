@@ -158,10 +158,12 @@ const Actions: React.FC = () => {
   if (data && !error)
     return (
       <div tw="flex items-center">
-        <button tw="flex items-center mr-4">
-          <FaPencilAlt />
-          <span tw="ml-2 text-sm sm:text-base">লিখুন</span>
-        </button>
+        <Link href="/new" passHref>
+          <a tw="flex items-center mr-4">
+            <FaPencilAlt />
+            <span tw="ml-2 text-sm sm:text-base">লিখুন</span>
+          </a>
+        </Link>
         <UserDropdownActionMenu
           name={data?.name}
           username={data?.username}
