@@ -56,7 +56,7 @@ const index: NextPage<Props> = (props) => {
     </>
   );
 };
-
+// get server side props
 // export const getServerSideProps: GetServerSideProps = async (ctx) => {
 //   const apolloClient = initializeApollo(null, ctx);
 
