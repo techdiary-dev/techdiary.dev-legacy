@@ -25,7 +25,6 @@ yarn-error.log*
 
 /out
 
-package-lock.json
 yarn.lock
 
 public/sw.js
