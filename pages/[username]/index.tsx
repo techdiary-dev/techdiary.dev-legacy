@@ -3,7 +3,7 @@ import MainLayout from "components/Layout/MainLayout";
 import { useRouter } from "next/router";
 import UserProfile from "components/UserProfile";
 import { GetServerSideProps } from "next";
-import Error from "next/error";
+import Error from "../_error";
 import { initializeApollo } from "lib/apolloClient";
 import { USER_PROFILE } from "quries/AUTH";
 

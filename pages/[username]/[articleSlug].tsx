@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { ARTICLE_DETAILS } from "quries/ARTICLE";
 import ArticleDetails from "components/Article/ArticleDetails";
 import HeadTag from "components/HeadTag";
-import Error from "next/error";
+import Error from "../_error";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "lib/apolloClient";
 
