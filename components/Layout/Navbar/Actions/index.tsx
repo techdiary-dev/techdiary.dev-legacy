@@ -51,7 +51,7 @@ const UserDropdownActionMenu = ({
           <img src={profilePhoto} alt={name} />
         </div>
         <h4 tw="ml-2 text-lg items-center hidden sm:flex">
-          Rayhan <RiArrowDropDownLine tw="w-6 h-6" />
+          {name} <RiArrowDropDownLine tw="w-6 h-6" />
         </h4>
       </div>
 
