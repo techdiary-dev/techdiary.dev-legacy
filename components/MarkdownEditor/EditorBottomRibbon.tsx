@@ -31,14 +31,13 @@ const EditorBottomRibbon = ({
         >
           {preview ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
         </button>
-
-        <button
-          tw="px-3 text-xs focus:outline-none text-gray-600"
-          onClick={handleReset}
-        >
-          (Clear changes)
-        </button>
       </div>
+      <button
+        tw="px-3 text-xs focus:outline-none text-gray-600"
+        onClick={handleReset}
+      >
+        (Clear changes)
+      </button>
     </div>
   );
 };

@@ -124,7 +124,11 @@ const UserDropdownActionMenu = ({
           </Link>
         </li>
         <li>
-          <div className="dropdown-menu__item" onClick={handleLogout}>
+          <div
+            tw="cursor-pointer"
+            className="dropdown-menu__item"
+            onClick={handleLogout}
+          >
             <FiLogOut className="dropdown-menu__icon" />
             <span className="label">লগআউট</span>
           </div>

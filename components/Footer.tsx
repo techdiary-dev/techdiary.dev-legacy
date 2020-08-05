@@ -38,6 +38,24 @@ const Footer = () => {
         </h3>
       </div>
 
+      <div tw="mt-2">
+        <a
+          tw="flex"
+          href="https://github.com/techdiary-dev/Techdiary/issues"
+          target="_blank"
+        >
+          <img
+            tw="mr-2"
+            alt="GitHub issues"
+            src="https://img.shields.io/github/issues/techdiary-dev/techdiary?color=%2324B3AE&style=flat-square"
+          />
+          <img
+            alt="GitHub closed issues"
+            src="https://img.shields.io/github/issues-closed/techdiary-dev/techdiary?color=%23e74c3c&style=flat-square"
+          />
+        </a>
+      </div>
+
       <div tw="mt-3">
         <h3 tw="text-lg flex items-center">
           সৌজন্যে{" "}

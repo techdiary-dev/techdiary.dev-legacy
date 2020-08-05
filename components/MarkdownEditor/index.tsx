@@ -13,8 +13,7 @@ import { CREATE_ARTICLE, ARTICLE_LIST, UPDATE_ARTICLE } from "quries/ARTICLE";
 import { validateCreateArticleInput } from "lib/Validator";
 import codeMirrorPersist from "lib/codeMirrorPersist";
 import { CatchServerErrors } from "lib/CatchServerErrors";
-
-import { TiArrowBack } from "react-icons/ti";
+import swal from "sweetalert";
 
 import { handleFileUpload } from "lib/fileUpload";
 
@@ -23,10 +22,6 @@ import EditorBottomRibbon from "./EditorBottomRibbon";
 import Preview from "./Preview";
 import Errors from "./Errors";
 import EditorTopRibbon from "./EditorTopRibbon";
-
-// const styele = styled.button(() => [
-//   tw`button`
-// ]);
 
 let CodeMirrorEditor = null;
 
@@ -119,13 +114,22 @@ const MarkdownEditor = ({ defaultValues = {}, _id, loading }: Props) => {
     removeItem = clear;
   }
   const handleReset = () => {
-    if (router.query._id) {
-      removeItem();
-      setContent(makeProperties(defaultValues));
-    } else {
-      removeItem();
-      setContent(makeProperties({}));
-    }
+    swal({
+      title: "আগে যা সেভ করা ছিল সেই অবস্থায় ফিরে যেতে চান?",
+      icon: "warning",
+      buttons: ["না", "হ্যাঁ চাই"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        if (router.query._id) {
+          removeItem();
+          setContent(makeProperties(defaultValues));
+        } else {
+          removeItem();
+          setContent(makeProperties({}));
+        }
+      }
+    });
   };
   const handleSave = async () => {
     const fonst = matter.test(content);
