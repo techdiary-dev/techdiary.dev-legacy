@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.0.1",
-    "@susisu/mte-kernel": "git+https://github.com/shoaibsharif/mte-kernel.git",
+    "@susisu/mte-kernel": "^2.1.0",
     "autoprefixer": "^9.8.5",
     "bnnum": "^1.0.6",
     "class-transformer": "^0.2.3",
