@@ -5,11 +5,13 @@ import { useQuery } from "@apollo/client";
 import { ARTICLE_DETAILS } from "quries/ARTICLE";
 import ArticleDetails from "components/Article/ArticleDetails";
 import HeadTag from "components/HeadTag";
+import Error from "../_error";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "lib/apolloClient";
 
-const ArticleDetailsPage = ({ page }) => {
+const ArticleDetailsPage = ({ page, notFound }) => {
   let { query } = useRouter();
+  if (notFound) return <Error statusCode={404} />;
 
   let { data, loading } = useQuery(ARTICLE_DETAILS, {
     variables: {
@@ -32,14 +34,20 @@ const ArticleDetailsPage = ({ page }) => {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const apolloClient = initializeApollo(null, ctx);
+  let notFound = false;
+  let page = null;
 
-  const page = await apolloClient.query({
-    query: ARTICLE_DETAILS,
-    variables: { slug: ctx?.params?.articleSlug },
-  });
+  try {
+    page = await apolloClient.query({
+      query: ARTICLE_DETAILS,
+      variables: { slug: ctx?.params?.articleSlug },
+    });
+  } catch {
+    notFound = true;
+  }
 
   return {
-    props: { page },
+    props: { page, notFound },
   };
 };
 
