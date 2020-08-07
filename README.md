@@ -2,9 +2,12 @@
 
 ## development ENVs
 
-NEXT_PUBLIC_API=http://localhost:5000
+```bash
+NEXT_PUBLIC_API=http://localhost:4545
 NEXT_PUBLIC_GITHUB_CLIENT_ID=3702ca89f8b003c88b89
 NEXT_PUBLIC_GITHUB_OAUTH_REDIRECT_URI=http://localhost:3000/oauth_callback
+NEXT_PUBLIC_VERSION=0.8.1
+```
 
 ### Production branch deployment status
 

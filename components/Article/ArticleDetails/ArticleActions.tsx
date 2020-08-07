@@ -14,22 +14,17 @@ import Link from "next/link";
 import ClassNames from "classnames";
 import { useMutation, useQuery } from "@apollo/client";
 import useMe from "components/useMe";
-import {
-  TOGGLE_LIKE,
-  LIKERS,
-  TOGGLE_BOOKMARK,
-  ARTICLE_BOOKMARKS,
-} from "quries/INTERACTION";
+import { TOGGLE_LIKE, TOGGLE_BOOKMARK } from "quries/INTERACTION";
 import swal from "sweetalert";
 import { motion } from "framer-motion";
 import { useDebounce } from "use-debounce/lib";
 
 const StyledArticleActions = styled.div`
-  ${tw`flex flex-col justify-center fixed -ml-12`}
+  ${tw`flex flex-col justify-center fixed`}
   z-index: 999;
 
   .action {
-    ${tw`sm:mb-8 mb-0`}
+    ${tw`md:mb-8 mb-0`}
     ${tw`h-12 w-8 flex flex-col items-center justify-center`}
 
     &::last-child {

@@ -3,6 +3,7 @@ import Link from "next/link";
 import bnnum from "bnnum";
 import HerokuLogo from "../public/logos/heroku.svg";
 import "twin.macro";
+import { AiFillBug } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -24,6 +25,37 @@ const Footer = () => {
           <a tw="text-sm text-gray-600">ব্যবহার এর নীতিমালা</a>
         </Link>
       </div>
+
+      <div tw="mt-3">
+        <h3 tw="text-sm">
+          <a
+            href="https://github.com/techdiary-dev/Techdiary/issues/new/choose"
+            target="_blank"
+          >
+            <AiFillBug tw="inline-block text-red-500" />{" "}
+            <span tw="text-gray-600">Bug পেয়েছেন?</span>
+          </a>
+        </h3>
+      </div>
+
+      <div tw="mt-2">
+        <a
+          tw="flex"
+          href="https://github.com/techdiary-dev/Techdiary/issues"
+          target="_blank"
+        >
+          <img
+            tw="mr-2"
+            alt="GitHub issues"
+            src="https://img.shields.io/github/issues/techdiary-dev/techdiary?color=%2324B3AE&style=flat-square"
+          />
+          <img
+            alt="GitHub closed issues"
+            src="https://img.shields.io/github/issues-closed/techdiary-dev/techdiary?color=%23e74c3c&style=flat-square"
+          />
+        </a>
+      </div>
+
       <div tw="mt-3">
         <h3 tw="text-lg flex items-center">
           সৌজন্যে{" "}

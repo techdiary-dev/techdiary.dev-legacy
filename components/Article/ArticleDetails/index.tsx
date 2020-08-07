@@ -14,19 +14,22 @@ import Comments from "./Comments";
 import Link from "next/link";
 import useMe from "components/useMe";
 import Footer from "components/Footer";
+import ArticleDetailsSkeleton from "./ArticleDetailsSkeleton";
 
 interface Props {
   article: any;
   loading: boolean;
 }
 
-const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
+const ArticleDetails: React.FC<Props> = ({ article, loading }: Props) => {
   const me = useMe();
+
+  if (loading) return <ArticleDetailsSkeleton />;
 
   return (
     <>
       <ArticleActions
-        articleId={article._id}
+        articleId={article?._id}
         commentCount={article.commentCount}
         bookmarkCount={article.bookmarkCount}
         isBookmarked={article.isBookmarked}
@@ -35,7 +38,7 @@ const ArticleDetails: React.FC<Props> = ({ article }: Props) => {
       />
 
       <Row>
-        <Column md={9} tw="p-0 sm:px-4">
+        <Column md={9} tw="p-0 sm:px-4 sm:pl-16">
           {/* Unpublished article warning */}
           {!article?.isPublished && (
             <div tw="bg-red-100 p-4 rounded w-full">

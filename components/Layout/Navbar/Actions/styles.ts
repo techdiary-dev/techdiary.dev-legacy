@@ -11,22 +11,26 @@ export const StyledActions = styled.div`
     ${tw`flex items-center`}
   }
 
+  @media all and (max-width: 800px) {
+    .login-url {
+      svg {
+        padding-right: 5px;
+        height: 35px;
+        width: 25px;
+        text {
+          display: none;
+        }
+      }
+    }
+  }
+
   .label {
-    ${tw`ml-1 text-lg hidden md:inline-block`}
+    ${tw`ml-2 text-lg hidden md:inline-block`}
   }
 `;
 
 export const StyledUserActionMenu = styled.div`
   position: relative;
-  .avater {
-    height: 40px;
-    width: 40px;
-    border-radius: 100%;
-    margin-right: 1.3rem;
-    cursor: pointer;
-    outline: none;
-  }
-
   .dropdown-menu {
     ${tw`bg-secondary rounded shadow absolute p-3`}
     width: 200px;

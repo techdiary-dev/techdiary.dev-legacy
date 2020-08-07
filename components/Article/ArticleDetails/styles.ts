@@ -35,6 +35,10 @@ export const StyledArticleContent = styled.article`
     ${tw`max-w-full my-8`}
   }
 
+  p {
+    ${tw`mb-8`}
+  }
+
   /* Table */
   table {
     width: 100%;
@@ -58,7 +62,7 @@ export const StyledArticleContent = styled.article`
   blockquote {
     ${tw`ml-0 my-8 bg-gray-100 py-4 border-l-2 border-primary rounded`}
     p {
-      ${tw`px-3 text-xl text-semiDark`}
+      ${tw`px-3 text-xl text-semiDark mb-0`}
     }
   }
 
