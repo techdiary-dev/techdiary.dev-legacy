@@ -7,6 +7,7 @@ import ArticleDetails from "components/Article/ArticleDetails";
 import HeadTag from "components/HeadTag";
 import { GetServerSideProps } from "next";
 import { initializeApollo } from "lib/apolloClient";
+import removeMarkdown from "remove-markdown";
 
 const ArticleDetailsPage = ({ page }) => {
   let { query } = useRouter();
@@ -21,7 +22,7 @@ const ArticleDetailsPage = ({ page }) => {
     <MainLayout>
       <HeadTag
         title={page.data?.article?.title}
-        description={page.data?.article?.excerpt}
+        description={removeMarkdown(page.data?.article?.excerpt)}
         ogImage={page.data?.article?.thumbnail}
         keyWords={page.data?.article?.tags}
       />

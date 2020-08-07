@@ -46,6 +46,7 @@
     "react-textarea-autosize": "^8.2.0",
     "react-tooltip": "^4.2.6",
     "react-typed": "^1.2.0",
+    "remove-markdown": "^0.3.0",
     "sass": "^1.26.5",
     "styled-components": "^5.1.0",
     "styled-grid-system-component": "^4.0.0",
