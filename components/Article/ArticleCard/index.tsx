@@ -6,6 +6,7 @@ import { ArticleCardStyle } from "./styles";
 import { Card } from "components/Card";
 import "twin.macro";
 import bnnum from "bnnum";
+import removeMarkdown from "remove-markdown";
 
 import UserAvater from "components/UserAvater";
 import styled from "styled-components";
@@ -86,7 +87,7 @@ const ArticleCard: React.FC<Props> = (props: Props) => {
         <p>
           <Link href={`/[username]/[articleSlug]`} as={props.url} passHref>
             <a tw="text-base text-lightDark hover:text-lightDark">
-              {props.excerpt}
+              {removeMarkdown(props.excerpt)}
             </a>
           </Link>
         </p>
