@@ -28,6 +28,8 @@ const index: NextPage<Props> = (props) => {
       <div tw="py-12 mt-12 -mb-24">
         <FeaturedCarousel />
       </div>
+
+
       <MainLayout>
         <Row>
           <Col md={3} sidebar>
@@ -42,13 +44,13 @@ const index: NextPage<Props> = (props) => {
             {loading ? (
               <Skeleton height={320} tw="mb-8" />
             ) : (
-              !error &&
-              data && (
-                <div tw="mb-8">
-                  <UserCardWithArticles user={data} />
-                </div>
-              )
-            )}
+                !error &&
+                data && (
+                  <div tw="mb-8">
+                    <UserCardWithArticles user={data} />
+                  </div>
+                )
+              )}
             <FooterLinks />
           </Col>
         </Row>

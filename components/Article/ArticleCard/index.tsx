@@ -12,13 +12,8 @@ import UserAvater from "components/UserAvater";
 import styled from "styled-components";
 
 import { BsHeart, BsClock as ClockIcon } from "react-icons/bs";
-import { FaRegCommentAlt as CommentIcon } from "react-icons/fa";
+
 import ArticleCardInteraction from "./ArticleCardInteraction";
-import {
-  addOrUpdateInterActionCache,
-  interactionsVars,
-  getInterAction,
-} from "cache/interaction";
 
 interface Props {
   _id: string;

@@ -39,6 +39,9 @@ const EditorTopRibbon = () => {
       }
     );
     const file = await res.json();
+
+    console.log(file)
+
     setFileUrl(`![Alt Text](${file.secure_url})`);
     urlInputRef.current.select();
     setUploadLoading(false);
