@@ -1,10 +1,12 @@
 {
   "name": "techdiary.dev-website",
   "version": "0.8.2",
+  "license": "ISC",
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "postbuild": "next-on-netlify"
   },
   "dependencies": {
     "@apollo/client": "^3.0.1",
@@ -54,7 +56,6 @@
     "use-debounce": "^3.4.3",
     "yup": "^0.28.5"
   },
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-decorators": "^7.10.3",
