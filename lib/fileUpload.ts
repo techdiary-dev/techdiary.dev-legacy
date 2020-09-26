@@ -8,7 +8,7 @@ export function handleFileUpload(file: File): Promise<string> {
   return new Promise<string>(async (resolve) => {
     const fd = new FormData();
     fd.append("file", file);
-    fd.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
+    fd.append("upload_preset", 'techdiary-article-assets');
 
     const res = await (
       await fetch(

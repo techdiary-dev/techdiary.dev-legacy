@@ -30,7 +30,7 @@ const EditorTopRibbon = () => {
 
     fd.append("file", files[0]);
 
-    fd.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_PRESET);
+    fd.append("upload_preset", 'techdiary-article-assets');
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/techdiary-dev/image/upload",
       {
